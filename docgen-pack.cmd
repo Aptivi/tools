@@ -11,6 +11,6 @@ echo Pack successful
 goto :finished
 
 :failure
-echo Pack failed
+exit /B %errorlevel%
 
 :finished

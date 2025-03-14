@@ -11,6 +11,6 @@ echo Push successful
 goto :finished
 
 :failure
-echo Push failed
+exit /B %errorlevel%
 
 :finished
