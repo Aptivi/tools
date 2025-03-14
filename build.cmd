@@ -19,6 +19,6 @@ echo Build successful
 goto :finished
 
 :failure
-echo Build failed
+exit /B %errorlevel%
 
 :finished
