@@ -1,0 +1,84 @@
+name: Check the script integrity
+
+on:
+  push:
+  pull_request:
+    
+jobs:
+  run-scripts:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.runs-on }}
+  
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          ref: ${{ github.ref }}
+      - name: Copy the scripts to the testsuite folder
+        shell: bash
+        run: |
+          mkdir testsuite/tools
+          cp *.cmd testsuite/tools/
+          cp *.sh testsuite/tools/
+      - name: Test the build script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\build.cmd
+      - name: Test the docgen-pack script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\docgen-pack.cmd
+      - name: Test the docgen script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\docgen.cmd
+      - name: Test the pack script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\pack.cmd
+      - name: Test the push script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\push.cmd
+      - name: Test the build script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/build.sh
+      - name: Test the docgen-pack script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/docgen-pack.sh
+      - name: Test the docgen script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/docgen.sh
+      - name: Test the pack script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/pack.sh
+      - name: Test the push script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/push.sh
+            
+  check-scripts:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          ref: ${{ github.ref }}
+      - name: Copy the scripts to the testsuite folder
+        run: |
+          mkdir testsuite/tools
+          cp *.cmd testsuite/tools/
+          cp *.sh testsuite/tools/
+      - name: Install shellcheck
+        run:
+          sudo apt install shellcheck
+      - name: Check the build script
+        run: shellcheck testsuite/tools/build.sh -P testsuite/ -x
+      - name: Check the docgen-pack script
+        run: shellcheck testsuite/tools/docgen-pack.sh -P testsuite/ -x
+      - name: Check the docgen script
+        run: shellcheck testsuite/tools/docgen.sh -P testsuite/ -x
+      - name: Check the pack script
+        run: shellcheck testsuite/tools/pack.sh -P testsuite/ -x
+      - name: Check the push script
+        run: shellcheck testsuite/tools/push.sh -P testsuite/ -x
