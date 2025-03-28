@@ -4,7 +4,9 @@
 ROOTDIR=$( cd -- "$( dirname -- "$0" )/.." &> /dev/null && pwd )
 
 # Vendor functions
+predocgenerate() { return 0; }
 docgenerate() { return 0; }
+postdocgenerate() { return 0; }
 
 # Convenience functions
 checkerror() {
@@ -18,7 +20,7 @@ checkerror() {
 # Sourcing the vendor script
 export VENDOR_ERRORCODE=0
 source $ROOTDIR/vnd/vendor.sh
-checkerror $VENDOR_ERRORCODE "Failed to source the vendor script"
+checkerror $? "Failed to source the vendor script"
 
 # Vendor error function
 checkvendorerror() {
@@ -28,9 +30,17 @@ checkvendorerror() {
     fi
 }
 
+# Run any vendor actions before generation
+predocgenerate "$@"
+checkerror $VENDOR_ERRORCODE "Failed to run pre-generation function from the vendor"
+
 # Generate using vendor action
 docgenerate "$@"
 checkerror $VENDOR_ERRORCODE "Failed to run documentation generation function from the vendor"
+
+# Run any vendor actions after generation
+postdocgenerate "$@"
+checkerror $VENDOR_ERRORCODE "Failed to run post-generation function from the vendor"
 
 # Inform success
 echo Build successful.

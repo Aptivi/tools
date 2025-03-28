@@ -20,7 +20,7 @@ checkerror() {
 # Sourcing the vendor script
 export VENDOR_ERRORCODE=0
 source $ROOTDIR/vnd/vendor.sh
-checkerror $VENDOR_ERRORCODE "Failed to source the vendor script"
+checkerror $? "Failed to source the vendor script"
 
 # Vendor error function
 checkvendorerror() {

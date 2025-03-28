@@ -4,7 +4,9 @@
 ROOTDIR=$( cd -- "$( dirname -- "$0" )/.." &> /dev/null && pwd )
 
 # Vendor functions
+prepushall() { return 0; }
 pushall() { return 0; }
+postpushall() { return 0; }
 
 # Convenience functions
 checkerror() {
@@ -18,7 +20,7 @@ checkerror() {
 # Sourcing the vendor script
 export VENDOR_ERRORCODE=0
 source $ROOTDIR/vnd/vendor.sh
-checkerror $VENDOR_ERRORCODE "Failed to source the vendor script"
+checkerror $? "Failed to source the vendor script"
 
 # Vendor error function
 checkvendorerror() {
@@ -28,9 +30,17 @@ checkvendorerror() {
     fi
 }
 
+# Run any vendor actions before pushing
+prepushall "$@"
+checkerror $VENDOR_ERRORCODE "Failed to run pre-pushing function from the vendor"
+
 # Push all artifacts using vendor action
 pushall "$@"
 checkerror $VENDOR_ERRORCODE "Failed to run artifact pushing function from the vendor"
+
+# Run any vendor actions after pushing
+postpushall "$@"
+checkerror $VENDOR_ERRORCODE "Failed to run post-pushing function from the vendor"
 
 # Inform success
 echo Push successful.

@@ -24,12 +24,20 @@ toolset:
     * vnd (directory, you'll have to create the below files and this directory yourself)
       * vendor.sh (file, vendor script for Linux and macOS)
       * vendor-build.cmd (file, list of commands for build for Windows)
-      * vendor-docgen.cmd (file, list of commands for documentation generation for Windows)
-      * vendor-docpack.cmd (file, list of commands for documentation packing for Windows)
-      * vendor-pack.cmd (file, list of commands for artifact packing for Windows)
       * vendor-postbuild.cmd (file, list of commands for actions after build for Windows)
       * vendor-prebuild.cmd (file, list of commands for actions before build for Windows)
+      * vendor-docgen.cmd (file, list of commands for documentation generation for Windows)
+      * vendor-predocgen.cmd (file, list of commands for actions before documentation generation for Windows)
+      * vendor-postdocgen.cmd (file, list of commands for actions after documentation generation for Windows)
+      * vendor-docpack.cmd (file, list of commands for documentation packing for Windows)
+      * vendor-predocpack.cmd (file, list of commands for actions before documentation packing for Windows)
+      * vendor-postdocpack.cmd (file, list of commands for actions after documentation packing for Windows)
+      * vendor-pack.cmd (file, list of commands for artifact packing for Windows)
+      * vendor-prepack.cmd (file, list of commands for actions before artifact packing for Windows)
+      * vendor-postpack.cmd (file, list of commands for actions after artifact packing for Windows)
       * vendor-push.cmd (file, list of commands for pushing to package registry for Windows)
+      * vendor-prepush.cmd (file, list of commands for actions before pushing to package registry for Windows)
+      * vendor-postpush.cmd (file, list of commands for actions after pushing to package registry for Windows)
 ```
 
 How the project calls the build scripts is entirely up to the project and not
@@ -108,9 +116,18 @@ can be omitted:
   - prebuild()
   - build()
   - postbuild()
+  - predocgenerate()
   - docgenerate()
+  - postdocgenerate()
+  - predocpack()
   - docpack()
+  - postdocpack()
+  - prepackall()
+  - packall()
+  - postpackall()
+  - prepushall()
   - pushall()
+  - postpushall()
 
 If a function has been omitted, they will be defined as a void function that
 immediately returns `0`, which means success. Those functions, therefore, will
@@ -144,17 +161,7 @@ postbuild() {
     # Your commands here (can be omitted)
 }
 
-docgenerate() {
-    # Your commands here (can be omitted)
-}
-
-docpack() {
-    # Your commands here (can be omitted)
-}
-
-pushall() {
-    # Your commands here (can be omitted)
-}
+# ...and so on.
 ```
 
 For example, BassBoom defines the build function like this:
