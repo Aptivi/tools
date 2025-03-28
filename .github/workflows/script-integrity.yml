@@ -69,9 +69,6 @@ jobs:
           mkdir testsuite/tools
           cp *.cmd testsuite/tools/
           cp *.sh testsuite/tools/
-      - name: Install shellcheck
-        run:
-          sudo apt install shellcheck
       - name: Check the build script
         continue-on-error: true
         run: shellcheck testsuite/tools/build.sh -P testsuite/ -x
