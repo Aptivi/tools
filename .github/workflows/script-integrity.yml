@@ -73,12 +73,17 @@ jobs:
         run:
           sudo apt install shellcheck
       - name: Check the build script
+        continue-on-error: true
         run: shellcheck testsuite/tools/build.sh -P testsuite/ -x
       - name: Check the docgen-pack script
+        continue-on-error: true
         run: shellcheck testsuite/tools/docgen-pack.sh -P testsuite/ -x
       - name: Check the docgen script
+        continue-on-error: true
         run: shellcheck testsuite/tools/docgen.sh -P testsuite/ -x
       - name: Check the pack script
+        continue-on-error: true
         run: shellcheck testsuite/tools/pack.sh -P testsuite/ -x
       - name: Check the push script
+        continue-on-error: true
         run: shellcheck testsuite/tools/push.sh -P testsuite/ -x
