@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2317
 
 # Repository root
 ROOTDIR=$( cd -- "$( dirname -- "$0" )/.." &> /dev/null && pwd )
@@ -10,16 +11,16 @@ postdocgenerate() { return 0; }
 
 # Convenience functions
 checkerror() {
-    if [ $1 != 0 ]
+    if [ "$1" != 0 ]
     then
-        printf "$2 - Error $1\n" >&2
-        exit $1
+        printf "%s - Error %s\n" "$2" "$1" >&2
+        exit "$1"
     fi
 }
 
 # Sourcing the vendor script
 export VENDOR_ERRORCODE=0
-source $ROOTDIR/vnd/vendor.sh
+source "$ROOTDIR/vnd/vendor.sh"
 checkerror $? "Failed to source the vendor script"
 
 # Vendor error function
