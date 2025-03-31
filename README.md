@@ -20,6 +20,8 @@ toolset:
       * `pack.sh` (file, Artifact packing script for Linux and macOS)
       * `push.cmd` (file, Artifact pushing script for Windows)
       * `push.sh` (file, Artifact pushing script for Linux and macOS)
+      * `localize.cmd` (file, Dependency vendoring script for Windows)
+      * `localize.sh` (file, Dependency vendoring script for Linux and macOS)
     * `vnd` (directory, you'll have to create the below files and this directory yourself)
       * `vendor.sh` (file, vendor script for Linux and macOS)
       * `vendor-build.cmd` (file, list of commands for build for Windows)
@@ -27,11 +29,15 @@ toolset:
       * `vendor-docpack.cmd` (file, list of commands for documentation packing for Windows)
       * `vendor-pack.cmd` (file, list of commands for artifact packing for Windows)
       * `vendor-push.cmd` (file, list of commands for pushing to package registry for Windows)
+      * `vendor-localize.cmd` (file, list of commands for dependency vendoring for Windows)
 
 For Windows scripts, you can optionally add new files that have a prefix of
 either `vendor-pre` or `vendor-post` for all actions, such as
 `vendor-prebuild.cmd` for pre-build actions, or `vendor-postpack.cmd` for
 post-pack actions.
+
+Dependency vendoring may be required for offline builds, especially .NET
+projects that use NuGet to fetch their dependencies.
 
 How the project calls the build scripts is entirely up to the project and not
 to a standard Makefile file that makes use of those scripts found in the tools
