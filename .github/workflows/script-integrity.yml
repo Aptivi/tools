@@ -38,6 +38,9 @@ jobs:
       - name: Test the push script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: testsuite\tools\push.cmd
+      - name: Test the localization script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\localize.cmd
       - name: Test the build script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: testsuite/tools/build.sh
@@ -53,6 +56,9 @@ jobs:
       - name: Test the push script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: testsuite/tools/push.sh
+      - name: Test the localization script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/localize.sh
             
   check-scripts:
     strategy:
@@ -84,3 +90,6 @@ jobs:
       - name: Check the push script
         continue-on-error: true
         run: shellcheck testsuite/tools/push.sh -P testsuite/ -x
+      - name: Check the localization script
+        continue-on-error: true
+        run: shellcheck testsuite/tools/localize.sh -P testsuite/ -x

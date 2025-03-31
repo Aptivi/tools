@@ -59,3 +59,15 @@ pushall() {
 postpushall() {
     echo "Post-push action executed from $ROOTDIR"
 }
+
+prelocalize() {
+    echo "Pre-localization action executed from $ROOTDIR"
+}
+
+localize() {
+    echo "Localization action executed from $ROOTDIR"
+}
+
+postlocalize() {
+    echo "Post-localization action executed from $ROOTDIR"
+}
