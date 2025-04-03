@@ -9,8 +9,8 @@ if exist %ROOTDIR%\vnd\vendor-predocpack.cmd (
 )
 
 REM Run any vendor actions on docgen pack
-if exist %ROOTDIR%\vnd\vendor-build.cmd (
-   call %ROOTDIR%\vnd\vendor-build.cmd %*
+if exist %ROOTDIR%\vnd\vendor-docpack.cmd (
+   call %ROOTDIR%\vnd\vendor-docpack.cmd %*
    if %errorlevel% neq 0 goto :failure
 )
 
