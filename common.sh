@@ -38,15 +38,15 @@ checkvendorerror() {
 }
 
 # Run any vendor actions before action
-pre${ACTION} "$@"
+pre${ACTION} "${@:2}"
 checkerror $VENDOR_ERRORCODE "Failed to run pre${ACTION} function from the vendor"
 
 # Run any vendor actions during action
-${ACTION} "$@"
+${ACTION} "${@:2}"
 checkerror $VENDOR_ERRORCODE "Failed to run ${ACTION} function from the vendor"
 
 # Run any vendor actions after action
-post${ACTION} "$@"
+post${ACTION} "${@:2}"
 checkerror $VENDOR_ERRORCODE "Failed to run post${ACTION} function from the vendor"
 
 # Inform success
