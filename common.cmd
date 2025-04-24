@@ -6,9 +6,8 @@ REM Try to get the action name from the arguments
 set ACTION=%1
 if "%ACTION%" == "" set ACTION=build
 
-set OPTIONS=%*
-call set OPTIONS=%%OPTIONS:*%1=%%
-if "%OPTIONS%" == "*=" set OPTIONS=
+set "OPTIONS=%*"
+set "OPTIONS=!OPTIONS:*%1 =!"
 
 REM Run any vendor actions before %ACTION%
 if exist %ROOTDIR%\vnd\vendor-pre%ACTION%.cmd (
