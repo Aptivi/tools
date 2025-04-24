@@ -26,6 +26,9 @@ jobs:
       - name: Test the build script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: testsuite\tools\build.cmd
+      - name: Test the clean script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: testsuite\tools\clean.cmd
       - name: Test the docgen-pack script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: testsuite\tools\docgen-pack.cmd
@@ -44,6 +47,9 @@ jobs:
       - name: Test the build script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: testsuite/tools/build.sh
+      - name: Test the clean script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: testsuite/tools/clean.sh
       - name: Test the docgen-pack script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: testsuite/tools/docgen-pack.sh
@@ -78,6 +84,9 @@ jobs:
       - name: Check the build script
         continue-on-error: true
         run: shellcheck testsuite/tools/build.sh -P testsuite/ -x
+      - name: Check the clean script
+        continue-on-error: true
+        run: shellcheck testsuite/tools/clean.sh -P testsuite/ -x
       - name: Check the docgen-pack script
         continue-on-error: true
         run: shellcheck testsuite/tools/docgen-pack.sh -P testsuite/ -x

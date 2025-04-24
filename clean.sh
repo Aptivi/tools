@@ -3,4 +3,4 @@
 
 # Script root
 ROOTDIR=$( cd -- "$( dirname -- "$0" )" &> /dev/null && pwd )
-bash "$ROOTDIR/common.sh" packall "$@"
+bash "$ROOTDIR/common.sh" clean "$@"

@@ -12,6 +12,18 @@ postbuild() {
     echo "Post-build action executed from $ROOTDIR"
 }
 
+preclean() {
+    echo "Pre-clean action executed from $ROOTDIR"
+}
+
+clean() {
+    echo "clean action executed from $ROOTDIR"
+}
+
+postclean() {
+    echo "Post-clean action executed from $ROOTDIR"
+}
+
 predocpack() {
     echo "Pre-docpack action executed from $ROOTDIR"
 }
