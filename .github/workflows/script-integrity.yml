@@ -30,72 +30,72 @@ jobs:
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\build.cmd
-          testsuite2\tools\build.cmd
+          testsuite2\tools\build.cmd Argument 1 "Argument 2"
       - name: Test the clean script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\clean.cmd
-          testsuite2\tools\clean.cmd
+          testsuite2\tools\clean.cmd Argument 1 "Argument 2"
       - name: Test the docgen-pack script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\docgen-pack.cmd
-          testsuite2\tools\docgen-pack.cmd
+          testsuite2\tools\docgen-pack.cmd Argument 1 "Argument 2"
       - name: Test the docgen script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\docgen.cmd
-          testsuite2\tools\docgen.cmd
+          testsuite2\tools\docgen.cmd Argument 1 "Argument 2"
       - name: Test the pack script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\pack.cmd
-          testsuite2\tools\pack.cmd
+          testsuite2\tools\pack.cmd Argument 1 "Argument 2"
       - name: Test the push script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\push.cmd
-          testsuite2\tools\push.cmd
+          testsuite2\tools\push.cmd Argument 1 "Argument 2"
       - name: Test the localization script (Windows)
         if: matrix.runs-on == 'windows-latest'
         run: |
           testsuite\tools\localize.cmd
-          testsuite2\tools\localize.cmd
+          testsuite2\tools\localize.cmd Argument 1 "Argument 2"
       - name: Test the build script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/build.sh
-          bash testsuite2/tools/build.sh
+          bash testsuite2/tools/build.sh Argument 1 "Argument 2"
       - name: Test the clean script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/clean.sh
-          bash testsuite2/tools/clean.sh
+          bash testsuite2/tools/clean.sh Argument 1 "Argument 2"
       - name: Test the docgen-pack script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/docgen-pack.sh
-          bash testsuite2/tools/docgen-pack.sh
+          bash testsuite2/tools/docgen-pack.sh Argument 1 "Argument 2"
       - name: Test the docgen script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/docgen.sh
-          bash testsuite2/tools/docgen.sh
+          bash testsuite2/tools/docgen.sh Argument 1 "Argument 2"
       - name: Test the pack script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/pack.sh
-          bash testsuite2/tools/pack.sh
+          bash testsuite2/tools/pack.sh Argument 1 "Argument 2"
       - name: Test the push script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/push.sh
-          bash testsuite2/tools/push.sh
+          bash testsuite2/tools/push.sh Argument 1 "Argument 2"
       - name: Test the localization script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
           bash testsuite/tools/localize.sh
-          bash testsuite2/tools/localize.sh
+          bash testsuite2/tools/localize.sh Argument 1 "Argument 2"
             
   check-scripts:
     strategy:
