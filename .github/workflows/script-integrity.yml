@@ -17,54 +17,85 @@ jobs:
         with:
           submodules: 'true'
           ref: ${{ github.ref }}
-      - name: Copy the scripts to the testsuite folder
+      - name: Copy the scripts to the test suite folders
         shell: bash
         run: |
           mkdir testsuite/tools
           cp *.cmd testsuite/tools/
           cp *.sh testsuite/tools/
+          mkdir testsuite2/tools
+          cp *.cmd testsuite2/tools/
+          cp *.sh testsuite2/tools/
       - name: Test the build script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\build.cmd
+        run: |
+          testsuite\tools\build.cmd
+          testsuite2\tools\build.cmd
       - name: Test the clean script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\clean.cmd
+        run: |
+          testsuite\tools\clean.cmd
+          testsuite2\tools\clean.cmd
       - name: Test the docgen-pack script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\docgen-pack.cmd
+        run: |
+          testsuite\tools\docgen-pack.cmd
+          testsuite2\tools\docgen-pack.cmd
       - name: Test the docgen script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\docgen.cmd
+        run: |
+          testsuite\tools\docgen.cmd
+          testsuite2\tools\docgen.cmd
       - name: Test the pack script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\pack.cmd
+        run: |
+          testsuite\tools\pack.cmd
+          testsuite2\tools\pack.cmd
       - name: Test the push script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\push.cmd
+        run: |
+          testsuite\tools\push.cmd
+          testsuite2\tools\push.cmd
       - name: Test the localization script (Windows)
         if: matrix.runs-on == 'windows-latest'
-        run: testsuite\tools\localize.cmd
+        run: |
+          testsuite\tools\localize.cmd
+          testsuite2\tools\localize.cmd
       - name: Test the build script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/build.sh
+        run: |
+          bash testsuite/tools/build.sh
+          bash testsuite2/tools/build.sh
       - name: Test the clean script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/clean.sh
+        run: |
+          bash testsuite/tools/clean.sh
+          bash testsuite2/tools/clean.sh
       - name: Test the docgen-pack script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/docgen-pack.sh
+        run: |
+          bash testsuite/tools/docgen-pack.sh
+          bash testsuite2/tools/docgen-pack.sh
       - name: Test the docgen script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/docgen.sh
+        run: |
+          bash testsuite/tools/docgen.sh
+          bash testsuite2/tools/docgen.sh
       - name: Test the pack script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/pack.sh
+        run: |
+          bash testsuite/tools/pack.sh
+          bash testsuite2/tools/pack.sh
       - name: Test the push script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/push.sh
+        run: |
+          bash testsuite/tools/push.sh
+          bash testsuite2/tools/push.sh
       - name: Test the localization script (Unix)
         if: matrix.runs-on != 'windows-latest'
-        run: testsuite/tools/localize.sh
+        run: |
+          bash testsuite/tools/localize.sh
+          bash testsuite2/tools/localize.sh
             
   check-scripts:
     strategy:
@@ -76,29 +107,46 @@ jobs:
         with:
           submodules: 'true'
           ref: ${{ github.ref }}
-      - name: Copy the scripts to the testsuite folder
+      - name: Copy the scripts to the test suite folders
         run: |
           mkdir testsuite/tools
           cp *.cmd testsuite/tools/
           cp *.sh testsuite/tools/
+          mkdir testsuite2/tools
+          cp *.cmd testsuite2/tools/
+          cp *.sh testsuite2/tools/
       - name: Check the build script
         continue-on-error: true
-        run: shellcheck testsuite/tools/build.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/build.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/build.sh -P testsuite2/ -x
       - name: Check the clean script
         continue-on-error: true
-        run: shellcheck testsuite/tools/clean.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/clean.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/clean.sh -P testsuite2/ -x
       - name: Check the docgen-pack script
         continue-on-error: true
-        run: shellcheck testsuite/tools/docgen-pack.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/docgen-pack.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/docgen-pack.sh -P testsuite2/ -x
       - name: Check the docgen script
         continue-on-error: true
-        run: shellcheck testsuite/tools/docgen.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/docgen.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/docgen.sh -P testsuite2/ -x
       - name: Check the pack script
         continue-on-error: true
-        run: shellcheck testsuite/tools/pack.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/pack.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/pack.sh -P testsuite2/ -x
       - name: Check the push script
         continue-on-error: true
-        run: shellcheck testsuite/tools/push.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/push.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/push.sh -P testsuite2/ -x
       - name: Check the localization script
         continue-on-error: true
-        run: shellcheck testsuite/tools/localize.sh -P testsuite/ -x
+        run: |
+          shellcheck testsuite/tools/localize.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/localize.sh -P testsuite2/ -x
