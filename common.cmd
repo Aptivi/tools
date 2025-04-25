@@ -7,7 +7,7 @@ set ACTION=%1
 if "%ACTION%" == "" set ACTION=build
 
 set "OPTIONS=%*"
-set "OPTIONS=!OPTIONS:*%1 =!"
+set "OPTIONS=!OPTIONS:*%1=!"
 
 REM Run any vendor actions before %ACTION%
 if exist %ROOTDIR%\vnd\vendor-pre%ACTION%.cmd (

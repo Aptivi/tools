@@ -2,6 +2,6 @@
 setlocal enabledelayedexpansion
 
 set ROOTDIR=%~dp0
-set "ARGUMENTS="
-for %%A in (%*) do set "ARGUMENTS=!ARGUMENTS! %%A"
+set "ARGUMENTS=%*"
+
 call %ROOTDIR%\common.cmd push !ARGUMENTS!
