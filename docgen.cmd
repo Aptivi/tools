@@ -4,4 +4,4 @@ setlocal enabledelayedexpansion
 set ROOTDIR=%~dp0
 set "ARGUMENTS=%*"
 
-call %ROOTDIR%\common.cmd docgen !ARGUMENTS!
+call "%ROOTDIR%\common.cmd" docgen !ARGUMENTS!

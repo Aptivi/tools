@@ -4,4 +4,4 @@ setlocal enabledelayedexpansion
 set ROOTDIR=%~dp0
 set "ARGUMENTS=%*"
 
-call %ROOTDIR%\common.cmd push !ARGUMENTS!
+call "%ROOTDIR%\common.cmd" push !ARGUMENTS!
