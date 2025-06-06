@@ -61,6 +61,11 @@ jobs:
         run: |
           testsuite\tools\localize.cmd
           testsuite2\tools\localize.cmd Argument 1 "Argument 2"
+      - name: Test the increment script (Windows)
+        if: matrix.runs-on == 'windows-latest'
+        run: |
+          testsuite\tools\increment.cmd
+          testsuite2\tools\increment.cmd Argument 1 "Argument 2"
       - name: Test the build script (Unix)
         if: matrix.runs-on != 'windows-latest'
         run: |
@@ -96,6 +101,11 @@ jobs:
         run: |
           bash testsuite/tools/localize.sh
           bash testsuite2/tools/localize.sh Argument 1 "Argument 2"
+      - name: Test the increment script (Unix)
+        if: matrix.runs-on != 'windows-latest'
+        run: |
+          bash testsuite/tools/increment.sh
+          bash testsuite2/tools/increment.sh Argument 1 "Argument 2"
             
   check-scripts:
     strategy:
@@ -150,3 +160,8 @@ jobs:
         run: |
           shellcheck testsuite/tools/localize.sh -P testsuite/ -x
           shellcheck testsuite2/tools/localize.sh -P testsuite2/ -x
+      - name: Check the increment script
+        continue-on-error: true
+        run: |
+          shellcheck testsuite/tools/increment.sh -P testsuite/ -x
+          shellcheck testsuite2/tools/increment.sh -P testsuite2/ -x

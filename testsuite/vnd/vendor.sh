@@ -83,3 +83,15 @@ localize() {
 postlocalize() {
     echo "Post-localization action executed from $ROOTDIR"
 }
+
+preincrement() {
+    echo "Pre-increment action executed from $ROOTDIR"
+}
+
+increment() {
+    echo "Increment action executed from $ROOTDIR"
+}
+
+postincrement() {
+    echo "Post-increment action executed from $ROOTDIR"
+}
