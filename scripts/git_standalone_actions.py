@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+
+#
+# Copyright 2025-2026 Aptivi
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+# and associated documentation files (the “Software”), to deal in the Software without
+# restriction, including without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+
+# Processing the arguments
+import argparse
+
+
+# Functions
+def s_tags(tags_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt tags',
+            description='Tags hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    from common.hooks.h_tags import h_execute_tags
+    h_execute_tags(parser, tags_action_args)
+
+
+def s_branches(branches_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt branches',
+            description='Branches hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    from common.hooks.h_branches import h_execute_branches
+    h_execute_branches(parser, branches_action_args)
+
+
+def s_commits(commits_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt commits',
+            description='Commits hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    from common.hooks.h_commits import h_execute_commits
+    h_execute_commits(parser, commits_action_args)
+
+
+def s_status(status_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt status',
+            description='Status hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    from common.hooks.h_status import h_execute_status
+    h_execute_status(parser, status_action_args)
+
+
+def s_revert(revert_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt revert',
+            description='Revert hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    parser.add_argument('commit',
+                        metavar='commit',
+                        help='Specifies a commit to revert')
+    from common.hooks.h_revert import h_execute_revert
+    h_execute_revert(parser, revert_action_args)
+
+
+def s_commit(commit_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt commit',
+            description='Commit hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    parser.add_argument('-s', '--summary',
+                        help='Summary of the commit',
+                        required=True)
+    parser.add_argument('-b', '--body',
+                        help='Body message of the commit')
+    parser.add_argument('-t', '--type',
+                        help='Type of the commit',
+                        required=True,
+                        choices=["add", "fix", "rem", "imp", "ref", "upd",
+                                 "doc", "dev", "dcp", "fin", "chg", "int",
+                                 "bkp", "prj", "pkg", "und"])
+    parser.add_argument('-a', '--attributes',
+                        help='Commit attributes, where they are grouped with '
+                             'slashes (one of brk, sec, prf, reg, doc, ptp, '
+                             'prt, bkp)')
+    parser.add_argument('-i', '--assisted',
+                        action="store_true",
+                        help='Whether this commit is AI assisted or not')
+    parser.add_argument('--assistant',
+                        help='Specifies the AI assistant(s)')
+    parser.add_argument('-c', '--backport-commits',
+                        help='Backported commit SHA hashes with slashes')
+    from common.hooks.h_commit import h_execute_commit
+    h_execute_commit(parser, commit_action_args)
+
+
+def s_push(push_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt push',
+            description='Push hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    parser.add_argument('-r', '--remote',
+                        help='Specifies a remote to use',
+                        default="origin")
+    from common.hooks.h_push import h_execute_push
+    h_execute_push(parser, push_action_args)
+
+
+def s_reset(reset_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt reset',
+            description='Reset hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    parser.add_argument('commit',
+                        metavar='commit',
+                        help='Specifies a commit to revert')
+    from common.hooks.h_reset import h_execute_reset
+    h_execute_reset(parser, reset_action_args)
+
+
+def s_hardclean(hardclean_action_args):
+    parser = argparse.ArgumentParser(
+            prog='adt hardclean',
+            description='Hard clean hook - Aptivi Development Kit (ADT)',
+            epilog='This script is not meant to be run directly; '
+                   'you\'ll have to use adt.')
+    parser.add_argument('-v', '--verbose',
+                        action="store_true",
+                        help='Shows debug output for variables, command '
+                             'inputs, and other actions')
+    from common.hooks.h_hardclean import h_execute_hardclean
+    h_execute_hardclean(parser, hardclean_action_args)
