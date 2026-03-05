@@ -51,6 +51,7 @@ from scripts.git_standalone_actions import \
 
 # Processing the arguments
 import argparse
+import sys
 parser = argparse.ArgumentParser(
          prog='adt.py',
          add_help=False)
@@ -72,8 +73,11 @@ parser.add_argument('action',
 parser.add_argument('--nobanner',
                     action='store_true')
 
+# Buffer issue fix
+sys.stdout.reconfigure(line_buffering=True)
+
 # Main
-version='1.0.0.0'
+version = '1.0.0.0'
 if __name__ == "__main__":
     parser_args = parser.parse_known_args()
     action = parser_args[0].action
