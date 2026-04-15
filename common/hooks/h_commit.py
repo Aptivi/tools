@@ -33,14 +33,15 @@ def h_execute_commit(parser, commit_action_args):
     # Parse arguments
     result = parser.parse_args(commit_action_args)
     if (result.verbose):
-        print("%r %s %s %s %r %s %s\n\n%s" % (result.verbose,
-                                              result.summary,
-                                              result.type,
-                                              result.attributes,
-                                              result.assisted,
-                                              result.assistant,
-                                              result.backport_commits,
-                                              result.body))
+        print("%r %r %s %s %s %r %s %s\n\n%s" % (result.verbose,
+                                                 result.dry,
+                                                 result.summary,
+                                                 result.type,
+                                                 result.attributes,
+                                                 result.assisted,
+                                                 result.assistant,
+                                                 result.backport_commits,
+                                                 result.body))
 
     # Get the report info
     git_info = GitReportInfo()
@@ -135,4 +136,8 @@ def h_execute_commit(parser, commit_action_args):
              for line in final_body.splitlines()])
 
     # Make a commit
-    git_info.index.commit(final_summary + "\n\n" + final_body)
+    final_message = final_summary + "\n\n" + final_body
+    if not result.dry:
+        git_info.index.commit(final_summary + "\n\n" + final_body)
+    else:
+        print(final_message)

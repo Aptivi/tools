@@ -131,6 +131,9 @@ def s_commit(commit_action_args):
                         help='Specifies the AI assistant(s)')
     parser.add_argument('-c', '--backport-commits',
                         help='Backported commit SHA hashes with slashes')
+    parser.add_argument('-d', '--dry',
+                        action="store_true",
+                        help='Whether to run dryly (no actual commit)')
     from common.hooks.h_commit import h_execute_commit
     h_execute_commit(parser, commit_action_args)
 
