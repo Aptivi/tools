@@ -88,7 +88,6 @@ if __name__ == "__main__":
     action = parser_args[0].action
     nobanner = parser_args[0].nobanner
     adt_conf.on_self = parser_args[0].self
-    print("on_self %r" % (adt_conf.on_self))
     actargs = parser_args[1]
     if not nobanner:
         print(f'\n\n        == Aptivi Development Toolkit (ADT) v{version} ==\n\n')
