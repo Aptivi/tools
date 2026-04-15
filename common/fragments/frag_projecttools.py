@@ -24,7 +24,8 @@
 import os
 
 
-def frag_pt_getprojectroot():
+def frag_pt_getprojectroot(self: bool):
     abs_path = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.abspath(abs_path + '/../../../')
+    project_root = os.path.abspath(abs_path + '/../../' + \
+            ('' if self else '../'))
     return project_root

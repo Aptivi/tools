@@ -27,7 +27,8 @@ import os
 # Get project root
 from git import Repo
 from common.fragments.frag_projecttools import frag_pt_getprojectroot
-project_root = frag_pt_getprojectroot()
+import adt_conf
+project_root = frag_pt_getprojectroot(adt_conf.on_self)
 
 
 # Class that contains Git info for a project

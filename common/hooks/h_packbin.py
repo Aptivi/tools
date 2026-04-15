@@ -26,7 +26,8 @@ import sys
 import os
 import traceback
 from common.fragments.frag_projecttools import frag_pt_getprojectroot
-project_root = frag_pt_getprojectroot()
+import adt_conf
+project_root = frag_pt_getprojectroot(adt_conf.on_self)
 vendor_dir = project_root + '/vendor/'
 vendor_script_dir = vendor_dir + 'vnd_packbin.py'
 if not (os.path.isdir(vendor_dir)):

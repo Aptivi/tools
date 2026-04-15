@@ -56,7 +56,8 @@ def h_execute_commit(parser, commit_action_args):
                or untracked.startswith(sm.module().working_tree_dir + os.sep)
                for sm in submodules):
             continue
-        git_info.index.add(untracked)
+        if not result.dry:
+            git_info.index.add(untracked)
 
     # Repo index
     proj_repo_index = git_info.index
@@ -78,21 +79,27 @@ def h_execute_commit(parser, commit_action_args):
         match (change.change_type):
             case "A":
                 if not target_is_submodule:
-                    git_info.index.add(change.b_path)
+                    if not result.dry:
+                        git_info.index.add(change.b_path)
             case "D":
                 if not source_is_submodule:
-                    git_info.index.remove(change.a_path)
+                    if not result.dry:
+                        git_info.index.remove(change.a_path)
             case "R":
                 if not source_is_submodule:
-                    git_info.index.remove(change.a_path)
+                    if not result.dry:
+                        git_info.index.remove(change.a_path)
                 if not target_is_submodule:
-                    git_info.index.add(change.b_path)
+                    if not result.dry:
+                        git_info.index.add(change.b_path)
             case "M":
                 if not target_is_submodule:
-                    git_info.index.add(change.b_path)
+                    if not result.dry:
+                        git_info.index.add(change.b_path)
             case "T":
                 if not target_is_submodule:
-                    git_info.index.add(change.b_path)
+                    if not result.dry:
+                        git_info.index.add(change.b_path)
 
     # Make a commit summary
     commit_attrs = list(result.attributes.split("/")) \

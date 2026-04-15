@@ -49,6 +49,9 @@ from scripts.git_standalone_actions import \
     s_reset, \
     s_hardclean
 
+# Configuration module
+import adt_conf
+
 # Processing the arguments
 import argparse
 import sys
@@ -72,6 +75,8 @@ parser.add_argument('action',
                     ])
 parser.add_argument('--nobanner',
                     action='store_true')
+parser.add_argument('--self',
+                    action='store_true')
 
 # Buffer issue fix
 sys.stdout.reconfigure(line_buffering=True)
@@ -82,6 +87,8 @@ if __name__ == "__main__":
     parser_args = parser.parse_known_args()
     action = parser_args[0].action
     nobanner = parser_args[0].nobanner
+    adt_conf.on_self = parser_args[0].self
+    print("on_self %r" % (adt_conf.on_self))
     actargs = parser_args[1]
     if not nobanner:
         print(f'\n\n        == Aptivi Development Toolkit (ADT) v{version} ==\n\n')
