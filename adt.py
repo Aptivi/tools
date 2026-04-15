@@ -82,7 +82,7 @@ parser.add_argument('--self',
 sys.stdout.reconfigure(line_buffering=True)
 
 # Main
-version = '1.0.0.0'
+version = '1.0.1.0'
 if __name__ == "__main__":
     parser_args = parser.parse_known_args()
     action = parser_args[0].action
