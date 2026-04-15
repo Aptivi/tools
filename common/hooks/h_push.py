@@ -39,3 +39,4 @@ def h_execute_push(parser, push_action_args):
     git_info = GitReportInfo()
     remote = git_info.repo.remote(result.remote)
     remote.push(git_info.active_branch.name, progress=ProgressFragment())
+    print("\n\nPush finished. Refer to above output for info.")
