@@ -26,9 +26,7 @@ import os
 
 # Get project root
 from git import Repo
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
 import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
 
 
 # Class that contains Git info for a project
@@ -113,7 +111,7 @@ class GitReportInfo():
         return {'filename': filename, 'report': report}
 
     def __init__(self):
-        self.repo = Repo(project_root)
+        self.repo = Repo(adt_conf.project_path)
         self.branches = self.repo.branches
         self.tags = self.repo.tags
         self.commits = list(self.repo.iter_commits())
@@ -122,4 +120,4 @@ class GitReportInfo():
         self.head = self.repo.head
         self.active_branch = self.repo.active_branch
         self.submodules = self.repo.submodules
-        self.project_name = os.path.basename(project_root)
+        self.project_name = adt_conf.project_name

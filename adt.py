@@ -57,6 +57,7 @@ from common.fragments.frag_projecttools import frag_pt_getprojectroot
 
 # Processing the arguments
 import argparse
+import os
 import sys
 parser = argparse.ArgumentParser(
          prog='adt.py',
@@ -93,13 +94,16 @@ if __name__ == "__main__":
     adt_conf.nobanner = parser_args[0].nobanner
     adt_conf.on_self = parser_args[0].self
     adt_conf.project_path = frag_pt_getprojectroot(adt_conf.on_self)
+    adt_conf.project_name = os.path.basename(adt_conf.project_path)
     actargs = parser_args[1]
 
     # Show banner if required
     if not adt_conf.nobanner:
-        print(f'\n\n        == Aptivi Development Toolkit (ADT) v{version} ==\n\n')
+        print('\n\n')
+        print(f'        == Aptivi Development Toolkit (ADT) v{version} ==')
+        print('\n\n')
         print(f'Action:  {adt_conf.action} {actargs}')
-        print(f'Project: {adt_conf.project_path}\n')
+        print(f'Project: {adt_conf.project_name} [{adt_conf.project_path}]\n')
 
     # Match action
     match adt_conf.action:

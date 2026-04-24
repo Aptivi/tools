@@ -9,6 +9,10 @@ on_self = False
 #     filled by the tool as soon as the script starts.
 project_path = ""
 
+# [automatic]    adt_conf.project_name:
+#     Name of the project that is automatically determined by basename().
+project_name = ""
+
 # [configurable] adt_conf.action:
 #     Specifies the action. Filled when parsing script arguments to determine
 #     which action to run.
