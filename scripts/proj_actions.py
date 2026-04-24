@@ -25,14 +25,17 @@
 import argparse
 from common.fragments.frag_projecttools import frag_pt_preparevendor
 
+# Other imports
+from common.fragments.frag_manual import frag_manual_genlink
+
 
 # Functions
 def s_build(build_action_args):
     parser = argparse.ArgumentParser(
         prog='adt build',
         description='Build hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -49,8 +52,8 @@ def s_clean(clean_action_args):
     parser = argparse.ArgumentParser(
         prog='adt clean',
         description='Clean hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -64,8 +67,8 @@ def s_test(test_action_args):
     parser = argparse.ArgumentParser(
         prog='adt test',
         description='Test hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -82,8 +85,8 @@ def s_increment(increment_action_args):
     parser = argparse.ArgumentParser(
         prog='adt increment',
         description='Increment hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -105,8 +108,8 @@ def s_vendorize(vendorize_action_args):
     parser = argparse.ArgumentParser(
         prog='adt vendorize',
         description='Vendorize hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -120,8 +123,8 @@ def s_gendocs(gendocs_action_args):
     parser = argparse.ArgumentParser(
         prog='adt gendocs',
         description='Docs generator hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -135,8 +138,8 @@ def s_packdocs(packdocs_action_args):
     parser = argparse.ArgumentParser(
         prog='adt vendorize',
         description='Docs packing hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -150,8 +153,8 @@ def s_packbin(packbin_action_args):
     parser = argparse.ArgumentParser(
         prog='adt packbin',
         description='Binary packing hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -165,8 +168,8 @@ def s_pushbin(pushbin_action_args):
     parser = argparse.ArgumentParser(
         prog='adt pushbin',
         description='Binary pushing hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -180,8 +183,8 @@ def s_liquidize(liquidize_action_args):
     parser = argparse.ArgumentParser(
         prog='adt liquidize',
         description='Liquidize hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -195,8 +198,8 @@ def s_updatedeps(updatedeps_action_args):
     parser = argparse.ArgumentParser(
         prog='adt updatedeps',
         description='Depedency update hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -210,8 +213,8 @@ def s_listprojs(listprojs_action_args):
     parser = argparse.ArgumentParser(
         prog='adt listprojs',
         description='Project list hook - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '

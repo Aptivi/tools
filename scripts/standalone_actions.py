@@ -24,14 +24,17 @@
 # Processing the arguments
 import argparse
 
+# Other imports
+from common.fragments.frag_manual import frag_manual_genlink
+
 
 # Functions
 def s_intreport(intreport_action_args):
     parser = argparse.ArgumentParser(
         prog='adt intreport',
         description='Report maker - Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure#standalone-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -72,8 +75,8 @@ def s_dnresxlang(dnresxlang_action_args):
         prog='adt dnresxlang',
         description='.NET .resx tools for localizations - '
                     'Aptivi Development Kit (ADT)',
-        epilog='This script is not meant to be run directly; '
-               'you\'ll have to use adt.')
+        epilog=frag_manual_genlink(\
+            'build-system/structure#standalone-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '

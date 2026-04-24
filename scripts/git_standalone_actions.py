@@ -24,14 +24,17 @@
 # Processing the arguments
 import argparse
 
+# Other imports
+from common.fragments.frag_manual import frag_manual_genlink
+
 
 # Functions
 def s_tags(tags_action_args):
     parser = argparse.ArgumentParser(
             prog='adt tags',
             description='Tags hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -44,8 +47,8 @@ def s_branches(branches_action_args):
     parser = argparse.ArgumentParser(
             prog='adt branches',
             description='Branches hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -58,8 +61,8 @@ def s_commits(commits_action_args):
     parser = argparse.ArgumentParser(
             prog='adt commits',
             description='Commits hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -72,8 +75,8 @@ def s_status(status_action_args):
     parser = argparse.ArgumentParser(
             prog='adt status',
             description='Status hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -86,8 +89,8 @@ def s_revert(revert_action_args):
     parser = argparse.ArgumentParser(
             prog='adt revert',
             description='Revert hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -103,8 +106,8 @@ def s_commit(commit_action_args):
     parser = argparse.ArgumentParser(
             prog='adt commit',
             description='Commit hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -142,8 +145,8 @@ def s_push(push_action_args):
     parser = argparse.ArgumentParser(
             prog='adt push',
             description='Push hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -159,8 +162,8 @@ def s_reset(reset_action_args):
     parser = argparse.ArgumentParser(
             prog='adt reset',
             description='Reset hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
@@ -176,8 +179,8 @@ def s_hardclean(hardclean_action_args):
     parser = argparse.ArgumentParser(
             prog='adt hardclean',
             description='Hard clean hook - Aptivi Development Kit (ADT)',
-            epilog='This script is not meant to be run directly; '
-                   'you\'ll have to use adt.')
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
     parser.add_argument('-v', '--verbose',
                         action="store_true",
                         help='Shows debug output for variables, command '
