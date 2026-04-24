@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_updatedeps.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Dependency update hook
@@ -44,11 +35,6 @@ def h_execute_updatedeps(parser, updatedeps_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r" % (result.verbose))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Dependency update script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-updatedeps actions
     preupdatedeps = None
@@ -61,7 +47,7 @@ def h_execute_updatedeps(parser, updatedeps_action_args):
             traceback.print_exception(iexc)
     if (preupdatedeps is not None):
         try:
-            print("Executing pre-updatedeps actions for %s..." % (project_root))
+            print("Executing pre-updatedeps actions...")
             preupdatedeps()
         except Exception as exc:
             print('Pre-updatedeps actions failed')
@@ -79,7 +65,7 @@ def h_execute_updatedeps(parser, updatedeps_action_args):
             traceback.print_exception(iexc)
     if (updatedeps is not None):
         try:
-            print("Updating dependencies for project %s..." % (project_root))
+            print("Updating dependencies for project...")
             updatedeps(extra_args)
         except Exception as exc:
             print('Dependency update actions failed')
@@ -97,7 +83,7 @@ def h_execute_updatedeps(parser, updatedeps_action_args):
             traceback.print_exception(iexc)
     if (postupdatedeps is not None):
         try:
-            print("Executing post-updatedeps actions for %s..." % (project_root))
+            print("Executing post-updatedeps actions...")
             postupdatedeps()
         except Exception as exc:
             print('Post-updatedeps actions failed')

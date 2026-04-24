@@ -23,6 +23,7 @@
 
 # Processing the arguments
 import argparse
+from common.fragments.frag_projecttools import frag_pt_preparevendor
 
 
 # Functions
@@ -40,6 +41,7 @@ def s_build(build_action_args):
                         help='Build arguments to pass to the build system '
                              '(depends on vendor build script)')
     from common.hooks.h_build import h_execute_build
+    frag_pt_preparevendor()
     h_execute_build(parser, build_action_args)
 
 
@@ -54,6 +56,7 @@ def s_clean(clean_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_clean import h_execute_clean
+    frag_pt_preparevendor()
     h_execute_clean(parser, clean_action_args)
 
 
@@ -71,6 +74,7 @@ def s_test(test_action_args):
                         help='Test arguments to pass to the test system '
                              '(depends on vendor test script)')
     from common.hooks.h_test import h_execute_test
+    frag_pt_preparevendor()
     h_execute_test(parser, test_action_args)
 
 
@@ -93,6 +97,7 @@ def s_increment(increment_action_args):
                         help='Old and new application API versions to '
                              'increment from to')
     from common.hooks.h_increment import h_execute_increment
+    frag_pt_preparevendor()
     h_execute_increment(parser, increment_action_args)
 
 
@@ -107,6 +112,7 @@ def s_vendorize(vendorize_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_vendorize import h_execute_vendorize
+    frag_pt_preparevendor()
     h_execute_vendorize(parser, vendorize_action_args)
 
 
@@ -121,6 +127,7 @@ def s_gendocs(gendocs_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_gendocs import h_execute_gendocs
+    frag_pt_preparevendor()
     h_execute_gendocs(parser, gendocs_action_args)
 
 
@@ -135,6 +142,7 @@ def s_packdocs(packdocs_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_packdocs import h_execute_packdocs
+    frag_pt_preparevendor()
     h_execute_packdocs(parser, packdocs_action_args)
 
 
@@ -149,6 +157,7 @@ def s_packbin(packbin_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_packbin import h_execute_packbin
+    frag_pt_preparevendor()
     h_execute_packbin(parser, packbin_action_args)
 
 
@@ -163,6 +172,7 @@ def s_pushbin(pushbin_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_pushbin import h_execute_pushbin
+    frag_pt_preparevendor()
     h_execute_pushbin(parser, pushbin_action_args)
 
 
@@ -177,6 +187,7 @@ def s_liquidize(liquidize_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_liquidize import h_execute_liquidize
+    frag_pt_preparevendor()
     h_execute_liquidize(parser, liquidize_action_args)
 
 
@@ -191,6 +202,7 @@ def s_updatedeps(updatedeps_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_updatedeps import h_execute_updatedeps
+    frag_pt_preparevendor()
     h_execute_updatedeps(parser, updatedeps_action_args)
 
 
@@ -205,4 +217,5 @@ def s_listprojs(listprojs_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_listprojs import h_execute_listprojs
+    frag_pt_preparevendor()
     h_execute_listprojs(parser, listprojs_action_args)

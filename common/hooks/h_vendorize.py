@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_vendorize.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Vendorize hook
@@ -44,11 +35,6 @@ def h_execute_vendorize(parser, vendorize_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r" % (result.verbose))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Vendorize vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-vendorize actions
     prevendorize = None
@@ -61,7 +47,7 @@ def h_execute_vendorize(parser, vendorize_action_args):
             traceback.print_exception(iexc)
     if (prevendorize is not None):
         try:
-            print("Executing pre-vendorize actions for %s..." % (project_root))
+            print("Executing pre-vendorize actions...")
             prevendorize()
         except Exception as exc:
             print('Pre-vendorize actions failed')
@@ -79,7 +65,7 @@ def h_execute_vendorize(parser, vendorize_action_args):
             traceback.print_exception(iexc)
     if (vendorize is not None):
         try:
-            print("Vendorizing project %s..." % (project_root))
+            print("Vendorizing project...")
             vendorize(extra_args)
         except Exception as exc:
             print('Vendorize actions failed')
@@ -97,7 +83,7 @@ def h_execute_vendorize(parser, vendorize_action_args):
             traceback.print_exception(iexc)
     if (postvendorize is not None):
         try:
-            print("Executing post-vendorize actions for %s..." % (project_root))
+            print("Executing post-vendorize actions...")
             postvendorize()
         except Exception as exc:
             print('Post-vendorize actions failed')

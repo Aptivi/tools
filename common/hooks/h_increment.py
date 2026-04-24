@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_increment.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Increment hook
@@ -45,11 +36,6 @@ def h_execute_increment(parser, increment_action_args):
                                result.old_version, result.new_version,
                                result.api_versions))
         
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Increment vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
-
     # Execute pre-increment actions
     preincrement = None
     try:
@@ -61,7 +47,7 @@ def h_execute_increment(parser, increment_action_args):
             traceback.print_exception(iexc)
     if (preincrement is not None):
         try:
-            print("Executing pre-increment actions for %s..." % (project_root))
+            print("Executing pre-increment actions...")
             preincrement()
         except Exception as exc:
             print('Pre-increment actions failed')
@@ -79,7 +65,7 @@ def h_execute_increment(parser, increment_action_args):
             traceback.print_exception(iexc)
     if (increment is not None):
         try:
-            print("Incrementing project %s..." % (project_root))
+            print("Incrementing project...")
             increment(result.old_version, result.new_version,
                       result.api_versions)
         except Exception as exc:
@@ -98,7 +84,7 @@ def h_execute_increment(parser, increment_action_args):
             traceback.print_exception(iexc)
     if (postincrement is not None):
         try:
-            print("Executing post-increment actions for %s..." % (project_root))
+            print("Executing post-increment actions...")
             postincrement()
         except Exception as exc:
             print('Post-increment actions failed')

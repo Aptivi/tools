@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_listprojs.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit()
-sys.path.append(vendor_dir)
 
 
 # Listing projects hook
@@ -45,11 +36,6 @@ def h_execute_listprojs(parser, listprojs_action_args):
     if (result.verbose):
         print("%r" % (result.verbose))
         
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Listing projects vendor script doesn\'t exist. Doing nothing...')
-        sys.exit()
-
     # Execute pre-listprojs actions
     prelistprojs = None
     try:
@@ -61,7 +47,7 @@ def h_execute_listprojs(parser, listprojs_action_args):
             traceback.print_exception(iexc)
     if (prelistprojs is not None):
         try:
-            print("Executing pre-listprojs actions for %s..." % (project_root))
+            print("Executing pre-listprojs actions...")
             prelistprojs()
         except Exception as exc:
             print('Pre-listprojs actions failed')
@@ -79,7 +65,7 @@ def h_execute_listprojs(parser, listprojs_action_args):
             traceback.print_exception(iexc)
     if (listprojs is not None):
         try:
-            print("Listing project files for project %s..." % (project_root))
+            print("Listing project files for project...")
             listprojs(extra_args)
         except Exception as exc:
             print('Listing project files actions failed')
@@ -97,7 +83,7 @@ def h_execute_listprojs(parser, listprojs_action_args):
             traceback.print_exception(iexc)
     if (postlistprojs is not None):
         try:
-            print("Executing post-listprojs actions for %s..." % (project_root))
+            print("Executing post-listprojs actions...")
             postlistprojs()
         except Exception as exc:
             print('Post-listprojs actions failed')

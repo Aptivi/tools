@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_test.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Test hook
@@ -44,11 +35,6 @@ def h_execute_test(parser, test_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r %s" % (result.verbose, result.test_args))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Test vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-test actions
     pretest = None
@@ -61,7 +47,7 @@ def h_execute_test(parser, test_action_args):
             traceback.print_exception(iexc)
     if (pretest is not None):
         try:
-            print("Executing pre-test actions for %s..." % (project_root))
+            print("Executing pre-test actions...")
             pretest()
         except Exception as exc:
             print('Pre-test actions failed')
@@ -79,7 +65,7 @@ def h_execute_test(parser, test_action_args):
             traceback.print_exception(iexc)
     if (test is not None):
         try:
-            print("Testing project %s..." % (project_root))
+            print("Testing project...")
             test(result.test_args, extra_args)
         except Exception as exc:
             print('Test actions failed')
@@ -97,7 +83,7 @@ def h_execute_test(parser, test_action_args):
             traceback.print_exception(iexc)
     if (posttest is not None):
         try:
-            print("Executing post-test actions for %s..." % (project_root))
+            print("Executing post-test actions...")
             posttest()
         except Exception as exc:
             print('Post-test actions failed')

@@ -22,6 +22,8 @@
 #
 
 import os
+import sys
+import adt_conf
 
 
 def frag_pt_getprojectroot(self: bool):
@@ -29,3 +31,24 @@ def frag_pt_getprojectroot(self: bool):
     project_root = os.path.abspath(abs_path + '/../../' + \
             ('' if self else '../'))
     return project_root
+
+
+def frag_pt_addvendor():
+    adt_conf.vendor_path = adt_conf.project_path + '/vendor/'
+    if not (os.path.isdir(adt_conf.vendor_path)):
+        print('Vendor directory doesn\'t exist.')
+        sys.exit(2)
+    sys.path.append(adt_conf.vendor_path)
+
+
+def frag_pt_checkvendoraction(action):
+    vendor_script_dir = adt_conf.vendor_path + 'vnd_' + action + '.py'
+    if not (os.path.isfile(vendor_script_dir)):
+        print('%s vendor script doesn\'t exist. Doing nothing...' % (action))
+        sys.exit(3)
+
+
+def frag_pt_preparevendor():
+    print('Preparing vendor env config for %s...' % (adt_conf.action))
+    frag_pt_addvendor()
+    frag_pt_checkvendoraction(adt_conf.action)

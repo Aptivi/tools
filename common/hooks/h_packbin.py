@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_packbin.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Binary packing hook
@@ -44,11 +35,6 @@ def h_execute_packbin(parser, packbin_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r" % (result.verbose))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Binary packing vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-packbin actions
     prepackbin = None
@@ -61,7 +47,7 @@ def h_execute_packbin(parser, packbin_action_args):
             traceback.print_exception(iexc)
     if (prepackbin is not None):
         try:
-            print("Executing pre-packbin actions for %s..." % (project_root))
+            print("Executing pre-packbin actions...")
             prepackbin()
         except Exception as exc:
             print('Pre-packbin actions failed')
@@ -79,7 +65,7 @@ def h_execute_packbin(parser, packbin_action_args):
             traceback.print_exception(iexc)
     if (packbin is not None):
         try:
-            print("Packing binary for project %s..." % (project_root))
+            print("Packing binary for project...")
             packbin(extra_args)
         except Exception as exc:
             print('Binary packing actions failed')
@@ -97,7 +83,7 @@ def h_execute_packbin(parser, packbin_action_args):
             traceback.print_exception(iexc)
     if (postpackbin is not None):
         try:
-            print("Executing post-packbin actions for %s..." % (project_root))
+            print("Executing post-packbin actions...")
             postpackbin()
         except Exception as exc:
             print('Post-packbin actions failed')

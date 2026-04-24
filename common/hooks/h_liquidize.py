@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_liquidize.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Liquidize hook
@@ -44,11 +35,6 @@ def h_execute_liquidize(parser, liquidize_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r" % (result.verbose))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Liquidize vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-liquidize actions
     preliquidize = None
@@ -61,7 +47,7 @@ def h_execute_liquidize(parser, liquidize_action_args):
             traceback.print_exception(iexc)
     if (preliquidize is not None):
         try:
-            print("Executing pre-liquidize actions for %s..." % (project_root))
+            print("Executing pre-liquidize actions...")
             preliquidize()
         except Exception as exc:
             print('Pre-liquidize actions failed')
@@ -79,7 +65,7 @@ def h_execute_liquidize(parser, liquidize_action_args):
             traceback.print_exception(iexc)
     if (liquidize is not None):
         try:
-            print("Liquidizing project %s..." % (project_root))
+            print("Liquidizing project...")
             liquidize(extra_args)
         except Exception as exc:
             print('Liquidize actions failed')
@@ -97,7 +83,7 @@ def h_execute_liquidize(parser, liquidize_action_args):
             traceback.print_exception(iexc)
     if (postliquidize is not None):
         try:
-            print("Executing post-liquidize actions for %s..." % (project_root))
+            print("Executing post-liquidize actions...")
             postliquidize()
         except Exception as exc:
             print('Post-liquidize actions failed')

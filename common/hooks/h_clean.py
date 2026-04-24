@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_clean.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Clean hook
@@ -45,11 +36,6 @@ def h_execute_clean(parser, clean_action_args):
     if (result.verbose):
         print("%r" % (result.verbose))
 
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Clean vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
-        
     # Execute pre-clean actions
     preclean = None
     try:
@@ -61,7 +47,7 @@ def h_execute_clean(parser, clean_action_args):
             traceback.print_exception(iexc)
     if (preclean is not None):
         try:
-            print("Executing pre-clean actions for %s..." % (project_root))
+            print("Executing pre-clean actions...")
             preclean()
         except Exception as exc:
             print('Pre-clean actions failed')
@@ -79,7 +65,7 @@ def h_execute_clean(parser, clean_action_args):
             traceback.print_exception(iexc)
     if (clean is not None):
         try:
-            print("Cleaning project %s..." % (project_root))
+            print("Cleaning project...")
             clean(extra_args)
         except Exception as exc:
             print('Clean actions failed')
@@ -97,7 +83,7 @@ def h_execute_clean(parser, clean_action_args):
             traceback.print_exception(iexc)
     if (postclean is not None):
         try:
-            print("Executing post-clean actions for %s..." % (project_root))
+            print("Executing post-clean actions...")
             postclean()
         except Exception as exc:
             print('Post-clean actions failed')

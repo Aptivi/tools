@@ -25,16 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_build.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
-
 
 # Build hook
 def h_execute_build(parser, build_action_args):
@@ -44,11 +34,6 @@ def h_execute_build(parser, build_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r %s" % (result.verbose, result.build_args))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Build vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-build actions
     prebuild = None
@@ -61,7 +46,7 @@ def h_execute_build(parser, build_action_args):
             traceback.print_exception(iexc)
     if (prebuild is not None):
         try:
-            print("Executing pre-build actions for %s..." % (project_root))
+            print("Executing pre-build actions...")
             prebuild()
         except Exception as exc:
             print('Pre-build actions failed')
@@ -79,7 +64,7 @@ def h_execute_build(parser, build_action_args):
             traceback.print_exception(iexc)
     if (build is not None):
         try:
-            print("Building project %s..." % (project_root))
+            print("Building project...")
             build(result.build_args, extra_args)
         except Exception as exc:
             print('Build actions failed')
@@ -97,7 +82,7 @@ def h_execute_build(parser, build_action_args):
             traceback.print_exception(iexc)
     if (postbuild is not None):
         try:
-            print("Executing post-build actions for %s..." % (project_root))
+            print("Executing post-build actions...")
             postbuild()
         except Exception as exc:
             print('Post-build actions failed')

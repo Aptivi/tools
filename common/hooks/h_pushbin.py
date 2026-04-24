@@ -25,15 +25,6 @@
 import sys
 import os
 import traceback
-from common.fragments.frag_projecttools import frag_pt_getprojectroot
-import adt_conf
-project_root = frag_pt_getprojectroot(adt_conf.on_self)
-vendor_dir = project_root + '/vendor/'
-vendor_script_dir = vendor_dir + 'vnd_pushbin.py'
-if not (os.path.isdir(vendor_dir)):
-    print('Vendor directory doesn\'t exist.')
-    sys.exit(2)
-sys.path.append(vendor_dir)
 
 
 # Binary pushing hook
@@ -44,11 +35,6 @@ def h_execute_pushbin(parser, pushbin_action_args):
     extra_args = arguments[1]
     if (result.verbose):
         print("%r" % (result.verbose))
-
-    # Check vendor script
-    if not (os.path.isfile(vendor_script_dir)):
-        print('Binary pushing vendor script doesn\'t exist. Doing nothing...')
-        sys.exit(3)
 
     # Execute pre-pushbin actions
     prepushbin = None
@@ -61,7 +47,7 @@ def h_execute_pushbin(parser, pushbin_action_args):
             traceback.print_exception(iexc)
     if (prepushbin is not None):
         try:
-            print("Executing pre-pushbin actions for %s..." % (project_root))
+            print("Executing pre-pushbin actions...")
             prepushbin()
         except Exception as exc:
             print('Pre-pushbin actions failed')
@@ -79,7 +65,7 @@ def h_execute_pushbin(parser, pushbin_action_args):
             traceback.print_exception(iexc)
     if (pushbin is not None):
         try:
-            print("Pushing binary for project %s..." % (project_root))
+            print("Pushing binary for project...")
             pushbin(extra_args)
         except Exception as exc:
             print('Binary pushing actions failed')
@@ -97,7 +83,7 @@ def h_execute_pushbin(parser, pushbin_action_args):
             traceback.print_exception(iexc)
     if (postpushbin is not None):
         try:
-            print("Executing post-pushbin actions for %s..." % (project_root))
+            print("Executing post-pushbin actions...")
             postpushbin()
         except Exception as exc:
             print('Post-pushbin actions failed')

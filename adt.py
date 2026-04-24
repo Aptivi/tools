@@ -52,6 +52,9 @@ from scripts.git_standalone_actions import \
 # Configuration module
 import adt_conf
 
+# Project root
+from common.fragments.frag_projecttools import frag_pt_getprojectroot
+
 # Processing the arguments
 import argparse
 import sys
@@ -84,16 +87,22 @@ sys.stdout.reconfigure(line_buffering=True)
 # Main
 version = '1.0.1.0'
 if __name__ == "__main__":
+    # Configuration
     parser_args = parser.parse_known_args()
-    action = parser_args[0].action
-    nobanner = parser_args[0].nobanner
+    adt_conf.action = parser_args[0].action
+    adt_conf.nobanner = parser_args[0].nobanner
     adt_conf.on_self = parser_args[0].self
+    adt_conf.project_path = frag_pt_getprojectroot(adt_conf.on_self)
     actargs = parser_args[1]
-    if not nobanner:
+
+    # Show banner if required
+    if not adt_conf.nobanner:
         print(f'\n\n        == Aptivi Development Toolkit (ADT) v{version} ==\n\n')
-        print(f'Action:    {action}')
-        print(f'Arguments: {actargs}')
-    match action:
+        print(f'Action:  {adt_conf.action} {actargs}')
+        print(f'Project: {adt_conf.project_path}\n')
+
+    # Match action
+    match adt_conf.action:
         # Project-specific
         case "build":
             s_build(actargs)
