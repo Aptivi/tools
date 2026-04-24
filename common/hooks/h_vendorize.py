@@ -28,9 +28,7 @@ import traceback
 
 
 # Vendorize hook
-def h_execute_vendorize(parser, vendorize_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(vendorize_action_args)
+def h_execute_vendorize(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

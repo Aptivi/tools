@@ -26,9 +26,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Revert hook
-def h_execute_revert(parser, revert_action_args):
-    # Parse arguments
-    result = parser.parse_args(revert_action_args)
+def h_execute_revert(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %s" % (result.verbose, result.commit))
 

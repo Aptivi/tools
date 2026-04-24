@@ -31,9 +31,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Report make hook
-def h_execute_intreport(parser, intreport_action_args):
-    # Parse arguments
-    result = parser.parse_args(intreport_action_args)
+def h_execute_intreport(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r | %r %s | %r %s (%s %i %s %s %s)" %
               (result.verbose,

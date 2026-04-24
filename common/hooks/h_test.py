@@ -28,9 +28,7 @@ import traceback
 
 
 # Test hook
-def h_execute_test(parser, test_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(test_action_args)
+def h_execute_test(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

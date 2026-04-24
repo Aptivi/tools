@@ -28,9 +28,7 @@ import traceback
 
 
 # Binary packing hook
-def h_execute_packbin(parser, packbin_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(packbin_action_args)
+def h_execute_packbin(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

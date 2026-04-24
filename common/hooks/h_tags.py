@@ -26,9 +26,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Tags hook
-def h_execute_tags(parser, tags_action_args):
-    # Parse arguments
-    result = parser.parse_args(tags_action_args)
+def h_execute_tags(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r" % (result.verbose))
 

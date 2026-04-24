@@ -27,9 +27,7 @@ import os
 import traceback
 
 # Build hook
-def h_execute_build(parser, build_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(build_action_args)
+def h_execute_build(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

@@ -28,9 +28,7 @@ import traceback
 
 
 # Binary pushing hook
-def h_execute_pushbin(parser, pushbin_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(pushbin_action_args)
+def h_execute_pushbin(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

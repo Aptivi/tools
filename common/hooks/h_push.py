@@ -29,9 +29,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Push hook
-def h_execute_push(parser, push_action_args):
-    # Parse arguments
-    result = parser.parse_args(push_action_args)
+def h_execute_push(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %s" % (result.verbose, result.remote))
 

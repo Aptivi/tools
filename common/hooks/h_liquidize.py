@@ -28,9 +28,7 @@ import traceback
 
 
 # Liquidize hook
-def h_execute_liquidize(parser, liquidize_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(liquidize_action_args)
+def h_execute_liquidize(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

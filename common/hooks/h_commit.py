@@ -29,9 +29,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Commit hook
-def h_execute_commit(parser, commit_action_args):
-    # Parse arguments
-    result = parser.parse_args(commit_action_args)
+def h_execute_commit(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %r %s %s %s %r %s %s\n\n%s" % (result.verbose,
                                                  result.dry,

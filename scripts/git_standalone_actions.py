@@ -40,7 +40,8 @@ def s_tags(tags_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_tags import h_execute_tags
-    h_execute_tags(parser, tags_action_args)
+    arguments = parser.parse_known_args(tags_action_args)
+    h_execute_tags(arguments)
 
 
 def s_branches(branches_action_args):
@@ -54,7 +55,8 @@ def s_branches(branches_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_branches import h_execute_branches
-    h_execute_branches(parser, branches_action_args)
+    arguments = parser.parse_known_args(branches_action_args)
+    h_execute_branches(arguments)
 
 
 def s_commits(commits_action_args):
@@ -68,7 +70,8 @@ def s_commits(commits_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_commits import h_execute_commits
-    h_execute_commits(parser, commits_action_args)
+    arguments = parser.parse_known_args(commits_action_args)
+    h_execute_commits(arguments)
 
 
 def s_status(status_action_args):
@@ -82,7 +85,8 @@ def s_status(status_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_status import h_execute_status
-    h_execute_status(parser, status_action_args)
+    arguments = parser.parse_known_args(status_action_args)
+    h_execute_status(arguments)
 
 
 def s_revert(revert_action_args):
@@ -99,7 +103,8 @@ def s_revert(revert_action_args):
                         metavar='commit',
                         help='Specifies a commit to revert')
     from common.hooks.h_revert import h_execute_revert
-    h_execute_revert(parser, revert_action_args)
+    arguments = parser.parse_known_args(revert_action_args)
+    h_execute_revert(arguments)
 
 
 def s_commit(commit_action_args):
@@ -138,7 +143,8 @@ def s_commit(commit_action_args):
                         action="store_true",
                         help='Whether to run dryly (no actual commit)')
     from common.hooks.h_commit import h_execute_commit
-    h_execute_commit(parser, commit_action_args)
+    arguments = parser.parse_known_args(commit_action_args)
+    h_execute_commit(arguments)
 
 
 def s_push(push_action_args):
@@ -155,7 +161,8 @@ def s_push(push_action_args):
                         help='Specifies a remote to use',
                         default="origin")
     from common.hooks.h_push import h_execute_push
-    h_execute_push(parser, push_action_args)
+    arguments = parser.parse_known_args(push_action_args)
+    h_execute_push(arguments)
 
 
 def s_reset(reset_action_args):
@@ -172,7 +179,8 @@ def s_reset(reset_action_args):
                         metavar='commit',
                         help='Specifies a commit to revert')
     from common.hooks.h_reset import h_execute_reset
-    h_execute_reset(parser, reset_action_args)
+    arguments = parser.parse_known_args(reset_action_args)
+    h_execute_reset(arguments)
 
 
 def s_hardclean(hardclean_action_args):
@@ -186,4 +194,5 @@ def s_hardclean(hardclean_action_args):
                         help='Shows debug output for variables, command '
                              'inputs, and other actions')
     from common.hooks.h_hardclean import h_execute_hardclean
-    h_execute_hardclean(parser, hardclean_action_args)
+    arguments = parser.parse_known_args(hardclean_action_args)
+    h_execute_hardclean(arguments)

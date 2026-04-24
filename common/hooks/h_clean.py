@@ -28,9 +28,7 @@ import traceback
 
 
 # Clean hook
-def h_execute_clean(parser, clean_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(clean_action_args)
+def h_execute_clean(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

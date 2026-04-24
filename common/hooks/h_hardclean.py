@@ -26,9 +26,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Hard clean hook
-def h_execute_hardclean(parser, hardclean_action_args):
-    # Parse arguments
-    result = parser.parse_args(hardclean_action_args)
+def h_execute_hardclean(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %s" % (result.verbose, result.commit))
 

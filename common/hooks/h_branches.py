@@ -26,9 +26,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Branches hook
-def h_execute_branches(parser, branches_action_args):
-    # Parse arguments
-    result = parser.parse_args(branches_action_args)
+def h_execute_branches(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r" % (result.verbose))
 

@@ -32,9 +32,8 @@ from common.fragments.frag_dnresxlang import \
 
 
 # .NET .resx langauge tools hook
-def h_execute_dnresxlang(parser, dnresxlang_action_args):
-    # Parse arguments
-    result = parser.parse_args(dnresxlang_action_args)
+def h_execute_dnresxlang(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %s "
               "(A: %r %r %r) "

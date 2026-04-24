@@ -28,9 +28,8 @@ import traceback
 
 
 # Increment hook
-def h_execute_increment(parser, increment_action_args):
-    # Parse arguments
-    result = parser.parse_args(increment_action_args)
+def h_execute_increment(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r %s %s %s" % (result.verbose,
                                result.old_version, result.new_version,

@@ -26,9 +26,8 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Status hook
-def h_execute_status(parser, status_action_args):
-    # Parse arguments
-    result = parser.parse_args(status_action_args)
+def h_execute_status(arguments):
+    result = arguments[0]
     if (result.verbose):
         print("%r" % (result.verbose))
 

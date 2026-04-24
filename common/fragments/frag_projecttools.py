@@ -42,6 +42,10 @@ def frag_pt_addvendor():
 
 
 def frag_pt_checkvendoraction(action):
+    if action != adt_conf.action:
+        print("Action is inconsistent! ['%s' vs. '%s']" \
+            % (action, adt_conf.action))
+        sys.exit(4)
     vendor_script_dir = adt_conf.vendor_path + 'vnd_' + action + '.py'
     if not (os.path.isfile(vendor_script_dir)):
         print('%s vendor script doesn\'t exist. Doing nothing...' % (action))

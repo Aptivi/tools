@@ -28,9 +28,7 @@ import traceback
 
 
 # Listing projects hook
-def h_execute_listprojs(parser, listprojs_action_args):
-    # Parse arguments
-    arguments = parser.parse_known_args(listprojs_action_args)
+def h_execute_listprojs(arguments):
     result = arguments[0]
     extra_args = arguments[1]
     if (result.verbose):

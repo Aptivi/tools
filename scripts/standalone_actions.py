@@ -67,7 +67,8 @@ def s_intreport(intreport_action_args):
                         help='SSH private key for use with authentication '
                              '(recommended)')
     from common.hooks.h_intreport import h_execute_intreport
-    h_execute_intreport(parser, intreport_action_args)
+    arguments = parser.parse_known_args(intreport_action_args)
+    h_execute_intreport(arguments)
 
     
 def s_dnresxlang(dnresxlang_action_args):
@@ -133,4 +134,5 @@ def s_dnresxlang(dnresxlang_action_args):
                         action="store_true",
                         help='Saves JSON language files as .resx files')
     from common.hooks.h_dnresxlang import h_execute_dnresxlang
-    h_execute_dnresxlang(parser, dnresxlang_action_args)
+    arguments = parser.parse_known_args(dnresxlang_action_args)
+    h_execute_dnresxlang(arguments)
