@@ -86,7 +86,7 @@ parser.add_argument('--self',
 sys.stdout.reconfigure(line_buffering=True)
 
 # Main
-version = '1.0.1.0'
+version = '1.0.2.0'
 if __name__ == "__main__":
     # Configuration
     parser_args = parser.parse_known_args()
