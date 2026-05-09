@@ -132,16 +132,22 @@ def h_execute_commit(arguments):
     # Wrap the commit body
     final_body = ""
     if (remnant_summary):
-        final_body = final_body + "\n" + remnant_summary + "\n\n"
-    final_body = final_body + ((result.body + "\n") if result.body else '')
+        final_body = final_body + remnant_summary + "\n\n"
+    final_body = final_body + "---\n\n" + \
+        ((result.body + "\n\n") if result.body else '')
+
+    # Check to see if there are backported commits
     if (result.backport_commits):
         backported_commits = list(result.backport_commits.split("/"))
-        final_body = final_body + "\n---\n\n" + \
+        final_body = final_body + "---\n\n" + \
             "The following commits or tags are used for this " + \
             "backport:\n"
         for backported_commit in backported_commits:
-            final_body = final_body + backported_commit + "\n"
-    final_body = final_body + "\n---\n\n" + \
+            final_body = final_body + "  - " + backported_commit + "\n"
+        final_body = final_body + "\n"
+    
+    # Add the footer
+    final_body = final_body + "---\n\n" + \
         "Type: " + result.type + "\n" + \
         "Breaking: " + \
         ("Yes" if 'brk' in commit_attrs else "No") + "\n" + \
@@ -153,6 +159,8 @@ def h_execute_commit(arguments):
         (("Yes (assisted by " + result.assistant + ")")
          if result.assisted else "No") + "\n" + \
         "Part: 1/1"
+
+    # Wrap the lines
     final_body = '\n'.join(
             ['\n'.join(textwrap.wrap(line,
                                      width=80,
