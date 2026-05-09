@@ -27,12 +27,15 @@ from common.fragments.frag_gitprogress import ProgressFragment
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Configuration module
+import adt_conf
+
 
 # Push hook
 def h_execute_push(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r %s" % (result.verbose, result.remote))
+    if (adt_conf.verbose):
+        print("%s" % (result.remote))
 
     # Get the report info
     git_info = GitReportInfo()

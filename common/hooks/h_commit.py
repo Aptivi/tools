@@ -24,6 +24,9 @@
 import os
 import textwrap
 
+# Configuration module
+import adt_conf
+
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
@@ -36,10 +39,9 @@ valid_attrs = ['brk', 'sec', 'prf', 'reg', 'doc', 'ptp', 'prt', 'bkp']
 # Commit hook
 def h_execute_commit(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r %r %s %s %s %r %s %s %i %i\n\n%s" % \
-            (result.verbose,
-             result.dry,
+    if (adt_conf.verbose):
+        print("%r %s %s %s %r %s %s %i %i\n\n%s" % \
+            (result.dry,
              result.summary,
              result.type,
              result.attributes,
@@ -56,16 +58,16 @@ def h_execute_commit(arguments):
     # Untracked files
     submodules = git_info.submodules
     proj_repo_untracked_files = git_info.untracked_files
-    if (result.verbose):
+    if (adt_conf.verbose):
         print("untracked_count: %r" % (len(proj_repo_untracked_files)))
     for untracked in proj_repo_untracked_files:
         untracked_abs = os.path.abspath(str(untracked))
         if any(untracked_abs.startswith(sm.module().working_tree_dir)
                for sm in submodules):
-            if (result.verbose):
+            if (adt_conf.verbose):
                 print("sm untracked: %s" % (untracked))
             continue
-        if (result.verbose):
+        if (adt_conf.verbose):
             print("untracked: %s" % (untracked))
         if not result.dry:
             git_info.index.add(untracked)
@@ -83,17 +85,17 @@ def h_execute_commit(arguments):
             a_path_abs.startswith(sm.module().working_tree_dir)
             for sm in submodules
         )
-        if (result.verbose):
+        if (adt_conf.verbose):
             print("sm source track: [%r] %s" % (source_is_submodule, change.a_path))
         target_is_submodule = any(
             b_path_abs.startswith(sm.module().working_tree_dir)
             for sm in submodules
         )
-        if (result.verbose):
+        if (adt_conf.verbose):
             print("sm target track: [%r] %s" % (target_is_submodule, change.b_path))
 
         # Now, handle the changes
-        if (result.verbose):
+        if (adt_conf.verbose):
             print("change type: %s" % (change.change_type))
         match (change.change_type):
             case "A":
@@ -113,7 +115,7 @@ def h_execute_commit(arguments):
                         git_info.index.add(change.b_path)
             case "M":
                 if not target_is_submodule:
-                    if (result.verbose):
+                    if (adt_conf.verbose):
                         print("b path: %s" % (change.b_path))
                     if not result.dry:
                         git_info.index.add(change.b_path)
@@ -135,7 +137,7 @@ def h_execute_commit(arguments):
         raise TypeError("Invalid attrs %s" % commit_attrs)
     
     # Check for attribute compatibility
-    if (result.verbose):
+    if (adt_conf.verbose):
         print("attrs: %s" % (commit_attrs))
     if ('bkp' in commit_attrs):
         # bkp is incompatible with rem, dev, dcp, and fin types

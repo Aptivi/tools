@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Listing projects hook
 def h_execute_listprojs(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
         
     # Execute pre-listprojs actions
     prelistprojs = None
@@ -40,7 +39,7 @@ def h_execute_listprojs(arguments):
         from vnd_listprojs import vnd_prelistprojs
         prelistprojs = vnd_prelistprojs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prelistprojs is not defined')
             traceback.print_exception(iexc)
     if (prelistprojs is not None):
@@ -58,7 +57,7 @@ def h_execute_listprojs(arguments):
         from vnd_listprojs import vnd_listprojs
         listprojs = vnd_listprojs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_listprojs is not defined')
             traceback.print_exception(iexc)
     if (listprojs is not None):
@@ -76,7 +75,7 @@ def h_execute_listprojs(arguments):
         from vnd_listprojs import vnd_postlistprojs
         postlistprojs = vnd_postlistprojs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postlistprojs is not defined')
             traceback.print_exception(iexc)
     if (postlistprojs is not None):

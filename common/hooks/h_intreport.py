@@ -29,14 +29,16 @@ import traceback
 # Get the project root
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Configuration module
+import adt_conf
+
 
 # Report make hook
 def h_execute_intreport(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r | %r %s | %r %s (%s %i %s %s %s)" %
-              (result.verbose,
-               result.local, result.local_path,
+    if (adt_conf.verbose):
+        print("%r %s | %r %s (%s %i %s %s %s)" %
+              (result.local, result.local_path,
                result.remote, result.remote_path,
                result.server_host, result.server_port,
                result.server_username, result.server_password,
@@ -47,14 +49,14 @@ def h_execute_intreport(arguments):
 
     # Return the report
     git_report = git_info.generate_report()
-    if (result.verbose):
+    if (adt_conf.verbose):
         print(git_report)
         print("\n\nReport size: %i bytes" % (len(git_report)))
 
     # Check the upload type
     is_local = result.local
     is_remote = result.remote
-    if (result.verbose):
+    if (adt_conf.verbose):
         print("Local: %r, Remote: %r" % (result.local, result.remote))
     if (not (is_local | is_remote) | (is_local & is_remote)):
         print('Specify either -l (local upload) or -r (remote upload)')
@@ -69,14 +71,14 @@ def h_execute_intreport(arguments):
                 f"{os.environ["LOCALAPPDATA"]}\\Aptivi\\ADT\\Reports" \
                 if os.name == 'nt' else "/usr/local/share/aptdev"
         if not (os.path.isdir(local_path)):
-            if (result.verbose):
+            if (adt_conf.verbose):
                 print('Creating local path %s.' % local_path)
             os.makedirs(local_path)
         
         # Upload the report
         report_file_path = os.path.abspath(
             local_path + '/' + git_report['filename'])
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Opening report file %s.' % report_file_path)
         with open(report_file_path, "w") as report_file:
             print('Writing report to %s...' % report_file_path)
@@ -87,7 +89,7 @@ def h_execute_intreport(arguments):
         import paramiko
         ssh_client = paramiko.SSHClient()
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Private key auth: %s' % result.server_privkey)
         try:
             if result.server_privkey is not None:
@@ -102,7 +104,7 @@ def h_execute_intreport(arguments):
                                    password=result.server_password)
             
             # Open SFTP
-            if (result.verbose):
+            if (adt_conf.verbose):
                 print('Opening SFTP to %s@%s:%s' % (result.server_username,
                                                     result.server_host,
                                                     result.server_port))
@@ -110,7 +112,7 @@ def h_execute_intreport(arguments):
 
             # Upload the report
             report_path = result.remote_path + '/' + git_report['filename']
-            if (result.verbose):
+            if (adt_conf.verbose):
                 print('Opening report file %s.' % report_path)
             with sftp_client.open(report_path, 'w') as report_file:
                 print('Writing report to %s...' % report_path)

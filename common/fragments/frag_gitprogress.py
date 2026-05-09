@@ -60,5 +60,5 @@ class ProgressFragment(RemoteProgress):
         print("\r%s - %i of %i - %i%%%s\x1b[K"
               % (mapper.get_opcode_string(),
                  cur_count, max_count,
-                 cur_count / (max_count or 100.0),
+                 (cur_count / (max_count or 100.0)) * 100,
                  (" - " + message) if message else ""), end="")

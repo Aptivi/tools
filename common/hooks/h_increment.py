@@ -23,17 +23,18 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Increment hook
 def h_execute_increment(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r %s %s %s" % (result.verbose,
-                               result.old_version, result.new_version,
-                               result.api_versions))
+    if (adt_conf.verbose):
+        print("%s %s %s" % (result.old_version, result.new_version,
+                            result.api_versions))
         
     # Execute pre-increment actions
     preincrement = None
@@ -41,7 +42,7 @@ def h_execute_increment(arguments):
         from vnd_increment import vnd_preincrement
         preincrement = vnd_preincrement
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_preincrement is not defined')
             traceback.print_exception(iexc)
     if (preincrement is not None):
@@ -59,7 +60,7 @@ def h_execute_increment(arguments):
         from vnd_increment import vnd_increment
         increment = vnd_increment
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_increment is not defined')
             traceback.print_exception(iexc)
     if (increment is not None):
@@ -78,7 +79,7 @@ def h_execute_increment(arguments):
         from vnd_increment import vnd_postincrement
         postincrement = vnd_postincrement
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postincrement is not defined')
             traceback.print_exception(iexc)
     if (postincrement is not None):

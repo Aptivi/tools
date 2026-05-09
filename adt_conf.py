@@ -27,6 +27,10 @@ nobanner = False
 #     Specifies the vendor path, if it is found.
 vendor_path = ""
 
+# [configurable] adt_conf.verbose:
+#     If enabled, ADT will show extra messages as the operation goes on.
+verbose = False
+
 
 # Safeguard for those trying to run this script
 if __name__ == "__main__":

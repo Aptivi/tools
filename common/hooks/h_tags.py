@@ -24,17 +24,16 @@
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Configuration module
+import adt_conf
+
 
 # Tags hook
 def h_execute_tags(arguments):
-    result = arguments[0]
-    if (result.verbose):
-        print("%r" % (result.verbose))
-
     # Get the report info
     git_info = GitReportInfo()
     proj_repo_tags = git_info.tags
-    if (result.verbose):
+    if (adt_conf.verbose):
         print("Count is [%i]" % (len(proj_repo_tags)))
     for tag in proj_repo_tags:
         print(tag)

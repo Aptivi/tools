@@ -22,7 +22,6 @@
 #
 
 from datetime import datetime
-import os
 
 # Get project root
 from git import Repo

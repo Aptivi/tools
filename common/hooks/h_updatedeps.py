@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Dependency update hook
 def h_execute_updatedeps(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-updatedeps actions
     preupdatedeps = None
@@ -40,7 +39,7 @@ def h_execute_updatedeps(arguments):
         from vnd_updatedeps import vnd_preupdatedeps
         preupdatedeps = vnd_preupdatedeps
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_preupdatedeps is not defined')
             traceback.print_exception(iexc)
     if (preupdatedeps is not None):
@@ -58,7 +57,7 @@ def h_execute_updatedeps(arguments):
         from vnd_updatedeps import vnd_updatedeps
         updatedeps = vnd_updatedeps
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_updatedeps is not defined')
             traceback.print_exception(iexc)
     if (updatedeps is not None):
@@ -76,7 +75,7 @@ def h_execute_updatedeps(arguments):
         from vnd_updatedeps import vnd_postupdatedeps
         postupdatedeps = vnd_postupdatedeps
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postupdatedeps is not defined')
             traceback.print_exception(iexc)
     if (postupdatedeps is not None):

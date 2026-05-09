@@ -30,12 +30,15 @@ from common.fragments.frag_dnresxlang import \
     drl_report, \
     drl_save
 
+# Configuration module
+import adt_conf
+
 
 # .NET .resx langauge tools hook
 def h_execute_dnresxlang(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r %s "
+    if (adt_conf.verbose):
+        print("%s "
               "(A: %r %r %r) "
               "(C: %s) "
               "(D: %r %r %r) "
@@ -46,8 +49,7 @@ def h_execute_dnresxlang(arguments):
               "(Rep: %r) "
               "(Res: %s) "
               "(S: %r)" %
-              (result.verbose,
-               result.json_path,
+              (result.json_path,
                result.add_culture, result.add_loc, result.add_lang,
                f'[{', '.join(result.cultures or [])}]',
                result.delete_culture, result.delete_loc, result.delete_lang,

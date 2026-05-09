@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Clean hook
 def h_execute_clean(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-clean actions
     preclean = None
@@ -40,7 +39,7 @@ def h_execute_clean(arguments):
         from vnd_clean import vnd_preclean
         preclean = vnd_preclean
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_preclean is not defined')
             traceback.print_exception(iexc)
     if (preclean is not None):
@@ -58,7 +57,7 @@ def h_execute_clean(arguments):
         from vnd_clean import vnd_clean
         clean = vnd_clean
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_clean is not defined')
             traceback.print_exception(iexc)
     if (clean is not None):
@@ -76,7 +75,7 @@ def h_execute_clean(arguments):
         from vnd_clean import vnd_postclean
         postclean = vnd_postclean
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postclean is not defined')
             traceback.print_exception(iexc)
     if (postclean is not None):

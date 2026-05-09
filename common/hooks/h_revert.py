@@ -24,12 +24,15 @@
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Configuration module
+import adt_conf
+
 
 # Revert hook
 def h_execute_revert(arguments):
     result = arguments[0]
-    if (result.verbose):
-        print("%r %s" % (result.verbose, result.commit))
+    if (adt_conf.verbose):
+        print("%s" % (result.commit))
 
     # Get the report info
     git_info = GitReportInfo()

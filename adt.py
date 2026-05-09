@@ -81,6 +81,8 @@ parser.add_argument('--nobanner',
                     action='store_true')
 parser.add_argument('--self',
                     action='store_true')
+parser.add_argument('-v', '--verbose',
+                    action='store_true')
 
 # Buffer issue fix
 sys.stdout.reconfigure(line_buffering=True)
@@ -93,6 +95,7 @@ if __name__ == "__main__":
     adt_conf.action = parser_args[0].action
     adt_conf.nobanner = parser_args[0].nobanner
     adt_conf.on_self = parser_args[0].self
+    adt_conf.verbose = parser_args[0].verbose
     adt_conf.project_path = frag_pt_getprojectroot(adt_conf.on_self)
     adt_conf.project_name = os.path.basename(adt_conf.project_path)
     actargs = parser_args[1]
@@ -100,7 +103,7 @@ if __name__ == "__main__":
     # Show banner if required
     if not adt_conf.nobanner:
         print('\n\n')
-        print(f'        == Aptivi Development Toolkit (ADT) v{version} ==')
+        print(f'                == Aptivi Development Toolkit (ADT) v{version} ==')
         print('\n\n')
         print(f'Action:  {adt_conf.action} {actargs}')
         print(f'Project: {adt_conf.project_name} [{adt_conf.project_path}]\n')

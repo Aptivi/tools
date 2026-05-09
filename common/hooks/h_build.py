@@ -23,15 +23,17 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 # Build hook
 def h_execute_build(arguments):
     result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r %s" % (result.verbose, result.build_args))
+    if (adt_conf.verbose):
+        print("%s" % (result.build_args))
 
     # Execute pre-build actions
     prebuild = None
@@ -39,7 +41,7 @@ def h_execute_build(arguments):
         from vnd_build import vnd_prebuild
         prebuild = vnd_prebuild
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prebuild is not defined')
             traceback.print_exception(iexc)
     if (prebuild is not None):
@@ -57,7 +59,7 @@ def h_execute_build(arguments):
         from vnd_build import vnd_build
         build = vnd_build
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_build is not defined')
             traceback.print_exception(iexc)
     if (build is not None):
@@ -75,7 +77,7 @@ def h_execute_build(arguments):
         from vnd_build import vnd_postbuild
         postbuild = vnd_postbuild
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postbuild is not defined')
             traceback.print_exception(iexc)
     if (postbuild is not None):

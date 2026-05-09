@@ -23,16 +23,18 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Test hook
 def h_execute_test(arguments):
     result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r %s" % (result.verbose, result.test_args))
+    if (adt_conf.verbose):
+        print("%s" % (result.test_args))
 
     # Execute pre-test actions
     pretest = None
@@ -40,7 +42,7 @@ def h_execute_test(arguments):
         from vnd_test import vnd_pretest
         pretest = vnd_pretest
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_pretest is not defined')
             traceback.print_exception(iexc)
     if (pretest is not None):
@@ -58,7 +60,7 @@ def h_execute_test(arguments):
         from vnd_test import vnd_test
         test = vnd_test
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_test is not defined')
             traceback.print_exception(iexc)
     if (test is not None):
@@ -76,7 +78,7 @@ def h_execute_test(arguments):
         from vnd_test import vnd_posttest
         posttest = vnd_posttest
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_posttest is not defined')
             traceback.print_exception(iexc)
     if (posttest is not None):

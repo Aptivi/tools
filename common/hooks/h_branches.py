@@ -24,17 +24,16 @@
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Configuration module
+import adt_conf
+
 
 # Branches hook
 def h_execute_branches(arguments):
-    result = arguments[0]
-    if (result.verbose):
-        print("%r" % (result.verbose))
-
     # Get the report info
     git_info = GitReportInfo()
     proj_repo_branches = git_info.branches
-    if (result.verbose):
+    if (adt_conf.verbose):
         print("Count is [%i]" % (len(proj_repo_branches)))
     for branch in proj_repo_branches:
         print(branch)

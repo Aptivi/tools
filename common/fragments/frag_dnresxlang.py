@@ -26,8 +26,6 @@ import os
 import xml.etree.ElementTree as XmlElementTree
 from datetime import datetime
 from common.fragments.frag_dnresxlang_parts import \
-    drl_verifypath, \
-    drl_verifylang, \
     drl_lslangs, \
     drl_getpath, \
     drl_getresxpath, \
@@ -51,7 +49,7 @@ def drl_add_culture(json_path, lang, cultures):
 
     # Add the localization
     for culture in cultures:
-        lang_info.cultures.append(target_culture)
+        lang_info.cultures.append(culture)
 
     # Save the changes
     drl_genjson_final(json_path, lang_info)
@@ -113,7 +111,7 @@ def drl_delete_culture(json_path, lang, cultures):
 
     # Delete the localization
     for culture in cultures:
-        lang_info.cultures.remove(target_culture)
+        lang_info.cultures.remove(culture)
 
     # Save the changes
     drl_genjson_final(json_path, lang_info)

@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Binary pushing hook
 def h_execute_pushbin(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-pushbin actions
     prepushbin = None
@@ -40,7 +39,7 @@ def h_execute_pushbin(arguments):
         from vnd_pushbin import vnd_prepushbin
         prepushbin = vnd_prepushbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prepushbin is not defined')
             traceback.print_exception(iexc)
     if (prepushbin is not None):
@@ -58,7 +57,7 @@ def h_execute_pushbin(arguments):
         from vnd_pushbin import vnd_pushbin
         pushbin = vnd_pushbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_pushbin is not defined')
             traceback.print_exception(iexc)
     if (pushbin is not None):
@@ -76,7 +75,7 @@ def h_execute_pushbin(arguments):
         from vnd_pushbin import vnd_postpushbin
         postpushbin = vnd_postpushbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postpushbin is not defined')
             traceback.print_exception(iexc)
     if (postpushbin is not None):

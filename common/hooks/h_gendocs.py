@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Documentation generation hook
 def h_execute_gendocs(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-gendocs actions
     pregendocs = None
@@ -40,7 +39,7 @@ def h_execute_gendocs(arguments):
         from vnd_gendocs import vnd_pregendocs
         pregendocs = vnd_pregendocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_pregendocs is not defined')
             traceback.print_exception(iexc)
     if (pregendocs is not None):
@@ -58,7 +57,7 @@ def h_execute_gendocs(arguments):
         from vnd_gendocs import vnd_gendocs
         gendocs = vnd_gendocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_gendocs is not defined')
             traceback.print_exception(iexc)
     if (gendocs is not None):
@@ -76,7 +75,7 @@ def h_execute_gendocs(arguments):
         from vnd_gendocs import vnd_postgendocs
         postgendocs = vnd_postgendocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postgendocs is not defined')
             traceback.print_exception(iexc)
     if (postgendocs is not None):

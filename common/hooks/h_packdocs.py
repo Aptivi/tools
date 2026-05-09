@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Documentation packing hook
 def h_execute_packdocs(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-packdocs actions
     prepackdocs = None
@@ -40,7 +39,7 @@ def h_execute_packdocs(arguments):
         from vnd_packdocs import vnd_prepackdocs
         prepackdocs = vnd_prepackdocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prepackdocs is not defined')
             traceback.print_exception(iexc)
     if (prepackdocs is not None):
@@ -58,7 +57,7 @@ def h_execute_packdocs(arguments):
         from vnd_packdocs import vnd_packdocs
         packdocs = vnd_packdocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_packdocs is not defined')
             traceback.print_exception(iexc)
     if (packdocs is not None):
@@ -76,7 +75,7 @@ def h_execute_packdocs(arguments):
         from vnd_packdocs import vnd_postpackdocs
         postpackdocs = vnd_postpackdocs
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postpackdocs is not defined')
             traceback.print_exception(iexc)
     if (postpackdocs is not None):

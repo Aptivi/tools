@@ -162,10 +162,6 @@ def s_packbin(packbin_action_args):
         description='Binary packing hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_packbin import h_execute_packbin
     arguments = parser.parse_known_args(packbin_action_args)
     frag_pt_preparevendor()
@@ -178,10 +174,6 @@ def s_pushbin(pushbin_action_args):
         description='Binary pushing hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_pushbin import h_execute_pushbin
     arguments = parser.parse_known_args(pushbin_action_args)
     frag_pt_preparevendor()
@@ -194,10 +186,6 @@ def s_liquidize(liquidize_action_args):
         description='Liquidize hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_liquidize import h_execute_liquidize
     arguments = parser.parse_known_args(liquidize_action_args)
     frag_pt_preparevendor()
@@ -210,10 +198,6 @@ def s_updatedeps(updatedeps_action_args):
         description='Depedency update hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_updatedeps import h_execute_updatedeps
     arguments = parser.parse_known_args(updatedeps_action_args)
     frag_pt_preparevendor()
@@ -226,10 +210,6 @@ def s_listprojs(listprojs_action_args):
         description='Project list hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_listprojs import h_execute_listprojs
     arguments = parser.parse_known_args(listprojs_action_args)
     frag_pt_preparevendor()

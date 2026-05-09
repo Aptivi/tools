@@ -35,10 +35,6 @@ def s_tags(tags_action_args):
             description='Tags hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_tags import h_execute_tags
     arguments = parser.parse_known_args(tags_action_args)
     h_execute_tags(arguments)
@@ -50,10 +46,6 @@ def s_branches(branches_action_args):
             description='Branches hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_branches import h_execute_branches
     arguments = parser.parse_known_args(branches_action_args)
     h_execute_branches(arguments)
@@ -65,10 +57,6 @@ def s_commits(commits_action_args):
             description='Commits hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_commits import h_execute_commits
     arguments = parser.parse_known_args(commits_action_args)
     h_execute_commits(arguments)
@@ -80,10 +68,6 @@ def s_status(status_action_args):
             description='Status hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_status import h_execute_status
     arguments = parser.parse_known_args(status_action_args)
     h_execute_status(arguments)
@@ -95,10 +79,6 @@ def s_revert(revert_action_args):
             description='Revert hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('commit',
                         metavar='commit',
                         help='Specifies a commit to revert')
@@ -113,10 +93,6 @@ def s_commit(commit_action_args):
             description='Commit hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('-s', '--summary',
                         help='Summary of the commit',
                         required=True)
@@ -160,10 +136,6 @@ def s_push(push_action_args):
             description='Push hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('-r', '--remote',
                         help='Specifies a remote to use',
                         default="origin")
@@ -178,10 +150,6 @@ def s_reset(reset_action_args):
             description='Reset hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('commit',
                         metavar='commit',
                         help='Specifies a commit to revert')
@@ -196,10 +164,6 @@ def s_hardclean(hardclean_action_args):
             description='Hard clean hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_hardclean import h_execute_hardclean
     arguments = parser.parse_known_args(hardclean_action_args)
     h_execute_hardclean(arguments)

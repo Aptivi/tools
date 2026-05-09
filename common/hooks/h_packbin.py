@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Binary packing hook
 def h_execute_packbin(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-packbin actions
     prepackbin = None
@@ -40,7 +39,7 @@ def h_execute_packbin(arguments):
         from vnd_packbin import vnd_prepackbin
         prepackbin = vnd_prepackbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prepackbin is not defined')
             traceback.print_exception(iexc)
     if (prepackbin is not None):
@@ -58,7 +57,7 @@ def h_execute_packbin(arguments):
         from vnd_packbin import vnd_packbin
         packbin = vnd_packbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_packbin is not defined')
             traceback.print_exception(iexc)
     if (packbin is not None):
@@ -76,7 +75,7 @@ def h_execute_packbin(arguments):
         from vnd_packbin import vnd_postpackbin
         postpackbin = vnd_postpackbin
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postpackbin is not defined')
             traceback.print_exception(iexc)
     if (postpackbin is not None):

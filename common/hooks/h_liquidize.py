@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Liquidize hook
 def h_execute_liquidize(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-liquidize actions
     preliquidize = None
@@ -40,7 +39,7 @@ def h_execute_liquidize(arguments):
         from vnd_liquidize import vnd_preliquidize
         preliquidize = vnd_preliquidize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_preliquidize is not defined')
             traceback.print_exception(iexc)
     if (preliquidize is not None):
@@ -58,7 +57,7 @@ def h_execute_liquidize(arguments):
         from vnd_liquidize import vnd_liquidize
         liquidize = vnd_liquidize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_liquidize is not defined')
             traceback.print_exception(iexc)
     if (liquidize is not None):
@@ -76,7 +75,7 @@ def h_execute_liquidize(arguments):
         from vnd_liquidize import vnd_postliquidize
         postliquidize = vnd_postliquidize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postliquidize is not defined')
             traceback.print_exception(iexc)
     if (postliquidize is not None):

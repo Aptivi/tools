@@ -35,10 +35,6 @@ def s_intreport(intreport_action_args):
         description='Report maker - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure#standalone-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('-l', '--local',
                         action="store_true",
                         help='Upload to local path')
@@ -78,10 +74,6 @@ def s_dnresxlang(dnresxlang_action_args):
                     'Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure#standalone-actions'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('json_path',
                         help='Specifies a full path to localization JSON ' +
                              'files')

@@ -23,16 +23,15 @@
 
 # Importing necessary components
 import sys
-import os
 import traceback
+
+# Configuration module
+import adt_conf
 
 
 # Vendorize hook
 def h_execute_vendorize(arguments):
-    result = arguments[0]
     extra_args = arguments[1]
-    if (result.verbose):
-        print("%r" % (result.verbose))
 
     # Execute pre-vendorize actions
     prevendorize = None
@@ -40,7 +39,7 @@ def h_execute_vendorize(arguments):
         from vnd_vendorize import vnd_prevendorize
         prevendorize = vnd_prevendorize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_prevendorize is not defined')
             traceback.print_exception(iexc)
     if (prevendorize is not None):
@@ -58,7 +57,7 @@ def h_execute_vendorize(arguments):
         from vnd_vendorize import vnd_vendorize
         vendorize = vnd_vendorize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_vendorize is not defined')
             traceback.print_exception(iexc)
     if (vendorize is not None):
@@ -76,7 +75,7 @@ def h_execute_vendorize(arguments):
         from vnd_vendorize import vnd_postvendorize
         postvendorize = vnd_postvendorize
     except ImportError as iexc:
-        if (result.verbose):
+        if (adt_conf.verbose):
             print('Function vnd_postvendorize is not defined')
             traceback.print_exception(iexc)
     if (postvendorize is not None):
