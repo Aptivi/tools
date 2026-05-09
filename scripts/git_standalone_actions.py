@@ -139,6 +139,13 @@ def s_commit(commit_action_args):
                         help='Specifies the AI assistant(s)')
     parser.add_argument('-c', '--backport-commits',
                         help='Backported commit SHA hashes with slashes')
+    parser.add_argument('-pn', '--part-number',
+                        help='Commit part number (must not exceed the total '
+                             'commits number)',
+                        default=1)
+    parser.add_argument('-pt', '--part-total',
+                        help='Commit part total number',
+                        default=1)
     parser.add_argument('-d', '--dry',
                         action="store_true",
                         help='Whether to run dryly (no actual commit)')

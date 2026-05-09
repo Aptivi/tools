@@ -32,15 +32,18 @@ from common.fragments.frag_gitreport import GitReportInfo
 def h_execute_commit(arguments):
     result = arguments[0]
     if (result.verbose):
-        print("%r %r %s %s %s %r %s %s\n\n%s" % (result.verbose,
-                                                 result.dry,
-                                                 result.summary,
-                                                 result.type,
-                                                 result.attributes,
-                                                 result.assisted,
-                                                 result.assistant,
-                                                 result.backport_commits,
-                                                 result.body))
+        print("%r %r %s %s %s %r %s %s %i %i\n\n%s" % \
+            (result.verbose,
+             result.dry,
+             result.summary,
+             result.type,
+             result.attributes,
+             result.assisted,
+             result.assistant,
+             result.backport_commits,
+             result.part_number,
+             result.part_total,
+             result.body))
 
     # Get the report info
     git_info = GitReportInfo()
@@ -117,6 +120,13 @@ def h_execute_commit(arguments):
     # Add remaining changes
     if not result.dry:
         git_info.repo.git.add(A=True)
+    
+    # Parse part numbers and check it
+    part_num = int(result.part_number)
+    part_total = int(result.part_total)
+    if (part_num > part_total) or (part_num < 1) or (part_num < 1):
+        raise ValueError("Part number is invalid or exceeds total: %i %i" % \
+                         (part_num, part_total))
 
     # Make a commit summary
     commit_attrs = list(result.attributes.split("/")) \
@@ -133,8 +143,8 @@ def h_execute_commit(arguments):
     final_body = ""
     if (remnant_summary):
         final_body = final_body + remnant_summary + "\n\n"
-    final_body = final_body + "---\n\n" + \
-        ((result.body + "\n\n") if result.body else '')
+    final_body = final_body + \
+        (("---\n\n" + result.body + "\n\n") if result.body else '')
 
     # Check to see if there are backported commits
     if (result.backport_commits):
@@ -158,7 +168,7 @@ def h_execute_commit(arguments):
         "AI Assisted: " + \
         (("Yes (assisted by " + result.assistant + ")")
          if result.assisted else "No") + "\n" + \
-        "Part: 1/1"
+        ("Part: %i/%i" % (part_num, part_total))
 
     # Wrap the lines
     final_body = '\n'.join(
