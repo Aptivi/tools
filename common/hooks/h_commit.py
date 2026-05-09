@@ -154,6 +154,16 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
             'brk' in commit_attrs):
             raise TypeError("bkp is incompatible with attr %s" % commit_attrs)
     
+    # Check for description requirement
+    if (result.type == 'add' or \
+        result.type == 'fix' or \
+        result.type == 'rem' or \
+        result.type == 'imp' or \
+        result.type == 'doc' or \
+        result.type == 'bkp'):
+        if (not result.body):
+            raise ValueError("Body not provided for %s" % result.type)
+    
     # Parse part numbers and check it
     part_num = int(result.part_number)
     part_total = int(result.part_total)
