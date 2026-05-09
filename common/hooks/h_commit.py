@@ -51,10 +51,14 @@ def h_execute_commit(arguments):
     if (result.verbose):
         print("untracked_count: %r" % (len(proj_repo_untracked_files)))
     for untracked in proj_repo_untracked_files:
-        if any(untracked == sm.module().working_tree_dir
-               or untracked.startswith(sm.module().working_tree_dir + os.sep)
+        untracked_abs = os.path.abspath(str(untracked))
+        if any(untracked_abs.startswith(sm.module().working_tree_dir)
                for sm in submodules):
+            if (result.verbose):
+                print("sm untracked: %s" % (untracked))
             continue
+        if (result.verbose):
+            print("untracked: %s" % (untracked))
         if not result.dry:
             git_info.index.add(untracked)
 
@@ -62,19 +66,27 @@ def h_execute_commit(arguments):
     proj_repo_index = git_info.index
     changes = proj_repo_index.diff(None)
     for change in changes:
+        # Get absolute path for directories
+        a_path_abs = os.path.abspath(str(change.a_path))
+        b_path_abs = os.path.abspath(str(change.b_path))
+
         # Check if we're dealing with submodules
         source_is_submodule = any(
-            change.a_path == sm.module().working_tree_dir
-            or change.a_path.startswith(sm.module().working_tree_dir + os.sep)
+            a_path_abs.startswith(sm.module().working_tree_dir)
             for sm in submodules
         )
+        if (result.verbose):
+            print("sm source track: [%r] %s" % (source_is_submodule, change.a_path))
         target_is_submodule = any(
-            change.b_path == sm.module().working_tree_dir
-            or change.b_path.startswith(sm.module().working_tree_dir + os.sep)
+            b_path_abs.startswith(sm.module().working_tree_dir)
             for sm in submodules
         )
+        if (result.verbose):
+            print("sm target track: [%r] %s" % (target_is_submodule, change.b_path))
 
         # Now, handle the changes
+        if (result.verbose):
+            print("change type: %s" % (change.change_type))
         match (change.change_type):
             case "A":
                 if not target_is_submodule:
@@ -93,12 +105,18 @@ def h_execute_commit(arguments):
                         git_info.index.add(change.b_path)
             case "M":
                 if not target_is_submodule:
+                    if (result.verbose):
+                        print("b path: %s" % (change.b_path))
                     if not result.dry:
                         git_info.index.add(change.b_path)
             case "T":
                 if not target_is_submodule:
                     if not result.dry:
                         git_info.index.add(change.b_path)
+    
+    # Add remaining changes
+    if not result.dry:
+        git_info.repo.git.add(A=True)
 
     # Make a commit summary
     commit_attrs = list(result.attributes.split("/")) \
