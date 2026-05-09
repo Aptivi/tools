@@ -27,6 +27,11 @@ import textwrap
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
+# Valid attributes and types
+valid_types = ['add', 'fix', 'rem', 'imp', 'ref', 'upd', 'doc', 'dev', 'dcp',
+               'fin', 'chg', 'int', 'bkp', 'prj', 'pkg', 'und']
+valid_attrs = ['brk', 'sec', 'prf', 'reg', 'doc', 'ptp', 'prt', 'bkp']
+
 
 # Commit hook
 def h_execute_commit(arguments):
@@ -121,6 +126,30 @@ def h_execute_commit(arguments):
     if not result.dry:
         git_info.repo.git.add(A=True)
     
+    # Check for attribute and type validity
+    commit_attrs = list(result.attributes.split("/")) \
+        if result.attributes else []
+    if not result.type in valid_types:
+        raise TypeError("Invalid type %s" % result.type)
+    if any(not attr in valid_attrs for attr in commit_attrs):
+        raise TypeError("Invalid attrs %s" % commit_attrs)
+    
+    # Check for attribute compatibility
+    if (result.verbose):
+        print("attrs: %s" % (commit_attrs))
+    if ('bkp' in commit_attrs):
+        # bkp is incompatible with rem, dev, dcp, and fin types
+        if (result.type == 'rem' or \
+            result.type == 'dev' or \
+            result.type == 'dcp' or \
+            result.type == 'fin'):
+            raise TypeError("bkp is incompatible with type %s" % result.type)
+        
+        # bkp is incompatible with ptp and brk attributes
+        if ('ptp' in commit_attrs or \
+            'brk' in commit_attrs):
+            raise TypeError("bkp is incompatible with attr %s" % commit_attrs)
+    
     # Parse part numbers and check it
     part_num = int(result.part_number)
     part_total = int(result.part_total)
@@ -129,9 +158,7 @@ def h_execute_commit(arguments):
                          (part_num, part_total))
 
     # Make a commit summary
-    commit_attrs = list(result.attributes.split("/")) \
-        if result.attributes else []
-    full_summary = (result.type + ' - ' + commit_attrs.join("|")) \
+    full_summary = (result.type + ' - ' + "|".join(commit_attrs)) \
         if commit_attrs else result.type
     full_summary = full_summary + ' - ' + result.summary
     final_summary = (full_summary[:50] + '...') \
