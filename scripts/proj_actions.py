@@ -36,10 +36,6 @@ def s_build(build_action_args: list[str]):
         description='Build hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('-b', '--build-args',
                         help='Build arguments to pass to the build system '
                              '(depends on vendor build script)')
@@ -55,10 +51,6 @@ def s_clean(clean_action_args: list[str]):
         description='Clean hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_clean import h_execute_clean
     arguments = parser.parse_known_args(clean_action_args)
     frag_pt_preparevendor()
@@ -71,10 +63,6 @@ def s_test(test_action_args: list[str]):
         description='Test hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('-t', '--test-args',
                         help='Test arguments to pass to the test system '
                              '(depends on vendor test script)')
@@ -90,10 +78,6 @@ def s_increment(increment_action_args: list[str]):
         description='Increment hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     parser.add_argument('old_version',
                         help='Old application version to increment from')
     parser.add_argument('new_version',
@@ -114,10 +98,6 @@ def s_vendorize(vendorize_action_args: list[str]):
         description='Vendorize hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_vendorize import h_execute_vendorize
     arguments = parser.parse_known_args(vendorize_action_args)
     frag_pt_preparevendor()
@@ -130,10 +110,6 @@ def s_gendocs(gendocs_action_args: list[str]):
         description='Docs generator hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_gendocs import h_execute_gendocs
     arguments = parser.parse_known_args(gendocs_action_args)
     frag_pt_preparevendor()
@@ -146,10 +122,6 @@ def s_packdocs(packdocs_action_args: list[str]):
         description='Docs packing hook - Aptivi Development Kit (ADT)',
         epilog=frag_manual_genlink(\
             'build-system/structure'))
-    parser.add_argument('-v', '--verbose',
-                        action="store_true",
-                        help='Shows debug output for variables, command '
-                             'inputs, and other actions')
     from common.hooks.h_packdocs import h_execute_packdocs
     arguments = parser.parse_known_args(packdocs_action_args)
     frag_pt_preparevendor()
