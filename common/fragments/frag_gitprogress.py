@@ -23,11 +23,42 @@
 
 from git import RemoteProgress
 
+operation_mapping = {
+    RemoteProgress.CHECKING_OUT: "Checking out files",
+    RemoteProgress.COMPRESSING: "Compressing Git objects",
+    RemoteProgress.COUNTING: "Counting Git objects",
+    RemoteProgress.FINDING_SOURCES: "Finding sources",
+    RemoteProgress.RECEIVING: "Downloading Git objects from remote",
+    RemoteProgress.RESOLVING: "Resolving deltas",
+    RemoteProgress.WRITING: "Uploading Git objects to remote",
+}
+
+
+class CodeMapper():
+    def get_opcode_string(self):
+        # Get both the stage number and the operation number
+        operation = self.op_code & RemoteProgress.OP_MASK
+        stage = self.op_code & RemoteProgress.STAGE_MASK
+
+        # Resolve operation code to name
+        operation_name = operation_mapping.get(operation, f"Loading...")
+        stage_name = \
+            "started" if stage & RemoteProgress.BEGIN else \
+            "finished" if stage & RemoteProgress.END else \
+            "in progress"
+        
+        # Return the final mapping
+        return f"{operation_name} - {stage_name}"
+    
+    def __init__(self, op_code: int):
+        self.op_code = op_code
+
 
 class ProgressFragment(RemoteProgress):
     def update(self, op_code, cur_count, max_count=None, message=""):
-        print("\r%s - %i/%i/%i %s\x1b[K"
-              % (op_code,
+        mapper = CodeMapper(op_code)
+        print("\r%s - %i of %i - %i%%%s\x1b[K"
+              % (mapper.get_opcode_string(),
                  cur_count, max_count,
                  cur_count / (max_count or 100.0),
-                 ("- " + message) if message else ""), end="")
+                 (" - " + message) if message else ""), end="")
