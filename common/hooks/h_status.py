@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Importing necessary components
+from argparse import Namespace
+
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
@@ -29,7 +32,7 @@ import adt_conf
 
 
 # Status hook
-def h_execute_status(arguments):
+def h_execute_status(arguments: tuple[Namespace, list[str]]):
     # Get the report info
     git_info = GitReportInfo()
 

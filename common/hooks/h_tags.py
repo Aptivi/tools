@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Importing necessary components
+from argparse import Namespace
+
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
@@ -29,7 +32,7 @@ import adt_conf
 
 
 # Tags hook
-def h_execute_tags(arguments):
+def h_execute_tags(arguments: tuple[Namespace, list[str]]):
     # Get the report info
     git_info = GitReportInfo()
     proj_repo_tags = git_info.tags

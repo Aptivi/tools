@@ -41,7 +41,7 @@ def frag_pt_addvendor():
     sys.path.append(adt_conf.vendor_path)
 
 
-def frag_pt_checkvendoraction(action):
+def frag_pt_checkvendoraction(action: str):
     if action != adt_conf.action:
         print("Action is inconsistent! ['%s' vs. '%s']" \
             % (action, adt_conf.action))

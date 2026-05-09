@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Importing necessary components
+from argparse import Namespace
+
 # Git report info class
 from common.fragments.frag_gitreport import GitReportInfo
 
@@ -29,7 +32,7 @@ import adt_conf
 
 
 # Revert hook
-def h_execute_revert(arguments):
+def h_execute_revert(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
         print("%s" % (result.commit))

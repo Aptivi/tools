@@ -22,6 +22,7 @@
 #
 
 # Importing necessary components
+from argparse import Namespace
 import sys
 import traceback
 
@@ -29,7 +30,7 @@ import traceback
 import adt_conf
 
 # Build hook
-def h_execute_build(arguments):
+def h_execute_build(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     extra_args = arguments[1]
     if (adt_conf.verbose):

@@ -21,7 +21,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Import time
+# Importing necessary components
+from argparse import Namespace
 import time
 
 # Configuration module
@@ -32,7 +33,7 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Commits hook
-def h_execute_commits(arguments):
+def h_execute_commits(arguments: tuple[Namespace, list[str]]):
     # Import git
     git_info = GitReportInfo()
     proj_repo_commits = git_info.commits

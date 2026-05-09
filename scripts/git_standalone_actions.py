@@ -29,7 +29,7 @@ from common.fragments.frag_manual import frag_manual_genlink
 
 
 # Functions
-def s_tags(tags_action_args):
+def s_tags(tags_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt tags',
             description='Tags hook - Aptivi Development Kit (ADT)',
@@ -40,7 +40,7 @@ def s_tags(tags_action_args):
     h_execute_tags(arguments)
 
 
-def s_branches(branches_action_args):
+def s_branches(branches_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt branches',
             description='Branches hook - Aptivi Development Kit (ADT)',
@@ -51,7 +51,7 @@ def s_branches(branches_action_args):
     h_execute_branches(arguments)
 
 
-def s_commits(commits_action_args):
+def s_commits(commits_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt commits',
             description='Commits hook - Aptivi Development Kit (ADT)',
@@ -62,7 +62,7 @@ def s_commits(commits_action_args):
     h_execute_commits(arguments)
 
 
-def s_status(status_action_args):
+def s_status(status_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt status',
             description='Status hook - Aptivi Development Kit (ADT)',
@@ -73,7 +73,7 @@ def s_status(status_action_args):
     h_execute_status(arguments)
 
 
-def s_revert(revert_action_args):
+def s_revert(revert_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt revert',
             description='Revert hook - Aptivi Development Kit (ADT)',
@@ -87,7 +87,7 @@ def s_revert(revert_action_args):
     h_execute_revert(arguments)
 
 
-def s_commit(commit_action_args):
+def s_commit(commit_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt commit',
             description='Commit hook - Aptivi Development Kit (ADT)',
@@ -130,7 +130,7 @@ def s_commit(commit_action_args):
     h_execute_commit(arguments)
 
 
-def s_push(push_action_args):
+def s_push(push_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt push',
             description='Push hook - Aptivi Development Kit (ADT)',
@@ -144,7 +144,7 @@ def s_push(push_action_args):
     h_execute_push(arguments)
 
 
-def s_reset(reset_action_args):
+def s_reset(reset_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt reset',
             description='Reset hook - Aptivi Development Kit (ADT)',
@@ -158,7 +158,7 @@ def s_reset(reset_action_args):
     h_execute_reset(arguments)
 
 
-def s_hardclean(hardclean_action_args):
+def s_hardclean(hardclean_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt hardclean',
             description='Hard clean hook - Aptivi Development Kit (ADT)',

@@ -30,7 +30,7 @@ from common.fragments.frag_manual import frag_manual_genlink
 
 
 # Functions
-def s_build(build_action_args):
+def s_build(build_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt build',
         description='Build hook - Aptivi Development Kit (ADT)',
@@ -49,7 +49,7 @@ def s_build(build_action_args):
     h_execute_build(arguments)
 
 
-def s_clean(clean_action_args):
+def s_clean(clean_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt clean',
         description='Clean hook - Aptivi Development Kit (ADT)',
@@ -65,7 +65,7 @@ def s_clean(clean_action_args):
     h_execute_clean(arguments)
 
 
-def s_test(test_action_args):
+def s_test(test_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt test',
         description='Test hook - Aptivi Development Kit (ADT)',
@@ -84,7 +84,7 @@ def s_test(test_action_args):
     h_execute_test(arguments)
 
 
-def s_increment(increment_action_args):
+def s_increment(increment_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt increment',
         description='Increment hook - Aptivi Development Kit (ADT)',
@@ -108,7 +108,7 @@ def s_increment(increment_action_args):
     h_execute_increment(arguments)
 
 
-def s_vendorize(vendorize_action_args):
+def s_vendorize(vendorize_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt vendorize',
         description='Vendorize hook - Aptivi Development Kit (ADT)',
@@ -124,7 +124,7 @@ def s_vendorize(vendorize_action_args):
     h_execute_vendorize(arguments)
 
 
-def s_gendocs(gendocs_action_args):
+def s_gendocs(gendocs_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt gendocs',
         description='Docs generator hook - Aptivi Development Kit (ADT)',
@@ -140,7 +140,7 @@ def s_gendocs(gendocs_action_args):
     h_execute_gendocs(arguments)
 
 
-def s_packdocs(packdocs_action_args):
+def s_packdocs(packdocs_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt vendorize',
         description='Docs packing hook - Aptivi Development Kit (ADT)',
@@ -156,7 +156,7 @@ def s_packdocs(packdocs_action_args):
     h_execute_packdocs(arguments)
 
 
-def s_packbin(packbin_action_args):
+def s_packbin(packbin_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt packbin',
         description='Binary packing hook - Aptivi Development Kit (ADT)',
@@ -168,7 +168,7 @@ def s_packbin(packbin_action_args):
     h_execute_packbin(arguments)
 
 
-def s_pushbin(pushbin_action_args):
+def s_pushbin(pushbin_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt pushbin',
         description='Binary pushing hook - Aptivi Development Kit (ADT)',
@@ -180,7 +180,7 @@ def s_pushbin(pushbin_action_args):
     h_execute_pushbin(arguments)
 
 
-def s_liquidize(liquidize_action_args):
+def s_liquidize(liquidize_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt liquidize',
         description='Liquidize hook - Aptivi Development Kit (ADT)',
@@ -192,7 +192,7 @@ def s_liquidize(liquidize_action_args):
     h_execute_liquidize(arguments)
 
 
-def s_updatedeps(updatedeps_action_args):
+def s_updatedeps(updatedeps_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt updatedeps',
         description='Depedency update hook - Aptivi Development Kit (ADT)',
@@ -204,7 +204,7 @@ def s_updatedeps(updatedeps_action_args):
     h_execute_updatedeps(arguments)
 
 
-def s_listprojs(listprojs_action_args):
+def s_listprojs(listprojs_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt listprojs',
         description='Project list hook - Aptivi Development Kit (ADT)',

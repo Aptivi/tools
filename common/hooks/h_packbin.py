@@ -22,6 +22,7 @@
 #
 
 # Importing necessary components
+from argparse import Namespace
 import sys
 import traceback
 
@@ -30,7 +31,7 @@ import adt_conf
 
 
 # Binary packing hook
-def h_execute_packbin(arguments):
+def h_execute_packbin(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-packbin actions

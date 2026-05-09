@@ -46,7 +46,7 @@ class LangInfo():
 
 
 # Functions
-def drl_verifypath(json_path, check_english: bool = True):
+def drl_verifypath(json_path: str, check_english: bool = True):
     # Check the directory
     if not os.path.isdir(json_path):
         return False
@@ -59,7 +59,7 @@ def drl_verifypath(json_path, check_english: bool = True):
     return drl_verifylang(json_path, 'eng')
 
 
-def drl_verifylang(json_path, langname: str = 'eng'):
+def drl_verifylang(json_path: str, langname: str = 'eng'):
     # Check the path
     if not drl_verifypath(json_path, False):
         return False
@@ -69,7 +69,7 @@ def drl_verifylang(json_path, langname: str = 'eng'):
     return os.path.isfile(json_file_path)
 
 
-def drl_lslangs(json_path):
+def drl_lslangs(json_path: str):
     # Enumerate all files that start with *.json
     json_list = glob.glob(json_path + "/*.json")
     final_json_list = []
@@ -85,17 +85,17 @@ def drl_lslangs(json_path):
     return final_json_list
 
 
-def drl_getpath(json_path, langname: str = 'eng'):
+def drl_getpath(json_path: str, langname: str = 'eng'):
     return json_path + '/' + langname + '.json'
 
 
-def drl_getresxpath(resx_path, culture: str = 'en'):
+def drl_getresxpath(resx_path: str, culture: str = 'en'):
     culture_pre = f'{culture}.' if culture != 'en' else ''
     file_name = 'Localizations.' + culture_pre + 'resx'
     return resx_path + '/' + file_name
 
 
-def drl_genjson(json_path, langname, cultures):
+def drl_genjson(json_path: str, langname: str, cultures: list[str]):
     # Check the path, but make sure that we're requesting something other
     # than English. In case English gets selected (eng), we need to skip
     # the English verification.
@@ -111,7 +111,7 @@ def drl_genjson(json_path, langname, cultures):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_genjson_final(json_path, lang_info: LangInfo):
+def drl_genjson_final(json_path: str, lang_info: LangInfo):
     # Serialize the JSON language object
     json_doc = json.dumps(lang_info.to_dict(), indent=4)
 
@@ -121,7 +121,7 @@ def drl_genjson_final(json_path, lang_info: LangInfo):
         loc_file.write(json_doc)
 
 
-def drl_deserialize(json_path, langname):
+def drl_deserialize(json_path: str, langname: str):
     # Check the path
     if not drl_verifypath(json_path):
         raise ValueError(f"Invalid path {json_path} or no eng.json found")

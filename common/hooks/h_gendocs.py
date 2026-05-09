@@ -22,6 +22,7 @@
 #
 
 # Importing necessary components
+from argparse import Namespace
 import sys
 import traceback
 
@@ -30,7 +31,7 @@ import adt_conf
 
 
 # Documentation generation hook
-def h_execute_gendocs(arguments):
+def h_execute_gendocs(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-gendocs actions

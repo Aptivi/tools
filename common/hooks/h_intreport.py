@@ -21,7 +21,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Import necessary components
+# Importing necessary components
+from argparse import Namespace
 import sys
 import os
 import traceback
@@ -34,7 +35,7 @@ import adt_conf
 
 
 # Report make hook
-def h_execute_intreport(arguments):
+def h_execute_intreport(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
         print("%r %s | %r %s (%s %i %s %s %s)" %

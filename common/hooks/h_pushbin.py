@@ -22,6 +22,7 @@
 #
 
 # Importing necessary components
+from argparse import Namespace
 import sys
 import traceback
 
@@ -30,7 +31,7 @@ import adt_conf
 
 
 # Binary pushing hook
-def h_execute_pushbin(arguments):
+def h_execute_pushbin(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-pushbin actions

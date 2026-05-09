@@ -21,7 +21,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Import necessary components
+# Importing necessary components
+from argparse import Namespace
 import os
 from common.fragments.frag_dnresxlang import \
     drl_add_culture, drl_add_loc, drl_add_lang, \
@@ -35,7 +36,7 @@ import adt_conf
 
 
 # .NET .resx langauge tools hook
-def h_execute_dnresxlang(arguments):
+def h_execute_dnresxlang(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
         print("%s "

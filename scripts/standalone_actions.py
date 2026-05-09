@@ -29,7 +29,7 @@ from common.fragments.frag_manual import frag_manual_genlink
 
 
 # Functions
-def s_intreport(intreport_action_args):
+def s_intreport(intreport_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt intreport',
         description='Report maker - Aptivi Development Kit (ADT)',
@@ -67,7 +67,7 @@ def s_intreport(intreport_action_args):
     h_execute_intreport(arguments)
 
     
-def s_dnresxlang(dnresxlang_action_args):
+def s_dnresxlang(dnresxlang_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt dnresxlang',
         description='.NET .resx tools for localizations - '

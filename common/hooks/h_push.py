@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Importing necessary components
+from argparse import Namespace
+
 # Load required fragment
 from common.fragments.frag_gitprogress import ProgressFragment
 
@@ -32,7 +35,7 @@ import adt_conf
 
 
 # Push hook
-def h_execute_push(arguments):
+def h_execute_push(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
         print("%s" % (result.remote))

@@ -22,6 +22,7 @@
 #
 
 # Importing necessary components
+from argparse import Namespace
 import sys
 import traceback
 
@@ -30,7 +31,7 @@ import adt_conf
 
 
 # Clean hook
-def h_execute_clean(arguments):
+def h_execute_clean(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-clean actions

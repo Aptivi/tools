@@ -34,7 +34,7 @@ from common.fragments.frag_dnresxlang_parts import \
     drl_deserialize
 
 
-def drl_add_culture(json_path, lang, cultures):
+def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to add a culture. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -55,7 +55,7 @@ def drl_add_culture(json_path, lang, cultures):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_add_loc(json_path, lang, locs):
+def drl_add_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to add a localization. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -82,7 +82,7 @@ def drl_add_loc(json_path, lang, locs):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_add_lang(json_path, lang, cultures):
+def drl_add_lang(json_path: str, lang: str, cultures: list[str]):
     # User wants to add a language. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -96,7 +96,7 @@ def drl_add_lang(json_path, lang, cultures):
     drl_genjson(json_path, lang, cultures)
 
 
-def drl_delete_culture(json_path, lang, cultures):
+def drl_delete_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to delete a culture. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -117,7 +117,7 @@ def drl_delete_culture(json_path, lang, cultures):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_delete_loc(json_path, lang, locs):
+def drl_delete_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to delete a localization. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -144,7 +144,7 @@ def drl_delete_loc(json_path, lang, locs):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_delete_lang(json_path, lang, cultures):
+def drl_delete_lang(json_path: str, lang: str, cultures: list[str]):
     # User wants to delete a language. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -158,7 +158,7 @@ def drl_delete_lang(json_path, lang, cultures):
     os.remove(json_path)
 
 
-def drl_edit_culture(json_path, lang, cultures):
+def drl_edit_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to edit a culture. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -173,7 +173,7 @@ def drl_edit_culture(json_path, lang, cultures):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_edit_loc(json_path, lang, locs):
+def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to edit a localization. Get necessary arguments.
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
@@ -200,7 +200,7 @@ def drl_edit_loc(json_path, lang, locs):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_report(json_path, lang):
+def drl_report(json_path: str, lang: str):
     # User wants to make a report.
     langs = [lang]
     if (not lang) or len(lang) == 0:
@@ -240,7 +240,7 @@ def drl_report(json_path, lang):
     print(report)
 
 
-def drl_save(json_path, resx_path):
+def drl_save(json_path: str, resx_path: str):
     # User wants to save JSON to .resx for .NET.
     if (not resx_path) or len(resx_path) == 0:
         resx_path = json_path + '/Output'

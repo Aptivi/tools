@@ -22,7 +22,7 @@
 #
 
 
-def frag_manual_genlink(section):
+def frag_manual_genlink(section: str):
     link = 'https://aptivi.gitbook.io/aptivi/aptivi-development-toolkit/%s' \
         % (section)
     return link
