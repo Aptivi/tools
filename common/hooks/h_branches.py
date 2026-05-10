@@ -33,10 +33,17 @@ import adt_conf
 
 # Branches hook
 def h_execute_branches(arguments: tuple[Namespace, list[str]]):
+    result = arguments[0]
+
     # Get the report info
     git_info = GitReportInfo()
     proj_repo_branches = git_info.branches
+    proj_repo_remote_branches = git_info.remote_branches
     if (adt_conf.verbose):
-        print("Count is [%i]" % (len(proj_repo_branches)))
+        print("L_Count is [%i]" % (len(proj_repo_branches)))
+        print("R_Count is [%i]" % (len(proj_repo_remote_branches)))
     for branch in proj_repo_branches:
         print(branch)
+    for branch in proj_repo_remote_branches:
+        if (result.remotes):
+            print(branch)

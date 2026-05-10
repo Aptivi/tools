@@ -53,6 +53,7 @@ class GitReportInfo():
             'Index version:': self.index.version,
             'Index entries:': len(self.index.entries),
             'Branches count:': len(self.branches),
+            'Remote branches count:': len(self.remote_branches),
             'Tags count:': len(self.tags),
             'Commits count:': len(self.commits),
             'Untracked files count:': len(self.untracked_files),
@@ -67,8 +68,17 @@ class GitReportInfo():
             report = report + "Branches list\n\n"
             for branch in self.branches:
                 report = report + f'{branch.name:32}   ' + \
-                                f'[{branch.commit.hexsha} ' + \
-                                f'{branch.commit.summary}]\n'
+                                  f'[{branch.commit.hexsha} ' + \
+                                  f'{branch.commit.summary}]\n'
+            report = report + "\n\n"
+
+        if (len(self.remote_branches) > 0):
+            # Generate the remote branches list
+            report = report + "Remote branches list\n\n"
+            for branch in self.remote_branches:
+                report = report + f'{branch.name:32}   ' + \
+                                  f'[{branch.commit.hexsha} ' + \
+                                  f'{branch.commit.summary}]\n'
             report = report + "\n\n"
 
         if (len(self.tags) > 0):
@@ -112,6 +122,7 @@ class GitReportInfo():
     def __init__(self):
         self.repo = Repo(adt_conf.project_path)
         self.branches = self.repo.branches
+        self.remote_branches = self.repo.remote().refs
         self.tags = self.repo.tags
         self.commits = list(self.repo.iter_commits())
         self.untracked_files = self.repo.untracked_files

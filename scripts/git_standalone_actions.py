@@ -46,6 +46,9 @@ def s_branches(branches_action_args: list[str]):
             description='Branches hook - Aptivi Development Kit (ADT)',
             epilog=frag_manual_genlink(\
                 'build-system/structure#git-specific-actions'))
+    parser.add_argument('-r', '--remotes',
+                        action="store_true",
+                        help='Whether to list remote branches')
     from common.hooks.h_branches import h_execute_branches
     arguments = parser.parse_known_args(branches_action_args)
     h_execute_branches(arguments)
