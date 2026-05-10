@@ -37,7 +37,8 @@ from scripts.proj_actions import \
     s_listprojs
 from scripts.standalone_actions import \
     s_intreport, \
-    s_dnresxlang
+    s_dnresxlang, \
+    s_custom_action
 from scripts.git_standalone_actions import \
     s_tags, \
     s_branches, \
@@ -62,21 +63,7 @@ import sys
 parser = argparse.ArgumentParser(
          prog='adt.py',
          add_help=False)
-parser.add_argument('action',
-                    metavar='action',
-                    choices=[
-                        # Project-specific actions
-                        'build', 'clean', 'test', 'increment', 'vendorize',
-                        'gendocs', 'packdocs', 'packbin', 'pushbin',
-                        'liquidize', 'updatedeps', 'listprojs',
-
-                        # Standalone actions
-                        'intreport', 'dnresxlang',
-
-                        # Standalone Git actions
-                        'tags', 'branches', 'commits', 'status', 'revert',
-                        'commit', 'push', 'reset', 'hardclean'
-                    ])
+parser.add_argument('action')
 parser.add_argument('--nobanner',
                     action='store_true')
 parser.add_argument('--self',
@@ -162,3 +149,7 @@ if __name__ == "__main__":
             s_reset(actargs)
         case "hardclean":
             s_hardclean(actargs)
+        
+        # Other unknown action
+        case _:
+            s_custom_action(actargs)

@@ -21,8 +21,13 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Configuration module
+import adt_conf
+
 # Processing the arguments
 import argparse
+import importlib
+from common.fragments.frag_projecttools import frag_pt_preparevendor
 
 # Other imports
 from common.fragments.frag_manual import frag_manual_genlink
@@ -128,3 +133,9 @@ def s_dnresxlang(dnresxlang_action_args: list[str]):
     from common.hooks.h_dnresxlang import h_execute_dnresxlang
     arguments = parser.parse_known_args(dnresxlang_action_args)
     h_execute_dnresxlang(arguments)
+    
+
+def s_custom_action(custom_action_args: list[str]):
+    frag_pt_preparevendor()
+    vnd_module = importlib.import_module(f'vnd_{adt_conf.action}')
+    vnd_module.vnd_action(custom_action_args)
