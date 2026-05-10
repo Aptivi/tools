@@ -71,16 +71,20 @@ def h_execute_intreport(arguments: tuple[Namespace, list[str]]):
             local_path = \
                 f"{os.environ["LOCALAPPDATA"]}\\Aptivi\\ADT\\Reports" \
                 if os.name == 'nt' else "/usr/local/share/aptdev"
+        if (adt_conf.verbose):
+            print("initial local path: %s" % (result.local_path))
+            print("final   local path: %s" % (local_path))
         if not (os.path.isdir(local_path)):
             if (adt_conf.verbose):
-                print('Creating local path %s.' % local_path)
+                print('Creating local path %s' % local_path)
             os.makedirs(local_path)
         
         # Upload the report
         report_file_path = os.path.abspath(
             local_path + '/' + git_report['filename'])
         if (adt_conf.verbose):
-            print('Opening report file %s.' % report_file_path)
+            print('Opening report file %s' % (report_file_path))
+            print('git_report filename %s' % (git_report['filename']))
         with open(report_file_path, "w") as report_file:
             print('Writing report to %s...' % report_file_path)
             report_file.write(git_report['report'])
@@ -114,7 +118,8 @@ def h_execute_intreport(arguments: tuple[Namespace, list[str]]):
             # Upload the report
             report_path = result.remote_path + '/' + git_report['filename']
             if (adt_conf.verbose):
-                print('Opening report file %s.' % report_path)
+                print('Opening report file %s' % (report_path))
+                print('git_report filename %s' % (git_report['filename']))
             with sftp_client.open(report_path, 'w') as report_file:
                 print('Writing report to %s...' % report_path)
                 report_file.write(git_report['report'])
@@ -124,3 +129,5 @@ def h_execute_intreport(arguments: tuple[Namespace, list[str]]):
             traceback.print_exception(exc)
         finally:
             ssh_client.close()
+            if (adt_conf.verbose):
+                print('Closed connection')

@@ -30,6 +30,8 @@ def frag_pt_getprojectroot(self: bool):
     abs_path = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.abspath(abs_path + '/../../' + \
             ('' if self else '../'))
+    if (adt_conf.verbose):
+        print("project root (%r, %s, %s)" % (self, abs_path, project_root))
     return project_root
 
 
@@ -38,6 +40,8 @@ def frag_pt_addvendor():
     if not (os.path.isdir(adt_conf.vendor_path)):
         print('Vendor directory doesn\'t exist.')
         sys.exit(2)
+    if (adt_conf.verbose):
+        print("vendor path (%s)" % (adt_conf.vendor_path))
     sys.path.append(adt_conf.vendor_path)
 
 
@@ -50,9 +54,15 @@ def frag_pt_checkvendoraction(action: str):
     if not (os.path.isfile(vendor_script_dir)):
         print('%s vendor script doesn\'t exist. Doing nothing...' % (action))
         sys.exit(3)
+    if (adt_conf.verbose):
+        print("action %s" % (action))
+        print("vendor script path (%s)" % (vendor_script_dir))
 
 
 def frag_pt_preparevendor():
-    print('Preparing vendor env config for %s...' % (adt_conf.action))
+    if (adt_conf.verbose):
+        print('Preparing vendor env config for %s...' % (adt_conf.action))
     frag_pt_addvendor()
     frag_pt_checkvendoraction(adt_conf.action)
+    if (adt_conf.verbose):
+        print('Preparation successful. Running action %s...' % (adt_conf.action))

@@ -41,16 +41,21 @@ def h_execute_status(arguments: tuple[Namespace, list[str]]):
     print("Dirty: %r" % proj_repo_dirty)
 
     # Untracked files
+    print("== Untracked objects ==\n")
     proj_repo_untracked_files = git_info.untracked_files
-    if (adt_conf.verbose):
-        print("untracked_count: %r" % (len(proj_repo_untracked_files)))
     for untracked in proj_repo_untracked_files:
         print("Untracked file or directory: %s" % untracked)
-    print("Untracked objects: %i" % len(proj_repo_untracked_files))
+    print("Untracked objects: %i\n" % len(proj_repo_untracked_files))
 
     # Repo index
+    print("== Repo index ==\n")
     proj_repo_index = git_info.index
     changes = proj_repo_index.diff(None)
     for change in changes:
+        if (adt_conf.verbose):
+            print("change.change_type: %s" % (change.change_type))
+            print("change.a_path: %s" % (change.a_path))
+            print("change.b_path: %s" % (change.b_path))
+            print("change.score: %s" % (change.score))
         print("Change [%s]: %s" % (change.change_type, change.a_path))
     print("Changes made: %i" % len(changes))

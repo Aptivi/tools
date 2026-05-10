@@ -39,4 +39,6 @@ def h_execute_revert(arguments: tuple[Namespace, list[str]]):
 
     # Get the report info
     git_info = GitReportInfo()
+    if (adt_conf.verbose):
+        print("Executing \"git revert %s\"" % (result.commit))
     git_info.repo.git.execute(["git", "revert", result.commit])

@@ -39,4 +39,6 @@ def h_execute_hardclean(arguments: tuple[Namespace, list[str]]):
 
     # Get the report info
     git_info = GitReportInfo()
+    if (adt_conf.verbose):
+        print("Executing \"git clean -xdf\"")
     git_info.repo.git.execute(["git", "clean", "-xdf"])

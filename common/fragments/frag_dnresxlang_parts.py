@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Configuration module
+import adt_conf
+
 # Import JSON and XML libraries
 import json
 
@@ -48,6 +51,8 @@ class LangInfo():
 # Functions
 def drl_verifypath(json_path: str, check_english: bool = True):
     # Check the directory
+    if (adt_conf.verbose):
+        print("drl_verifypath(%s, %r)" % (json_path, check_english))
     if not os.path.isdir(json_path):
         return False
     if not check_english:
@@ -61,6 +66,8 @@ def drl_verifypath(json_path: str, check_english: bool = True):
 
 def drl_verifylang(json_path: str, langname: str = 'eng'):
     # Check the path
+    if (adt_conf.verbose):
+        print("drl_verifylang(%s, %s)" % (json_path, langname))
     if not drl_verifypath(json_path, False):
         return False
 
@@ -71,13 +78,20 @@ def drl_verifylang(json_path: str, langname: str = 'eng'):
 
 def drl_lslangs(json_path: str):
     # Enumerate all files that start with *.json
+    if (adt_conf.verbose):
+        print("drl_lslangs(%s)" % (json_path))
     json_list = glob.glob(json_path + "/*.json")
     final_json_list = []
     for json_file in json_list:
+        if (adt_conf.verbose):
+            print("json_file %s" % (json_file))
+
         # Deserialize the file and verify its structure
         try:
             file_name = Path(json_file).stem
             lang_info = drl_deserialize(json_path, file_name)
+            if (adt_conf.verbose):
+                print("file_name %s [%s]" % (file_name, lang_info))
             if lang_info is not None:
                 final_json_list.append(file_name)
         except Exception:
@@ -86,13 +100,21 @@ def drl_lslangs(json_path: str):
 
 
 def drl_getpath(json_path: str, langname: str = 'eng'):
-    return json_path + '/' + langname + '.json'
+    final_path = json_path + '/' + langname + '.json'
+    if (adt_conf.verbose):
+        print("drl_getpath(%s, %s) = %s" % (json_path, langname, final_path))
+    return final_path
 
 
 def drl_getresxpath(resx_path: str, culture: str = 'en'):
     culture_pre = f'{culture}.' if culture != 'en' else ''
     file_name = 'Localizations.' + culture_pre + 'resx'
-    return resx_path + '/' + file_name
+    result_resx_path = resx_path + '/' + file_name
+    if (adt_conf.verbose):
+        print("drl_getresxpath(%s, %s)" % (resx_path, culture))
+        print("c = %s, fn = %s, rrp = %s" % \
+              (culture_pre, file_name, result_resx_path))
+    return result_resx_path
 
 
 def drl_genjson(json_path: str, langname: str, cultures: list[str]):

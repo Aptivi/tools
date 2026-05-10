@@ -70,6 +70,7 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
                 print("sm untracked: %s" % (untracked))
             continue
         if (adt_conf.verbose):
+            print("untracked_abs: %s" % (untracked_abs))
             print("untracked: %s" % (untracked))
         if not result.dry:
             git_info.index.add(untracked)
@@ -89,12 +90,14 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
         )
         if (adt_conf.verbose):
             print("sm source track: [%r] %s" % (source_is_submodule, change.a_path))
+            print("sm source track abs: [%r] %s" % (source_is_submodule, a_path_abs))
         target_is_submodule = any(
             b_path_abs.startswith(sm.module().working_tree_dir)
             for sm in submodules
         )
         if (adt_conf.verbose):
             print("sm target track: [%r] %s" % (target_is_submodule, change.b_path))
+            print("sm target track abs: [%r] %s" % (target_is_submodule, b_path_abs))
 
         # Now, handle the changes
         if (adt_conf.verbose):
@@ -103,27 +106,37 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
             case "A":
                 if not target_is_submodule:
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("add git_info.index(%s)" % (change.b_path))
                         git_info.index.add(change.b_path)
             case "D":
                 if not source_is_submodule:
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("rem git_info.index(%s)" % (change.a_path))
                         git_info.index.remove(change.a_path)
             case "R":
                 if not source_is_submodule:
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("rem git_info.index(%s)" % (change.a_path))
                         git_info.index.remove(change.a_path)
                 if not target_is_submodule:
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("add git_info.index(%s)" % (change.b_path))
                         git_info.index.add(change.b_path)
             case "M":
                 if not target_is_submodule:
-                    if (adt_conf.verbose):
-                        print("b path: %s" % (change.b_path))
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("add git_info.index(%s)" % (change.b_path))
                         git_info.index.add(change.b_path)
             case "T":
                 if not target_is_submodule:
                     if not result.dry:
+                        if (adt_conf.verbose):
+                            print("add git_info.index(%s)" % (change.b_path))
                         git_info.index.add(change.b_path)
     
     # Add remaining changes
@@ -221,6 +234,8 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
     # Make a commit
     final_message = final_summary + "\n\n" + final_body
     if not result.dry:
+        if (adt_conf.verbose):
+            print(final_message)
         git_info.index.commit(final_summary + "\n\n" + final_body)
     else:
         print(final_message)

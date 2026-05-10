@@ -21,7 +21,11 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Importing necessary components
 from git import RemoteProgress
+
+# Configuration module
+import adt_conf
 
 operation_mapping = {
     RemoteProgress.CHECKING_OUT: "Checking out files",
@@ -57,8 +61,9 @@ class CodeMapper():
 class ProgressFragment(RemoteProgress):
     def update(self, op_code, cur_count, max_count=None, message=""):
         mapper = CodeMapper(op_code)
-        print("\r%s - %i of %i - %i%%%s\x1b[K"
+        print("\r%s - %i of %i - %i%%%s"
               % (mapper.get_opcode_string(),
                  cur_count, max_count,
                  (cur_count / (max_count or 100.0)) * 100,
                  (" - " + message) if message else ""), end="")
+        print("\n" if adt_conf.verbose else "\x1b[K", end="")

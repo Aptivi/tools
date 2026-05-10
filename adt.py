@@ -105,8 +105,9 @@ if __name__ == "__main__":
         print('\n\n')
         print(f'                == Aptivi Development Toolkit (ADT) v{version} ==')
         print('\n\n')
-        print(f'Action:  {adt_conf.action} {actargs}')
-        print(f'Project: {adt_conf.project_name} [{adt_conf.project_path}]\n')
+        if adt_conf.verbose:
+            print(f'Action:  {adt_conf.action} {actargs}')
+            print(f'Project: {adt_conf.project_name} [{adt_conf.project_path}]\n')
 
     # Match action
     match adt_conf.action:

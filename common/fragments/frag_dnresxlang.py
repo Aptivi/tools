@@ -21,6 +21,9 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Configuration module
+import adt_conf
+
 # Import necessary components
 import os
 import xml.etree.ElementTree as XmlElementTree
@@ -36,6 +39,8 @@ from common.fragments.frag_dnresxlang_parts import \
 
 def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to add a culture. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_add_culture(%s, %s, %s)" % (json_path, lang, cultures))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not cultures) or len(cultures) == 0:
@@ -57,6 +62,8 @@ def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
 
 def drl_add_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to add a localization. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_add_loc(%s, %s, %s)" % (json_path, lang, locs))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not locs) or len(locs) == 0:
@@ -84,6 +91,8 @@ def drl_add_loc(json_path: str, lang: str, locs: list[str]):
 
 def drl_add_lang(json_path: str, lang: str, cultures: list[str]):
     # User wants to add a language. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_add_lang(%s, %s, %s)" % (json_path, lang, cultures))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not cultures) or len(cultures) == 0:
@@ -98,6 +107,8 @@ def drl_add_lang(json_path: str, lang: str, cultures: list[str]):
 
 def drl_delete_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to delete a culture. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_delete_culture(%s, %s, %s)" % (json_path, lang, cultures))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not cultures) or len(cultures) == 0:
@@ -119,6 +130,8 @@ def drl_delete_culture(json_path: str, lang: str, cultures: list[str]):
 
 def drl_delete_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to delete a localization. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_delete_loc(%s, %s, %s)" % (json_path, lang, locs))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not locs) or len(locs) == 0:
@@ -146,6 +159,8 @@ def drl_delete_loc(json_path: str, lang: str, locs: list[str]):
 
 def drl_delete_lang(json_path: str, lang: str, cultures: list[str]):
     # User wants to delete a language. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_delete_lang(%s, %s, %s)" % (json_path, lang, cultures))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not cultures) or len(cultures) == 0:
@@ -160,6 +175,8 @@ def drl_delete_lang(json_path: str, lang: str, cultures: list[str]):
 
 def drl_edit_culture(json_path: str, lang: str, cultures: list[str]):
     # User wants to edit a culture. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_edit_culture(%s, %s, %s)" % (json_path, lang, cultures))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not cultures) or len(cultures) == 0:
@@ -175,6 +192,8 @@ def drl_edit_culture(json_path: str, lang: str, cultures: list[str]):
 
 def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
     # User wants to edit a localization. Get necessary arguments.
+    if (adt_conf.verbose):
+        print("drl_edit_loc(%s, %s, %s)" % (json_path, lang, locs))
     if (not lang) or len(lang) == 0:
         raise ValueError("Language not specified")
     if (not locs) or len(locs) == 0:
@@ -202,6 +221,8 @@ def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
 
 def drl_report(json_path: str, lang: str):
     # User wants to make a report.
+    if (adt_conf.verbose):
+        print("drl_report(%s, %s)" % (json_path, lang))
     langs = [lang]
     if (not lang) or len(lang) == 0:
         langs = drl_lslangs(json_path)
@@ -242,6 +263,8 @@ def drl_report(json_path: str, lang: str):
 
 def drl_save(json_path: str, resx_path: str):
     # User wants to save JSON to .resx for .NET.
+    if (adt_conf.verbose):
+        print("drl_save(%s, %s)" % (json_path, resx_path))
     if (not resx_path) or len(resx_path) == 0:
         resx_path = json_path + '/Output'
     if not os.path.isdir(resx_path):
@@ -260,11 +283,15 @@ def drl_save(json_path: str, resx_path: str):
         # culture for string management according to
         # System.Globalization.CultureInfo.CurrentUICulture.
         shortest_culture = min(lang_info.cultures, key=len)
+        if (adt_conf.verbose):
+            print("shortest culture str found (%s)" % (shortest_culture))
 
         # We need to construct the file path for the resources file for this
         # language for .NET to be able to find them and automatically insert
         # them during the building phase.
         resource_path = drl_getresxpath(resx_path, shortest_culture)
+        if (adt_conf.verbose):
+            print("res obtained (%s)" % (resource_path))
 
         # Since we have the .resx file, we need to construct the XML file to
         # generate a valid resources file.
@@ -397,6 +424,8 @@ def drl_save(json_path: str, resx_path: str):
             # Get localization ID and value
             loc_id = loc["loc"]
             loc_value = loc["text"]
+            if (adt_conf.verbose):
+                print("added loc (%s, %s)" % (loc_id, loc_value))
 
             # Add a data component.
             data_elem = XmlElementTree.Element('data', name=loc_id)

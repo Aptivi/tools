@@ -39,4 +39,6 @@ def h_execute_reset(arguments: tuple[Namespace, list[str]]):
 
     # Get the report info
     git_info = GitReportInfo()
+    if (adt_conf.verbose):
+        print("Resetting to \"%s\"" % (result.commit))
     git_info.head.reset(result.commit)
