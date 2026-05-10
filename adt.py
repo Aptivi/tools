@@ -56,27 +56,30 @@ import adt_conf
 # Project root
 from common.fragments.frag_projecttools import frag_pt_getprojectroot
 
-# Processing the arguments
+# Other necessary imports
 import argparse
 import os
 import sys
-parser = argparse.ArgumentParser(
-         prog='adt.py',
-         add_help=False)
-parser.add_argument('action')
-parser.add_argument('--nobanner',
-                    action='store_true')
-parser.add_argument('--self',
-                    action='store_true')
-parser.add_argument('-v', '--verbose',
-                    action='store_true')
-
-# Buffer issue fix
-sys.stdout.reconfigure(line_buffering=True)
 
 # Main
 version = '1.0.2.0'
 if __name__ == "__main__":
+    # Processing the arguments
+    parser = argparse.ArgumentParser(
+            prog='adt.py',
+            add_help=False)
+    parser.add_argument('action')
+    parser.add_argument('--nobanner',
+                        action='store_true')
+    parser.add_argument('--self',
+                        action='store_true')
+    parser.add_argument('-v', '--verbose',
+                        action='store_true')
+    parser.add_argument('--version', action='version', version=f'{version}')
+
+    # Buffer issue fix
+    sys.stdout.reconfigure(line_buffering=True)
+
     # Configuration
     parser_args = parser.parse_known_args()
     adt_conf.action = parser_args[0].action
