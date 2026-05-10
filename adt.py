@@ -62,7 +62,7 @@ import os
 import sys
 
 # Main
-version = '1.0.2.0'
+version = '1.1.0.0'
 if __name__ == "__main__":
     # Processing the arguments
     parser = argparse.ArgumentParser(
