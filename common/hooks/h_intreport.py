@@ -52,7 +52,7 @@ def h_execute_intreport(arguments: tuple[Namespace, list[str]]):
     git_report = git_info.generate_report()
     if (adt_conf.verbose):
         print(git_report)
-        print("\n\nReport size: %i bytes" % (len(git_report)))
+        print("\n\nReport size: %i bytes" % (len(git_report['report'])))
 
     # Check the upload type
     is_local = result.local
