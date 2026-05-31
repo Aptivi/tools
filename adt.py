@@ -77,12 +77,10 @@ if __name__ == "__main__":
             prog='adt.py',
             add_help=False)
     parser.add_argument('action')
-    parser.add_argument('--nobanner',
-                        action='store_true')
-    parser.add_argument('--self',
-                        action='store_true')
-    parser.add_argument('-v', '--verbose',
-                        action='store_true')
+    parser.add_argument('--nobanner', action='store_true')
+    parser.add_argument('--self', action='store_true')
+    parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('--path')
     parser.add_argument('--version', action='version', version=f'{version}')
 
     # Buffer issue fix
@@ -92,9 +90,10 @@ if __name__ == "__main__":
     parser_args = parser.parse_known_args()
     adt_conf.action = parser_args[0].action
     adt_conf.nobanner = parser_args[0].nobanner
-    adt_conf.on_self = parser_args[0].self
+    adt_conf.on_self = False if parser_args[0].path else parser_args[0].self
     adt_conf.verbose = parser_args[0].verbose
-    adt_conf.project_path = frag_pt_getprojectroot(adt_conf.on_self)
+    adt_conf.project_path = frag_pt_getprojectroot(adt_conf.on_self,
+                                                   parser_args[0].path)
     adt_conf.project_name = os.path.basename(adt_conf.project_path)
     actargs = parser_args[1]
 

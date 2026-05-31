@@ -26,12 +26,17 @@ import sys
 import adt_conf
 
 
-def frag_pt_getprojectroot(self: bool):
-    abs_path = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.abspath(abs_path + '/../../' + \
-            ('' if self else '../'))
+def frag_pt_getprojectroot(self: bool, path: string):
+    if path:
+        abs_path = os.path.abspath(path)
+        project_root = abs_path
+    else:
+        abs_path = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(abs_path + '/../../' + \
+                ('' if self else '../'))
     if (adt_conf.verbose):
-        print("project root (%r, %s, %s)" % (self, abs_path, project_root))
+        print("project root (%r, %s, %s, %s)" % \
+                (self, abs_path, project_root, path))
     return project_root
 
 
