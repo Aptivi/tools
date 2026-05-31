@@ -128,6 +128,9 @@ def s_commit(commit_action_args: list[str]):
     parser.add_argument('-d', '--dry',
                         action="store_true",
                         help='Whether to run dryly (no actual commit)')
+    parser.add_argument('-p', '--push',
+                        action="store_true",
+                        help='Whether to push the commit immediately')
     from common.hooks.h_commit import h_execute_commit
     arguments = parser.parse_known_args(commit_action_args)
     h_execute_commit(arguments)

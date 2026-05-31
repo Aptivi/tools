@@ -23,12 +23,7 @@
 
 # Importing necessary components
 from argparse import Namespace
-
-# Load required fragment
-from common.fragments.frag_gitprogress import ProgressFragment
-
-# Git report info class
-from common.fragments.frag_gitreport import GitReportInfo
+from common.fragments.frag_gitactions import gitaction_pushtoremote
 
 # Configuration module
 import adt_conf
@@ -40,8 +35,5 @@ def h_execute_push(arguments: tuple[Namespace, list[str]]):
     if (adt_conf.verbose):
         print("%s" % (result.remote))
 
-    # Get the report info
-    git_info = GitReportInfo()
-    remote = git_info.repo.remote(result.remote)
-    remote.push(git_info.active_branch.name, progress=ProgressFragment())
-    print("\n\nPush finished. Refer to above output for info.")
+    # Push to remote
+    gitaction_pushtoremote()
