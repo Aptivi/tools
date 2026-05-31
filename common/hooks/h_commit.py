@@ -43,7 +43,7 @@ valid_attrs = ['brk', 'sec', 'prf', 'reg', 'doc', 'ptp', 'prt', 'bkp']
 def h_execute_commit(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
-        print("%r %s %s %s %r %s %s %i %i %r\n\n%s" % \
+        print("%r %s %s %s %r %s %s %i %i %r %s\n\n%s" % \
             (result.dry,
              result.summary,
              result.type,
@@ -54,6 +54,7 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
              result.part_number,
              result.part_total,
              result.push,
+             result.remote,
              result.body))
 
     # Get the report info

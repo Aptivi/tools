@@ -131,6 +131,9 @@ def s_commit(commit_action_args: list[str]):
     parser.add_argument('-p', '--push',
                         action="store_true",
                         help='Whether to push the commit immediately')
+    parser.add_argument('-r', '--remote',
+                        help='Specifies a remote to use',
+                        default="origin")
     from common.hooks.h_commit import h_execute_commit
     arguments = parser.parse_known_args(commit_action_args)
     h_execute_commit(arguments)
