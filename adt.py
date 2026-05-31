@@ -22,33 +22,9 @@
 #
 
 # Importing the scripts
-from scripts.proj_actions import \
-    s_build, \
-    s_clean, \
-    s_test, \
-    s_increment, \
-    s_vendorize, \
-    s_gendocs, \
-    s_packdocs, \
-    s_packbin, \
-    s_pushbin, \
-    s_liquidize, \
-    s_updatedeps, \
-    s_listprojs
-from scripts.standalone_actions import \
-    s_intreport, \
-    s_dnresxlang, \
-    s_custom_action
-from scripts.git_standalone_actions import \
-    s_tags, \
-    s_branches, \
-    s_commits, \
-    s_status, \
-    s_revert, \
-    s_commit, \
-    s_push, \
-    s_reset, \
-    s_hardclean
+from scripts.proj_actions import *
+from scripts.standalone_actions import *
+from scripts.git_standalone_actions import *
 
 # Configuration module
 import adt_conf
@@ -60,6 +36,38 @@ from common.fragments.frag_projecttools import frag_pt_getprojectroot
 import argparse
 import os
 import sys
+
+# Function mapping
+function_map = {
+    # Project-specific
+    'build': s_build,
+    'clean': s_clean,
+    'test': s_test,
+    'increment': s_increment,
+    'vendorize': s_vendorize,
+    'gendocs': s_gendocs,
+    'packdocs': s_packdocs,
+    'packbin': s_packbin,
+    'pushbin': s_pushbin,
+    'liquidize': s_liquidize,
+    'updatedeps': s_updatedeps,
+    'listprojs': s_listprojs,
+
+    # Standalone
+    'intreport': s_intreport,
+    'dnresxlang': s_dnresxlang,
+    
+    # Git standalone
+    'tags': s_tags,
+    'branches': s_branches,
+    'commits': s_commits,
+    'status': s_status,
+    'revert': s_revert,
+    'commit': s_commit,
+    'push': s_push,
+    'reset': s_reset,
+    'hardclean': s_hardclean,
+}
 
 # Main
 version = '1.1.0.0'
@@ -100,59 +108,7 @@ if __name__ == "__main__":
             print(f'Project: {adt_conf.project_name} [{adt_conf.project_path}]\n')
 
     # Match action
-    match adt_conf.action:
-        # Project-specific
-        case "build":
-            s_build(actargs)
-        case "clean":
-            s_clean(actargs)
-        case "test":
-            s_test(actargs)
-        case "increment":
-            s_increment(actargs)
-        case "vendorize":
-            s_vendorize(actargs)
-        case "gendocs":
-            s_gendocs(actargs)
-        case "packdocs":
-            s_packdocs(actargs)
-        case "packbin":
-            s_packbin(actargs)
-        case "pushbin":
-            s_pushbin(actargs)
-        case "liquidize":
-            s_liquidize(actargs)
-        case "updatedeps":
-            s_updatedeps(actargs)
-        case "listprojs":
-            s_listprojs(actargs)
-
-        # Standalone
-        case "intreport":
-            s_intreport(actargs)
-        case "dnresxlang":
-            s_dnresxlang(actargs)
-
-        # Git standalone
-        case "tags":
-            s_tags(actargs)
-        case "branches":
-            s_branches(actargs)
-        case "commits":
-            s_commits(actargs)
-        case "status":
-            s_status(actargs)
-        case "revert":
-            s_revert(actargs)
-        case "commit":
-            s_commit(actargs)
-        case "push":
-            s_push(actargs)
-        case "reset":
-            s_reset(actargs)
-        case "hardclean":
-            s_hardclean(actargs)
-        
-        # Other unknown action
-        case _:
-            s_custom_action(actargs)
+    if adt_conf.action in function_map:
+        function_map[adt_conf.action](actargs)
+    else:
+        s_custom_action(actargs)
