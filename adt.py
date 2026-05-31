@@ -65,6 +65,8 @@ function_map = {
     'revert': s_revert,
     'commit': s_commit,
     'push': s_push,
+    'fetch': s_fetch,
+    'pull': s_pull,
     'reset': s_reset,
     'hardclean': s_hardclean,
 }

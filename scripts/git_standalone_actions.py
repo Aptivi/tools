@@ -153,6 +153,34 @@ def s_push(push_action_args: list[str]):
     h_execute_push(arguments)
 
 
+def s_fetch(fetch_action_args: list[str]):
+    parser = argparse.ArgumentParser(
+            prog='adt fetch',
+            description='Fetch hook - Aptivi Development Kit (ADT)',
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
+    parser.add_argument('-r', '--remote',
+                        help='Specifies a remote to use',
+                        default="origin")
+    from common.hooks.h_fetch import h_execute_fetch
+    arguments = parser.parse_known_args(fetch_action_args)
+    h_execute_fetch(arguments)
+
+
+def s_pull(pull_action_args: list[str]):
+    parser = argparse.ArgumentParser(
+            prog='adt pull',
+            description='Pull hook - Aptivi Development Kit (ADT)',
+            epilog=frag_manual_genlink(\
+                'build-system/structure#git-specific-actions'))
+    parser.add_argument('-r', '--remote',
+                        help='Specifies a remote to use',
+                        default="origin")
+    from common.hooks.h_pull import h_execute_pull
+    arguments = parser.parse_known_args(pull_action_args)
+    h_execute_pull(arguments)
+
+
 def s_reset(reset_action_args: list[str]):
     parser = argparse.ArgumentParser(
             prog='adt reset',

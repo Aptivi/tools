@@ -36,3 +36,19 @@ def gitaction_pushtoremote(result):
     remote = git_info.repo.remote(result.remote)
     remote.push(git_info.active_branch.name, progress=ProgressFragment())
     print("\n\nPush finished. Refer to above output for info.")
+
+
+def gitaction_fetchfromremote(result):
+    # Get the report info
+    git_info = GitReportInfo()
+    remote = git_info.repo.remote(result.remote)
+    remote.fetch(git_info.active_branch.name, progress=ProgressFragment())
+    print("\n\nFetch finished. Refer to above output for info.")
+
+
+def gitaction_pullfromremote(result):
+    # Get the report info
+    git_info = GitReportInfo()
+    remote = git_info.repo.remote(result.remote)
+    remote.pull(git_info.active_branch.name, progress=ProgressFragment())
+    print("\n\nPull finished. Refer to above output for info.")
