@@ -245,6 +245,6 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
     # Push if necessary
     if result.push:
         if not result.dry:
-            gitaction_pushtoremote()
+            gitaction_pushtoremote(result)
         else:
             print('\nWould push this commit')

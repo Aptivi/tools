@@ -36,4 +36,4 @@ def h_execute_push(arguments: tuple[Namespace, list[str]]):
         print("%s" % (result.remote))
 
     # Push to remote
-    gitaction_pushtoremote()
+    gitaction_pushtoremote(result)
