@@ -26,7 +26,7 @@ import sys
 import adt_conf
 
 
-def frag_pt_getprojectroot(self: bool, path: string):
+def frag_pt_getprojectroot(self: bool, path: str):
     if path:
         abs_path = os.path.abspath(path)
         project_root = abs_path
