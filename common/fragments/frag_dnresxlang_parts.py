@@ -155,7 +155,7 @@ def drl_deserialize(json_path: str, langname: str):
     # Deserialize the JSON representation
     file_path = json_path + '/' + langname + '.json'
     lang_info = None
-    with open(file_path, 'r') as lang_json_file:
+    with open(file_path, 'r', encoding='utf8') as lang_json_file:
         lang_json = lang_json_file.read()
         loaded_obj = json.loads(lang_json)
         loaded_lang = loaded_obj["lang"]
