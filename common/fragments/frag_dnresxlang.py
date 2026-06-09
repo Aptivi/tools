@@ -379,5 +379,5 @@ def drl_save(json_path: str, resx_path: str):
         # Save the XML
         XmlElementTree.indent(xml_doc_tree, space='  ')
         xml_doc_tree.write(resource_path,
-                           encoding='utf8',
+                           encoding='utf-8',
                            xml_declaration=True)
