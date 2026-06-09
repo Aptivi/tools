@@ -72,7 +72,7 @@ function_map = {
 }
 
 # Main
-version = '1.2.0.1'
+version = '1.2.0.2'
 if __name__ == "__main__":
     # Processing the arguments
     parser = argparse.ArgumentParser(
