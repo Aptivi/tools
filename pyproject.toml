@@ -1,0 +1,31 @@
+[project]
+name = "adt"
+version = "1.2.0.2"
+authors = [
+  { name="Aptivi", email="eoflaoevicecity@gmail.com" },
+]
+description = "Aptivi Development Kit"
+readme = "README.md"
+requires-python = ">=3.9"
+#dependencies = [
+#  "paramiko",
+#  "GitPython",
+#]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/aptivi/tools"
+Issues = "https://github.com/aptivi/tools/issues"
+
+[project.scripts]
+adt = "adt:main"
+
+[tool.setuptools]
+py-modules = ["adt", "adt_conf"]
+packages = ["scripts", "common", "common.hooks", "common.fragments"]
+package-dir = {"" = "src/adt"} 

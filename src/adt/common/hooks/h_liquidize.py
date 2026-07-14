@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+#
+# Copyright 2025-2026 Aptivi
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+# and associated documentation files (the “Software”), to deal in the Software without
+# restriction, including without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+
+# Importing necessary components
+from argparse import Namespace
+import sys
+import traceback
+
+# Configuration module
+import adt_conf
+
+
+# Liquidize hook
+def h_execute_liquidize(arguments: tuple[Namespace, list[str]]):
+    extra_args = arguments[1]
+
+    # Execute pre-liquidize actions
+    preliquidize = None
+    try:
+        from vnd_liquidize import vnd_preliquidize
+        preliquidize = vnd_preliquidize
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_preliquidize is not defined')
+            traceback.print_exception(iexc)
+    if (preliquidize is not None):
+        try:
+            print("Executing pre-liquidize actions...")
+            preliquidize()
+        except Exception as exc:
+            print('Pre-liquidize actions failed')
+            traceback.print_exception(exc)
+            sys.exit(1)
+
+    # Liquidize the project
+    liquidize = None
+    try:
+        from vnd_liquidize import vnd_liquidize
+        liquidize = vnd_liquidize
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_liquidize is not defined')
+            traceback.print_exception(iexc)
+    if (liquidize is not None):
+        try:
+            print("Liquidizing project...")
+            liquidize(extra_args)
+        except Exception as exc:
+            print('Liquidize actions failed')
+            traceback.print_exception(exc)
+            sys.exit(1)
+
+    # Execute post-liquidize actions
+    postliquidize = None
+    try:
+        from vnd_liquidize import vnd_postliquidize
+        postliquidize = vnd_postliquidize
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_postliquidize is not defined')
+            traceback.print_exception(iexc)
+    if (postliquidize is not None):
+        try:
+            print("Executing post-liquidize actions...")
+            postliquidize()
+        except Exception as exc:
+            print('Post-liquidize actions failed')
+            traceback.print_exception(exc)
+            sys.exit(1)

@@ -1,5 +1,0 @@
-# Required for reports
-paramiko
-
-# Required for Git
-GitPython
