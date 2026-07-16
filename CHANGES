@@ -1,4 +1,12 @@
-We have released this project to the public!
+We have managed to turn ADT to a standalone application!
+
+### Changes
+
+This release contains a variety of changes, including, but not limited to:
+
+- `[*]` Fixed double execution issue
+
+Review the commit history if you want to get a deep insight about the changes.
 
 ### Feedback?
 
