@@ -21,6 +21,8 @@ jobs:
       - name: Release Asset Preparation
         id: release-asset
         run: |
+          sudo NEEDRESTART_SUSPEND=1 apt update
+          sudo NEEDRESTART_SUSPEND=1 apt install python3-all python3-setuptools python3-build python3-wheel python3-paramiko python3-git
           make
           echo "SUBJECT=$(cat CHANGES.TITLE)" >> "$GITHUB_OUTPUT"
           echo 'BODY<<EOF' >> "$GITHUB_OUTPUT"
