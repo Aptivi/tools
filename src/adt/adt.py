@@ -72,7 +72,7 @@ function_map = {
 }
 
 # Main
-version = '1.2.0.2'
+version = '1.2.0.3'
 def main():
     # Processing the arguments
     parser = argparse.ArgumentParser(
@@ -114,4 +114,5 @@ def main():
     else:
         s_custom_action(actargs)
 
-main()
+if __name__ == '__main__':
+    main()

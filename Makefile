@@ -6,4 +6,4 @@ all:
 	pyproject-build
 
 install:
-	pip install $(ROOT_DIR)/dist/adt*.whl
+	pip install $(ROOT_DIR)/dist/aptivi-adt*.whl

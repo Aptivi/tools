@@ -27,8 +27,8 @@ jobs:
         run: |
           mv debian ..
           mv .github ..
-          tar cfv ../adt_1.2.0.2.orig.tar .
-          xz ../adt_1.2.0.2.orig.tar
+          tar cfv ../adt_1.2.0.3.orig.tar .
+          xz ../adt_1.2.0.3.orig.tar
           mv ../debian .
 
       - name: Try to build

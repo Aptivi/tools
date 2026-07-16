@@ -1,6 +1,6 @@
 [project]
 name = "aptivi-adt"
-version = "1.2.0.2"
+version = "1.2.0.3"
 authors = [
   { name="Aptivi", email="eoflaoevicecity@gmail.com" },
 ]
