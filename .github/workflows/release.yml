@@ -48,7 +48,6 @@ jobs:
             dist/*.tar.gz
       - name: Package Publication
         run: |
-          sed '18d;17a\license = "MIT"\nlicense-files = ["LICEN[CS]E*"]' pyproject.toml
           sed -i -b '18d;17a\license = "MIT"\nlicense-files = ["LICEN[CS]E*"]' pyproject.toml
-          python3 -m pip install --upgrade twine
+          python3 -m pip install --upgrade twine setuptools
           python3 -m twine upload --username __token__ --password "${{ secrets.PYPI_APIKEY }}" "dist/*"
