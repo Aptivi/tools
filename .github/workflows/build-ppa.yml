@@ -24,4 +24,5 @@ jobs:
         
       - name: Try to build
         run: |
+          sudo ip netns add no-net
           sudo ip netns exec no-net make

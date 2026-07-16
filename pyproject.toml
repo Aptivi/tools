@@ -16,7 +16,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 license = "MIT"
-license-files = ["LICEN[CS]E*"]
 
 [project.urls]
 Homepage = "https://github.com/aptivi/tools"
