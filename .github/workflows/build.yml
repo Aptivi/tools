@@ -1,0 +1,22 @@
+name: Build Project
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'true'
+          ref: ${{ github.ref }}
+      - name: Solution Compilation
+        run: |
+          sudo NEEDRESTART_SUSPEND=1 apt update
+          sudo NEEDRESTART_SUSPEND=1 apt install python3-all python3-setuptools python3-build python3-wheel python3-paramiko python3-git
+          make

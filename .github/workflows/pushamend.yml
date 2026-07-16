@@ -39,14 +39,13 @@ jobs:
           [apt-ppa]
           fqdn = ppa.launchpad.net
           method = sftp
-          incoming = ~eofla/ubuntu/nitrocid/
+          incoming = ~eofla/ubuntu/adt/
           login = eofla
           allow_unsigned_uploads = 0
           EOF
 
       - name: Install required packages
         run: |
-          sudo rm /etc/apt/sources.list.d/microsoft-prod.list
           sudo NEEDRESTART_SUSPEND=1 apt update
           sudo NEEDRESTART_SUSPEND=1 apt install devscripts debhelper-compat dput build-essential equivs
           sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
@@ -54,12 +53,12 @@ jobs:
         
       - name: Download original source
         run: |
-          wget --output-document=../nitrocid-29_4.1.29.14-0.2.1.0~beta.orig.tar.xz https://launchpad.net/~eofla/+archive/ubuntu/nitrocid/+sourcefiles/nitrocid-29/4.1.29.14-0.2.1.0~beta-1/nitrocid-29_4.1.29.14-0.2.1.0~beta.orig.tar.xz
-          tar xf ../nitrocid-29_4.1.29.14-0.2.1.0~beta.orig.tar.xz .
+          wget --output-document=../adt_1.2.0.2.orig.tar.xz https://launchpad.net/~eofla/+archive/ubuntu/adt/+sourcefiles/adt/1.2.0.2-1/adt_1.2.0.2.orig.tar.xz
+          tar xf ../adt_1.2.0.2.orig.tar.xz .
           mv .github ..
 
       - name: Build source package
         run: debuild -S
         
       - name: Push to Launchpad
-        run: dput apt-ppa ../nitrocid-29_*_source.changes
+        run: dput apt-ppa ../adt_*_source.changes
