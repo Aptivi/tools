@@ -33,9 +33,11 @@ jobs:
       - name: Binary Attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: |
-            'dist/*.whl'
-            'dist/*.tar.gz'
+          subject-path: 'dist/*.whl'
+      - name: Binary Attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'dist/*.tar.gz'
       - name: Release Making
         uses: softprops/action-gh-release@v2
         with:
