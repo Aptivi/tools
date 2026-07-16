@@ -48,5 +48,5 @@ jobs:
             dist/*.tar.gz
       - name: Package Publication
         run: |
-          sudo NEEDRESTART_SUSPEND=1 apt install twine
-          twine upload --username __token__ --password "${{ secrets.PYPI_APIKEY }}" "dist/*"
+          python3 -m pip install --upgrade twine
+          python3 -m twine upload --username __token__ --password "${{ secrets.PYPI_APIKEY }}" "dist/*"
