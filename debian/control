@@ -1,16 +1,19 @@
-Source: nitrocid-29
+Source: adt
 Section: misc
 Priority: optional
 Maintainer: Aptivi CEO <ceo@aptivi.anonaddy.com>
 Build-Depends: debhelper-compat (= 12), dh-python (>= 4.20201102), python3-all (>= 3.9.0), python3-setuptools (>= 52.0.0), python3-build (>= 0.1.0), python3-wheel (>= 0.34.2)
 Standards-Version: 4.4.0
-Homepage: https://aptivi.gitbook.io/nitrocid-manual
-Vcs-Browser: https://github.com/Aptivi/Nitrocid
-Vcs-Git: https://github.com/Aptivi/Nitrocid.git
+Homepage: https://aptivi.gitbook.io/aptivi/aptivi-development-toolkit
+Vcs-Browser: https://github.com/Aptivi/tools
+Vcs-Git: https://github.com/Aptivi/tools.git
 
-Package: nitrocid-29
+Package: adt
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
-Description: Simulates our future-planned kernel, Nitrocid Kernel!
- Nitrocid KS (Kernel Simulator) simulates our future kernel, Nitrocid Kernel!
- It simulates the kernel, the shell, and all the common applications.
+Description: Aptivi Development Toolkit!
+ Aptivi Development Toolkit (ADT) is a drop-in replacement for the older
+ legacy script-based development toolkit for your projects. It allows you to
+ implement a set of functions, such as build, clean, and test functions,
+ without having to write platform-specific scripts, with Python as the
+ scripting language to achieve cross-platform support.

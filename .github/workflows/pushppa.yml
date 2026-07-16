@@ -53,11 +53,6 @@ jobs:
           sudo NEEDRESTART_SUSPEND=1 apt install devscripts debhelper-compat dput build-essential equivs
           sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
         
-      - name: Initialize offline package
-        run: |
-          make init-offline
-          make clean
-        
       - name: Make original package
         run: |
           mv debian ..

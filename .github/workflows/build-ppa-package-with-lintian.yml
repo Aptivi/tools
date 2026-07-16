@@ -28,11 +28,6 @@ jobs:
           sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
           rm *build-deps*
         
-      - name: Initialize offline package
-        run: |
-          make init-offline
-          make clean
-        
       - name: Make original package
         run: |
           mv debian ..
