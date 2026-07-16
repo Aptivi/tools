@@ -1,0 +1,46 @@
+name: Prepare release
+
+on:
+  push:
+    tags:
+      - '**'
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'true'
+          ref: ${{ github.ref }}
+      - name: Release Asset Preparation
+        id: release-asset
+        run: |
+          make
+          echo "SUBJECT=$(cat CHANGES.TITLE)" >> "$GITHUB_OUTPUT"
+          echo 'BODY<<EOF' >> "$GITHUB_OUTPUT"
+          cat CHANGES >> "$GITHUB_OUTPUT"
+          sha256sum dist/*.whl | sed -e 's/^/- /g' >> "$GITHUB_OUTPUT"
+          sha256sum dist/*.tar.gz | sed -e 's/^/- /g' >> "$GITHUB_OUTPUT"
+          echo 'EOF' >> "$GITHUB_OUTPUT"
+      - name: Binary Attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
+            'dist/*.whl'
+            'dist/*.tar.gz'
+      - name: Release Making
+        uses: softprops/action-gh-release@v2
+        with:
+          body: ${{ steps.release-asset.outputs.BODY }}
+          name: ${{ steps.release-asset.outputs.SUBJECT }}
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+      - name: Package Publication
+        run: python tools/adt.py pushbin -a "${{ secrets.NUGET_APIKEY }}"

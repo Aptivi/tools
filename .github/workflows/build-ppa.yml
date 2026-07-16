@@ -1,0 +1,27 @@
+name: Build Project (for Launchpad PPA)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'true'
+
+      - name: Install required packages
+        run: |
+          sudo NEEDRESTART_SUSPEND=1 apt update
+          sudo NEEDRESTART_SUSPEND=1 apt install devscripts debhelper-compat dput build-essential equivs
+          sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
+        
+      - name: Try to build
+        run: |
+          sudo ip netns exec no-net make

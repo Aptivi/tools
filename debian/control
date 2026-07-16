@@ -1,0 +1,16 @@
+Source: nitrocid-29
+Section: misc
+Priority: optional
+Maintainer: Aptivi CEO <ceo@aptivi.anonaddy.com>
+Build-Depends: debhelper-compat (= 12), dh-python (>= 4.20201102), python3-all (>= 3.9.0), python3-setuptools (>= 52.0.0), python3-build (>= 0.1.0), python3-wheel (>= 0.34.2)
+Standards-Version: 4.4.0
+Homepage: https://aptivi.gitbook.io/nitrocid-manual
+Vcs-Browser: https://github.com/Aptivi/Nitrocid
+Vcs-Git: https://github.com/Aptivi/Nitrocid.git
+
+Package: nitrocid-29
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
+Description: Simulates our future-planned kernel, Nitrocid Kernel!
+ Nitrocid KS (Kernel Simulator) simulates our future kernel, Nitrocid Kernel!
+ It simulates the kernel, the shell, and all the common applications.

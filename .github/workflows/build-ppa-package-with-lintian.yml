@@ -1,0 +1,59 @@
+name: Build Project (Debian Package, Lintian)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'true'
+      
+      - name: Import GPG
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+
+      - name: Install required packages
+        run: |
+          sudo NEEDRESTART_SUSPEND=1 apt update
+          sudo NEEDRESTART_SUSPEND=1 apt install devscripts debhelper-compat dput build-essential equivs
+          sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
+          rm *build-deps*
+        
+      - name: Initialize offline package
+        run: |
+          make init-offline
+          make clean
+        
+      - name: Make original package
+        run: |
+          mv debian ..
+          mv .github ..
+          tar cfv ../adt_1.2.0.2.orig.tar .
+          xz ../adt_1.2.0.2.orig.tar
+          mv ../debian .
+
+      - name: Build package
+        run: |
+          debuild -us -uc
+          cp ../*.deb .
+        
+      - name: Upload package to artifacts (full)
+        uses: actions/upload-artifact@v7
+        with:
+          name: ADT-Debian-Package
+          path: "adt_*.deb"
+          archive: false
+
+      - name: Try to install and execute
+        run: |
+          sudo apt install ./adt_*.deb
+          adt --version

@@ -7,10 +7,10 @@ authors = [
 description = "Aptivi Development Kit"
 readme = "README.md"
 requires-python = ">=3.9"
-#dependencies = [
-#  "paramiko",
-#  "GitPython",
-#]
+dependencies = [
+  "paramiko",
+  "GitPython",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
