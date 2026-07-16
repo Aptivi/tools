@@ -21,8 +21,17 @@ jobs:
           sudo NEEDRESTART_SUSPEND=1 apt update
           sudo NEEDRESTART_SUSPEND=1 apt install devscripts debhelper-compat dput build-essential equivs
           sudo NEEDRESTART_SUSPEND=1 mk-build-deps -i
+          rm *build-deps*
         
+      - name: Make original package
+        run: |
+          mv debian ..
+          mv .github ..
+          tar cfv ../adt_1.2.0.2.orig.tar .
+          xz ../adt_1.2.0.2.orig.tar
+          mv ../debian .
+
       - name: Try to build
         run: |
           sudo ip netns add no-net
-          sudo ip netns exec no-net make
+          sudo ip netns exec no-net debuild --no-lintian -us -uc
