@@ -37,6 +37,8 @@ jobs:
         languages: ${{ matrix.language }}
     - name: Build
       run: |
+        apt NEEDRESTART_SUSPEND=1 update
+        apt NEEDRESTART_SUSPEND=1 install python3-all python3-setuptools python3-build python3-wheel python3-paramiko python3-git
         make
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

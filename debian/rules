@@ -24,4 +24,4 @@
 export PYBUILD_NAME = adt
 
 %:
-        dh $@ --with python3 --buildsystem=pybuild
+	dh $@ --with python3 --buildsystem=pybuild
