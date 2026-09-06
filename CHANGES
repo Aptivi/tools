@@ -1,10 +1,10 @@
-We have managed to turn ADT to a standalone application!
+We have updated ADT to fix a critical issue for making commits. This time, for real.
 
 ### Changes
 
 This release contains a variety of changes, including, but not limited to:
 
-- `[*]` Fixed double execution issue
+- `[*]` Fixed critical issue when making commits
 
 Review the commit history if you want to get a deep insight about the changes.
 

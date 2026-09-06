@@ -1,3 +1,9 @@
+adt (1.2.0.4-1) noble; urgency=medium
+
+  * Fixed critical issue when making commits
+
+ -- Aptivi CEO <ceo@aptivi.anonaddy.com>  Mon, 07 Sep 2026 00:26:49 +0300
+
 adt (1.2.0.3-1) noble; urgency=medium
 
   * Gixed double execution issue
