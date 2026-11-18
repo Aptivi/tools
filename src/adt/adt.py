@@ -72,7 +72,7 @@ function_map = {
 }
 
 # Main
-version = '1.2.0.4'
+version = '1.2.0.5'
 def main():
     # Processing the arguments
     parser = argparse.ArgumentParser(
