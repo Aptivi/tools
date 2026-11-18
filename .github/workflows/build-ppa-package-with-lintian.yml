@@ -32,8 +32,8 @@ jobs:
         run: |
           mv debian ..
           mv .github ..
-          tar cfv ../adt_1.2.0.4.orig.tar .
-          xz ../adt_1.2.0.4.orig.tar
+          tar cfv ../adt_1.2.0.5.orig.tar .
+          xz ../adt_1.2.0.5.orig.tar
           mv ../debian .
 
       - name: Build package
