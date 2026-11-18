@@ -1,10 +1,10 @@
-We have updated ADT to fix a critical issue for making commits. This time, for real.
+We have updated ADT to remove a parameter
 
 ### Changes
 
 This release contains a variety of changes, including, but not limited to:
 
-- `[*]` Fixed critical issue when making commits
+- `[-]` Removed `--assistant` parameter
 
 Review the commit history if you want to get a deep insight about the changes.
 
