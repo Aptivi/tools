@@ -114,8 +114,6 @@ def s_commit(commit_action_args: list[str]):
     parser.add_argument('-i', '--assisted',
                         action="store_true",
                         help='Whether this commit is AI assisted or not')
-    parser.add_argument('--assistant',
-                        help='Specifies the AI assistant(s)')
     parser.add_argument('-c', '--backport-commits',
                         help='Backported commit SHA hashes with slashes')
     parser.add_argument('-pn', '--part-number',

@@ -43,13 +43,12 @@ valid_attrs = ['brk', 'sec', 'prf', 'reg', 'doc', 'ptp', 'prt', 'bkp']
 def h_execute_commit(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
-        print("%r %s %s %s %r %s %s %i %i %r %s\n\n%s" % \
+        print("%r %s %s %s %r %s %i %i %r %s\n\n%s" % \
             (result.dry,
              result.summary,
              result.type,
              result.attributes,
              result.assisted,
-             result.assistant,
              result.backport_commits,
              result.part_number,
              result.part_total,
@@ -141,8 +140,7 @@ def h_execute_commit(arguments: tuple[Namespace, list[str]]):
         "Backport Required: " + \
         ("Yes" if 'bkp' in commit_attrs else "No") + "\n" + \
         "AI Assisted: " + \
-        (("Yes (assisted by " + result.assistant + ")")
-         if result.assisted else "No") + "\n" + \
+        ("Yes" if result.assisted else "No") + "\n" + \
         ("Part: %i/%i" % (part_num, part_total))
 
     # Wrap the lines
