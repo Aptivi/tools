@@ -49,6 +49,5 @@ jobs:
             dist/*.tar.gz
       - name: Package Publication
         run: |
-          sed -i -b '18d;17a\license = "MIT"\nlicense-files = ["LICEN[CS]E*"]' pyproject.toml
           python3 -m pip install --upgrade twine setuptools packaging
           adt pushbin -p "${{ secrets.PYPI_TOKEN }}"

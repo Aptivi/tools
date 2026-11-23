@@ -40,6 +40,7 @@ def vnd_increment(old_version, new_version, api_versions):
     main_code_files = {
         f"{solution}/src/adt/adt.py",
         f"{solution}/pyproject.toml",
+        f"{solution}/pyproject-olderpy.toml",
     }
     for main_code_file in main_code_files:
         main_code_lines = []
