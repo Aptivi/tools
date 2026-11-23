@@ -37,13 +37,17 @@ def vnd_increment(old_version, new_version, api_versions):
         changes_title_stream.writelines(changes_title_lines)
 
     # Replace the version in the adt.py file
-    main_code_file = f"{solution}/src/adt/adt.py"
-    main_code_lines = []
-    with open(main_code_file) as main_code_stream:
-        main_code_lines = main_code_stream.readlines()
-    main_code_lines = process_main_code_lines(main_code_lines, version)
-    with open(main_code_file, 'w') as main_code_stream:
-        main_code_stream.writelines(main_code_lines)
+    main_code_files = {
+        f"{solution}/src/adt/adt.py",
+        f"{solution}/pyproject.toml",
+    }
+    for main_code_file in main_code_files:
+        main_code_lines = []
+        with open(main_code_file) as main_code_stream:
+            main_code_lines = main_code_stream.readlines()
+        main_code_lines = process_main_code_lines(main_code_lines, version)
+        with open(main_code_file, 'w') as main_code_stream:
+            main_code_stream.writelines(main_code_lines)
     
     # Replace the versions in the GitHub Actions workflows
     workflows = {
@@ -90,7 +94,8 @@ def process_misc_lines(lines, version: VersionInfo):
 def process_main_code_lines(lines, version: VersionInfo):
     for num in range(0, len(lines)):
         is_oldver = "version = '" + version.old_version + "'" in lines[num]
-        if is_oldver:
+        is_oldver_dq = 'version = "' + version.old_version + '"' in lines[num]
+        if is_oldver or is_oldver_dq:
             lines[num] = \
                 lines[num].replace(version.old_version,
                                    version.new_version)

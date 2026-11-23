@@ -1,9 +1,12 @@
 ROOT_DIR := $(shell dirname "$(realpath $(lastword $(MAKEFILE_LIST)))")
 
-.PHONY: all install lite
+.PHONY: all install
 
 all:
-	pyproject-build
+	$(MAKE) invoke-build ENVIRONMENT=Release BUILDARGS="$(BUILDARGS)"
+
+invoke-build:
+	adt build -b "$(BUILDARGS)"
 
 install:
 	pip install $(ROOT_DIR)/dist/aptivi-adt*.whl
