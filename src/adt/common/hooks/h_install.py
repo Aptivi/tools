@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    install = None
+    try:
+        from vnd_install import vnd_install
+        install = vnd_install
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_install is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-install actions
     preinstall = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Install the project
-    install = None
-    try:
-        from vnd_install import vnd_install
-        install = vnd_install
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_install is not defined')
-            traceback.print_exception(iexc)
     if (install is not None):
         try:
             print("installing project...")

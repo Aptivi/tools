@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    packbin = None
+    try:
+        from vnd_packbin import vnd_packbin
+        packbin = vnd_packbin
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_packbin is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-packbin actions
     prepackbin = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Binary packing the project
-    packbin = None
-    try:
-        from vnd_packbin import vnd_packbin
-        packbin = vnd_packbin
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_packbin is not defined')
-            traceback.print_exception(iexc)
     if (packbin is not None):
         try:
             print("Packing binary for project...")

@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    vendorize = None
+    try:
+        from vnd_vendorize import vnd_vendorize
+        vendorize = vnd_vendorize
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_vendorize is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-vendorize actions
     prevendorize = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Vendorize the project
-    vendorize = None
-    try:
-        from vnd_vendorize import vnd_vendorize
-        vendorize = vnd_vendorize
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_vendorize is not defined')
-            traceback.print_exception(iexc)
     if (vendorize is not None):
         try:
             print("Vendorizing project...")

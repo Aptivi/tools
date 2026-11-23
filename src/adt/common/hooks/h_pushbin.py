@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    pushbin = None
+    try:
+        from vnd_pushbin import vnd_pushbin
+        pushbin = vnd_pushbin
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_pushbin is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-pushbin actions
     prepushbin = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Binary pushing the project
-    pushbin = None
-    try:
-        from vnd_pushbin import vnd_pushbin
-        pushbin = vnd_pushbin
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_pushbin is not defined')
-            traceback.print_exception(iexc)
     if (pushbin is not None):
         try:
             print("Pushing binary for project...")

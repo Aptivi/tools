@@ -37,6 +37,17 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     if (adt_conf.verbose):
         print("%s" % (result.test_args))
 
+    # Check the main hook first
+    test = None
+    try:
+        from vnd_test import vnd_test
+        test = vnd_test
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_test is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-test actions
     pretest = None
     try:
@@ -56,14 +67,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Test the project
-    test = None
-    try:
-        from vnd_test import vnd_test
-        test = vnd_test
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_test is not defined')
-            traceback.print_exception(iexc)
     if (test is not None):
         try:
             print("Testing project...")

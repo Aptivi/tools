@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    packdocs = None
+    try:
+        from vnd_packdocs import vnd_packdocs
+        packdocs = vnd_packdocs
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_packdocs is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-packdocs actions
     prepackdocs = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Documentation packing the project
-    packdocs = None
-    try:
-        from vnd_packdocs import vnd_packdocs
-        packdocs = vnd_packdocs
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_packdocs is not defined')
-            traceback.print_exception(iexc)
     if (packdocs is not None):
         try:
             print("Packing documentation for project...")

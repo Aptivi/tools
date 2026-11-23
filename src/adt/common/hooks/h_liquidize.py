@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    liquidize = None
+    try:
+        from vnd_liquidize import vnd_liquidize
+        liquidize = vnd_liquidize
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_liquidize is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-liquidize actions
     preliquidize = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Liquidize the project
-    liquidize = None
-    try:
-        from vnd_liquidize import vnd_liquidize
-        liquidize = vnd_liquidize
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_liquidize is not defined')
-            traceback.print_exception(iexc)
     if (liquidize is not None):
         try:
             print("Liquidizing project...")

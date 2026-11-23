@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    updatedeps = None
+    try:
+        from vnd_updatedeps import vnd_updatedeps
+        updatedeps = vnd_updatedeps
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_updatedeps is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-updatedeps actions
     preupdatedeps = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Update project dependencies for the project
-    updatedeps = None
-    try:
-        from vnd_updatedeps import vnd_updatedeps
-        updatedeps = vnd_updatedeps
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_updatedeps is not defined')
-            traceback.print_exception(iexc)
     if (updatedeps is not None):
         try:
             print("Updating dependencies for project...")

@@ -33,6 +33,17 @@ import adt_conf
 # Listing projects hook
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
+
+    # Check the main hook first
+    listprojs = None
+    try:
+        from vnd_listprojs import vnd_listprojs
+        listprojs = vnd_listprojs
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_listprojs is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
         
     # Execute pre-listprojs actions
     prelistprojs = None
@@ -52,15 +63,7 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             traceback.print_exception(exc)
             sys.exit(1)
 
-    # Listing projects the project
-    listprojs = None
-    try:
-        from vnd_listprojs import vnd_listprojs
-        listprojs = vnd_listprojs
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_listprojs is not defined')
-            traceback.print_exception(iexc)
+    # Listing the projects
     if (listprojs is not None):
         try:
             print("Listing project files for project...")

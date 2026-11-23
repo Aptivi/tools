@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    gendocs = None
+    try:
+        from vnd_gendocs import vnd_gendocs
+        gendocs = vnd_gendocs
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_gendocs is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-gendocs actions
     pregendocs = None
     try:
@@ -52,15 +63,7 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             traceback.print_exception(exc)
             sys.exit(1)
 
-    # Documentation generation the project
-    gendocs = None
-    try:
-        from vnd_gendocs import vnd_gendocs
-        gendocs = vnd_gendocs
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_gendocs is not defined')
-            traceback.print_exception(iexc)
+    # Generate the project documentation
     if (gendocs is not None):
         try:
             print("Generating documentation for project...")

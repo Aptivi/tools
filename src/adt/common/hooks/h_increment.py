@@ -36,6 +36,17 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     if (adt_conf.verbose):
         print("%s %s %s" % (result.old_version, result.new_version,
                             result.api_versions))
+
+    # Check the main hook first
+    increment = None
+    try:
+        from vnd_increment import vnd_increment
+        increment = vnd_increment
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_increment is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
         
     # Execute pre-increment actions
     preincrement = None
@@ -55,15 +66,7 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             traceback.print_exception(exc)
             sys.exit(1)
 
-    # Increment the project
-    increment = None
-    try:
-        from vnd_increment import vnd_increment
-        increment = vnd_increment
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_increment is not defined')
-            traceback.print_exception(iexc)
+    # Increment the project version
     if (increment is not None):
         try:
             print("Incrementing project...")

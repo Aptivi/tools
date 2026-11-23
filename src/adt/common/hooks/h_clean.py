@@ -34,6 +34,17 @@ import adt_conf
 def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
+    # Check the main hook first
+    clean = None
+    try:
+        from vnd_clean import vnd_clean
+        clean = vnd_clean
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_clean is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-clean actions
     preclean = None
     try:
@@ -53,14 +64,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Clean the project
-    clean = None
-    try:
-        from vnd_clean import vnd_clean
-        clean = vnd_clean
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_clean is not defined')
-            traceback.print_exception(iexc)
     if (clean is not None):
         try:
             print("Cleaning project...")

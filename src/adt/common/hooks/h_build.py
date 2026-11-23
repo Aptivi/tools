@@ -36,6 +36,17 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     if (adt_conf.verbose):
         print("%s" % (result.build_args))
 
+    # Check the main hook first
+    build = None
+    try:
+        from vnd_build import vnd_build
+        build = vnd_build
+    except ImportError as iexc:
+        if (adt_conf.verbose):
+            print('Function vnd_build is not defined')
+            traceback.print_exception(iexc)
+        raise Exception('There is no required action.')
+
     # Execute pre-build actions
     prebuild = None
     try:
@@ -55,14 +66,6 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
             sys.exit(1)
 
     # Build the project
-    build = None
-    try:
-        from vnd_build import vnd_build
-        build = vnd_build
-    except ImportError as iexc:
-        if (adt_conf.verbose):
-            print('Function vnd_build is not defined')
-            traceback.print_exception(iexc)
     if (build is not None):
         try:
             print("Building project...")
