@@ -53,6 +53,7 @@ def vnd_increment(old_version, new_version, api_versions):
     workflows = {
         f"{solution}/.github/workflows/build-ppa-package-with-lintian.yml",
         f"{solution}/.github/workflows/build-ppa-package.yml",
+        f"{solution}/.github/workflows/build-ppa.yml",
         f"{solution}/.github/workflows/pushamend.yml",
         f"{solution}/.github/workflows/pushppa.yml",
     }
