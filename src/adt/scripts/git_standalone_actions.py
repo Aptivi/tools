@@ -21,81 +21,51 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Processing the arguments
-import argparse
-
 # Other imports
-from common.fragments.frag_manual import frag_manual_genlink
+from common.fragments.frag_argbuilder import frag_argbuilder_buildargs
+from common.fragments.frag_hookexecutor import frag_hookexecutor_exec
 
 
 # Functions
-def s_tags(tags_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt tags',
-            description='Tags hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
-    from common.hooks.h_tags import h_execute_tags
-    arguments = parser.parse_known_args(tags_action_args)
-    h_execute_tags(arguments)
+def s_tags(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('tags', 'Tags hook',
+                                       '#git-specific-actions')
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_branches(branches_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt branches',
-            description='Branches hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_branches(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('branches', 'Branches hook',
+                                       '#git-specific-actions')
     parser.add_argument('-r', '--remotes',
                         action="store_true",
                         help='Whether to list remote branches')
-    from common.hooks.h_branches import h_execute_branches
-    arguments = parser.parse_known_args(branches_action_args)
-    h_execute_branches(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_commits(commits_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt commits',
-            description='Commits hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
-    from common.hooks.h_commits import h_execute_commits
-    arguments = parser.parse_known_args(commits_action_args)
-    h_execute_commits(arguments)
+def s_commits(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('commits', 'Commits hook',
+                                       '#git-specific-actions')
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_status(status_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt status',
-            description='Status hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
-    from common.hooks.h_status import h_execute_status
-    arguments = parser.parse_known_args(status_action_args)
-    h_execute_status(arguments)
+def s_status(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('status', 'Status hook',
+                                       '#git-specific-actions')
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_revert(revert_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt revert',
-            description='Revert hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_revert(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('revert', 'Revert hook',
+                                       '#git-specific-actions')
     parser.add_argument('commit',
                         metavar='commit',
                         help='Specifies a commit to revert')
-    from common.hooks.h_revert import h_execute_revert
-    arguments = parser.parse_known_args(revert_action_args)
-    h_execute_revert(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_commit(commit_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt commit',
-            description='Commit hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_commit(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('commit', 'Commit hook',
+                                       '#git-specific-actions')
     parser.add_argument('-s', '--summary',
                         help='Summary of the commit',
                         required=True)
@@ -132,73 +102,46 @@ def s_commit(commit_action_args: list[str]):
     parser.add_argument('-r', '--remote',
                         help='Specifies a remote to use',
                         default="origin")
-    from common.hooks.h_commit import h_execute_commit
-    arguments = parser.parse_known_args(commit_action_args)
-    h_execute_commit(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_push(push_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt push',
-            description='Push hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_push(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('push', 'Push hook',
+                                       '#git-specific-actions')
     parser.add_argument('-r', '--remote',
                         help='Specifies a remote to use',
                         default="origin")
-    from common.hooks.h_push import h_execute_push
-    arguments = parser.parse_known_args(push_action_args)
-    h_execute_push(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_fetch(fetch_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt fetch',
-            description='Fetch hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_fetch(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('fetch', 'Fetch hook',
+                                       '#git-specific-actions')
     parser.add_argument('-r', '--remote',
                         help='Specifies a remote to use',
                         default="origin")
-    from common.hooks.h_fetch import h_execute_fetch
-    arguments = parser.parse_known_args(fetch_action_args)
-    h_execute_fetch(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_pull(pull_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt pull',
-            description='Pull hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_pull(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('pull', 'Pull hook',
+                                       '#git-specific-actions')
     parser.add_argument('-r', '--remote',
                         help='Specifies a remote to use',
                         default="origin")
-    from common.hooks.h_pull import h_execute_pull
-    arguments = parser.parse_known_args(pull_action_args)
-    h_execute_pull(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_reset(reset_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt reset',
-            description='Reset hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
+def s_reset(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('reset', 'Reset hook',
+                                       '#git-specific-actions')
     parser.add_argument('commit',
                         metavar='commit',
                         help='Specifies a commit to revert')
-    from common.hooks.h_reset import h_execute_reset
-    arguments = parser.parse_known_args(reset_action_args)
-    h_execute_reset(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
 
-def s_hardclean(hardclean_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-            prog='adt hardclean',
-            description='Hard clean hook - Aptivi Development Kit (ADT)',
-            epilog=frag_manual_genlink(\
-                'build-system/structure#git-specific-actions'))
-    from common.hooks.h_hardclean import h_execute_hardclean
-    arguments = parser.parse_known_args(hardclean_action_args)
-    h_execute_hardclean(arguments)
+def s_hardclean(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('hardclean', 'Hard clean hook',
+                                       '#git-specific-actions')
+    frag_hookexecutor_exec(parser, action_args)

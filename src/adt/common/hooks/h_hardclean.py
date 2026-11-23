@@ -32,7 +32,7 @@ import adt_conf
 
 
 # Hard clean hook
-def h_execute_hardclean(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     if (adt_conf.verbose):
         print("%s" % (result.commit))

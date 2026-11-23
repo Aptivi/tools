@@ -31,7 +31,7 @@ import adt_conf
 
 
 # Listing projects hook
-def h_execute_listprojs(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
         
     # Execute pre-listprojs actions

@@ -21,25 +21,17 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Configuration module
-import adt_conf
-
-# Processing the arguments
-import argparse
-import importlib
-from common.fragments.frag_projecttools import frag_pt_preparevendor
-
 # Other imports
-from common.fragments.frag_manual import frag_manual_genlink
+from common.fragments.frag_argbuilder import frag_argbuilder_buildargs
+from common.fragments.frag_hookexecutor import \
+     frag_hookexecutor_exec, \
+     frag_hookexecutor_execcustom
 
 
 # Functions
-def s_intreport(intreport_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-        prog='adt intreport',
-        description='Report maker - Aptivi Development Kit (ADT)',
-        epilog=frag_manual_genlink(\
-            'build-system/structure#standalone-actions'))
+def s_intreport(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('intreport', 'Report maker',
+                                       '#standalone-actions')
     parser.add_argument('-l', '--local',
                         action="store_true",
                         help='Upload to local path')
@@ -67,18 +59,13 @@ def s_intreport(intreport_action_args: list[str]):
     parser.add_argument('-sk', '--server-privkey',
                         help='SSH private key for use with authentication '
                              '(recommended)')
-    from common.hooks.h_intreport import h_execute_intreport
-    arguments = parser.parse_known_args(intreport_action_args)
-    h_execute_intreport(arguments)
+    frag_hookexecutor_exec(parser, action_args)
 
     
-def s_dnresxlang(dnresxlang_action_args: list[str]):
-    parser = argparse.ArgumentParser(
-        prog='adt dnresxlang',
-        description='.NET .resx tools for localizations - '
-                    'Aptivi Development Kit (ADT)',
-        epilog=frag_manual_genlink(\
-            'build-system/structure#standalone-actions'))
+def s_dnresxlang(action_args: list[str]):
+    parser = frag_argbuilder_buildargs('dnresxlang',
+                                       '.NET .resx tools for localizations',
+                                       '#standalone-actions')
     parser.add_argument('json_path',
                         help='Specifies a full path to localization JSON ' +
                              'files')
@@ -130,12 +117,8 @@ def s_dnresxlang(dnresxlang_action_args: list[str]):
     parser.add_argument('-s', '--save',
                         action="store_true",
                         help='Saves JSON language files as .resx files')
-    from common.hooks.h_dnresxlang import h_execute_dnresxlang
-    arguments = parser.parse_known_args(dnresxlang_action_args)
-    h_execute_dnresxlang(arguments)
+    frag_hookexecutor_exec(parser, action_args)
     
 
-def s_custom_action(custom_action_args: list[str]):
-    frag_pt_preparevendor()
-    vnd_module = importlib.import_module(f'vnd_{adt_conf.action}')
-    vnd_module.vnd_action(custom_action_args)
+def s_custom_action(action_args: list[str]):
+    frag_hookexecutor_execcustom(action_args)

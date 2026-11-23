@@ -30,7 +30,7 @@ import traceback
 import adt_conf
 
 # Build hook
-def h_execute_build(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
     extra_args = arguments[1]
     if (adt_conf.verbose):

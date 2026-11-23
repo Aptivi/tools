@@ -32,7 +32,7 @@ import adt_conf
 
 
 # Branches hook
-def h_execute_branches(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     result = arguments[0]
 
     # Get the report info

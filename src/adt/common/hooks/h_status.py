@@ -32,7 +32,7 @@ import adt_conf
 
 
 # Status hook
-def h_execute_status(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     # Get the report info
     git_info = GitReportInfo()
 

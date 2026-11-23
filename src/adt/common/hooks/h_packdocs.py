@@ -31,7 +31,7 @@ import adt_conf
 
 
 # Documentation packing hook
-def h_execute_packdocs(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-packdocs actions

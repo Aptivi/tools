@@ -33,7 +33,7 @@ from common.fragments.frag_gitreport import GitReportInfo
 
 
 # Commits hook
-def h_execute_commits(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     # Import git
     git_info = GitReportInfo()
     proj_repo_commits = git_info.commits

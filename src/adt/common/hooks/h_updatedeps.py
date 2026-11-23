@@ -31,7 +31,7 @@ import adt_conf
 
 
 # Dependency update hook
-def h_execute_updatedeps(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-updatedeps actions

@@ -31,7 +31,7 @@ import adt_conf
 
 
 # Binary packing hook
-def h_execute_packbin(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     extra_args = arguments[1]
 
     # Execute pre-packbin actions

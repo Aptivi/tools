@@ -32,7 +32,7 @@ import adt_conf
 
 
 # Tags hook
-def h_execute_tags(arguments: tuple[Namespace, list[str]]):
+def h_execute(arguments: tuple[Namespace, list[str]]):
     # Get the report info
     git_info = GitReportInfo()
     proj_repo_tags = git_info.tags
