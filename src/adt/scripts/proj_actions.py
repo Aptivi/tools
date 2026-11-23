@@ -57,6 +57,18 @@ def s_clean(clean_action_args: list[str]):
     h_execute_clean(arguments)
 
 
+def s_install(install_action_args: list[str]):
+    parser = argparse.ArgumentParser(
+        prog='adt install',
+        description='Install hook - Aptivi Development Kit (ADT)',
+        epilog=frag_manual_genlink(\
+            'build-system/structure'))
+    from common.hooks.h_install import h_execute_install
+    arguments = parser.parse_known_args(install_action_args)
+    frag_pt_preparevendor()
+    h_execute_install(arguments)
+
+
 def s_test(test_action_args: list[str]):
     parser = argparse.ArgumentParser(
         prog='adt test',

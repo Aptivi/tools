@@ -41,6 +41,7 @@ import sys
 function_map = {
     # Project-specific
     'build': s_build,
+    'install': s_install,
     'clean': s_clean,
     'test': s_test,
     'increment': s_increment,
