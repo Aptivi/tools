@@ -51,8 +51,3 @@ vendor_path = ""
 # [configurable] adt_conf.verbose:
 #     If enabled, ADT will show extra messages as the operation goes on.
 verbose = False
-
-
-# Safeguard for those trying to run this script
-if __name__ == "__main__":
-    print("Hmmm... it's a state machine for ADT. Did you mean to run adt.py?")
