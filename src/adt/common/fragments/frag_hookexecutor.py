@@ -22,14 +22,15 @@
 #
 
 # Configuration module
-import sys
-
 import adt_conf
 
 # Processing the arguments
 import argparse
 import importlib
 from common.fragments.frag_projecttools import frag_pt_preparevendor
+
+# Other imports
+import traceback
 
 
 def frag_hookexecutor_exec(parser: argparse.ArgumentParser,
@@ -45,4 +46,24 @@ def frag_hookexecutor_exec(parser: argparse.ArgumentParser,
 def frag_hookexecutor_execcustom(action_args: list[str]):
     frag_pt_preparevendor()
     vnd_module = importlib.import_module(f'vnd_{adt_conf.action}')
+    if not hasattr(vnd_module, 'vnd_action'):
+        raise Exception('There is no required action.')
+
+    # Pre-action hook
+    try:
+        vnd_module.vnd_preaction(action_args)
+    except AttributeError as aexc:
+        if (adt_conf.verbose):
+            print('Function vnd_preaction is not defined')
+            traceback.print_exception(aexc)
+
+    # Action hook
     vnd_module.vnd_action(action_args)
+
+    # Post-action hook
+    try:
+        vnd_module.vnd_postaction(action_args)
+    except AttributeError as aexc:
+        if (adt_conf.verbose):
+            print('Function vnd_postaction is not defined')
+            traceback.print_exception(aexc)
