@@ -36,9 +36,9 @@ def vnd_increment(old_version, new_version, api_versions):
     with open(changes_title_file, 'w') as changes_title_stream:
         changes_title_stream.writelines(changes_title_lines)
 
-    # Replace the version in the adt.py file
+    # Replace the version in several files
     main_code_files = {
-        f"{solution}/src/adt/adt.py",
+        f"{solution}/src/adt/adt_conf.py",
         f"{solution}/pyproject.toml",
         f"{solution}/pyproject-olderpy.toml",
     }

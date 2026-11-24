@@ -73,7 +73,6 @@ function_map = {
 }
 
 # Main
-version = '1.3.0.0'
 def main():
     # Processing the arguments
     parser = argparse.ArgumentParser(
@@ -84,7 +83,7 @@ def main():
     parser.add_argument('--self', action='store_true')
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('--path')
-    parser.add_argument('--version', action='version', version=f'{version}')
+    parser.add_argument('--version', action='version', version=f'{adt_conf.version}')
 
     # Buffer issue fix
     sys.stdout.reconfigure(line_buffering=True)

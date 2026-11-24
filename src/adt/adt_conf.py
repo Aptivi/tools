@@ -51,3 +51,7 @@ vendor_path = ""
 # [configurable] adt_conf.verbose:
 #     If enabled, ADT will show extra messages as the operation goes on.
 verbose = False
+
+# [automatic]    adt_conf.version:
+#     Version of ADT.
+version = '1.3.0.0'
