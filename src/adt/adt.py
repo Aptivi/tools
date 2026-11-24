@@ -102,7 +102,7 @@ def main():
     # Show banner if required
     if not adt_conf.nobanner:
         print('\n\n')
-        print(f'                == Aptivi Development Toolkit (ADT) v{version} ==')
+        print(f'                == Aptivi Development Toolkit (ADT) v{adt_conf.version} ==')
         print('\n\n')
         if adt_conf.verbose:
             print(f'Action:  {adt_conf.action} {actargs}')
