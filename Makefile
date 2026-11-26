@@ -8,5 +8,11 @@ all:
 invoke-build:
 	adt build -b "$(BUILDARGS)"
 
+clean:
+	adt clean
+
+install-pip:
+	pipx install $(ROOT_DIR)/dist/aptivi-adt*.whl
+
 install:
-	pip install $(ROOT_DIR)/dist/aptivi-adt*.whl
+	python -m installer --destdir="$(DESTDIR)" $(ROOT_DIR)/dist/aptivi-adt*.whl
