@@ -25,17 +25,21 @@
 import adt_conf
 
 # Import necessary components
+import glob
 import os
 import xml.etree.ElementTree as XmlElementTree
 from datetime import datetime
+from pathlib import Path
 from common.fragments.frag_dnresxlang_parts import \
+    LangInfo, \
     drl_lslangs, \
     drl_getpath, \
     drl_getresxpath, \
     drl_genjson, \
     drl_genjson_final, \
     drl_deserialize, \
-    drl_serialize
+    drl_serialize, \
+    drl_lookup
 
 
 def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
@@ -218,6 +222,62 @@ def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
 
     # Save the changes
     drl_genjson_final(json_path, lang_info)
+
+
+def drl_convert(json_path: str, source_text_path: str):
+    # User wants to make JSON files out of source text files.
+    if (adt_conf.verbose):
+        print("drl_concat(%s, %s)" % (json_path, source_text_path))
+
+    # Check for the English file
+    has_english = os.path.isfile(source_text_path + "/eng.txt")
+    if not has_english:
+        raise ValueError(f"Path {source_text_path} doesn't contain English source text file eng.txt")
+
+    # Get all files from the source text path and get their lines
+    text_list = glob.glob(source_text_path + "/*.txt")
+    text_lines = {}
+    for text_file in text_list:
+        # Get the language name
+        lang_name = Path(text_file).stem
+        if (adt_conf.verbose):
+            print("lang_name: (%s, %s)" % (lang_name, text_file))
+
+        # Get all the lines
+        with open(text_file, 'r', encoding='utf8') as lang_text_file:
+            text_lines[lang_name] = lang_text_file.readlines()
+
+    # Verify that keys in the English file are found
+    english_keys = {}
+    english_lineno = 0
+    for english_line in text_lines['eng']:
+        strip_line = english_line.strip('\r\n')
+        english_lineno += 1
+        if (adt_conf.verbose):
+            print(f"[En, {english_lineno}] processing: {strip_line}")
+
+        # Check for the = sign
+        if '=' not in strip_line:
+            print(f"Line {english_lineno} doesn't contain key {strip_line}")
+            continue
+
+        # Add individual keys after splitting
+        separator_idx = strip_line.index('=')
+        english_key = strip_line[:separator_idx]
+        english_value = strip_line[separator_idx+1:]
+        if (adt_conf.verbose):
+            print(f"[split] K: {english_key} | V: {english_value}")
+        english_keys[english_key] = english_value
+
+    # TODO: Actually make localization objects for LangInfo
+
+    # Build language info instance for each language and save it
+    for lang in text_lines:
+        lookup = drl_lookup(lang)
+        lang_info = LangInfo(lookup[0], lookup[1], lookup[2], text_lines[lang])
+        if (adt_conf.verbose):
+            print(f"[lang_info] {lookup[0]}, {lookup[1]}, {lookup[2]}")
+        drl_serialize(json_path, lang_info)
 
 
 def drl_concat(json_path: str, source_json_path: str):

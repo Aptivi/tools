@@ -126,6 +126,15 @@ def s_dnresxlang(action_args: list[str]):
                         action="store_true",
                         help='Concatenate localizations to a single JSON ' +
                              'file.')
+    parser.add_argument('-st', '--source-text-path',
+                        help='Specifies a source text path. Make sure that ' +
+                             'the eng.txt file contains key=value pairs ' +
+                             'for each localization, and that the rest of ' +
+                             'the files have the same length, each line ' +
+                             'pointing to the correct translation.')
+    parser.add_argument('-co', '--convert',
+                        action="store_true",
+                        help='Converts plain text files to JSON files.')
     frag_hookexecutor_exec(parser, action_args)
     
 

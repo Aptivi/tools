@@ -28,7 +28,7 @@ from common.fragments.frag_dnresxlang import \
     drl_add_culture, drl_add_loc, drl_add_lang, \
     drl_delete_culture, drl_delete_loc, drl_delete_lang, \
     drl_edit_culture, drl_edit_loc, \
-    drl_concat, drl_report, \
+    drl_convert, drl_concat, drl_report, \
     drl_save
 
 # Configuration module
@@ -47,7 +47,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
               "(Lo: %s) "
               "(Los: %s) "
               "(La: %s %s) "
-              "(Cat: %r) "
+              "(Cat: %r %s) "
+              "(Conv: %r %s) "
               "(Rep: %r) "
               "(Res: %s) "
               "(S: %r)" %
@@ -60,7 +61,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
                result.localization_strs,
                result.language,
                result.language_name,
-               result.concat,
+               result.concat, result.source_json_path,
+               result.convert, result.source_text_path,
                result.report,
                result.resx_path,
                result.save))
@@ -95,6 +97,9 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     elif (result.edit_loc):
         drl_edit_loc(result.json_path,
                      result.language, result.localization_strs)
+    elif (result.convert):
+        drl_convert(result.json_path,
+                    result.source_text_path)
     elif (result.concat):
         drl_concat(result.json_path,
                    result.source_json_path)
