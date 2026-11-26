@@ -27,7 +27,7 @@ prepare() {
 
 build() {
 	cd "${pkgname}"
-	make
+	make build-noadt
 }
 
 package() {
