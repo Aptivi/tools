@@ -24,6 +24,9 @@
 # Configuration module
 import adt_conf
 
+# Import Babel libraries
+from babel import Locale, localedata
+
 # Import necessary components
 import glob
 import os
@@ -40,6 +43,9 @@ from common.fragments.frag_dnresxlang_parts import \
     drl_deserialize, \
     drl_serialize, \
     drl_lookup
+
+# Get known cultures
+known_cultures = localedata.locale_identifiers()
 
 
 def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
@@ -59,6 +65,11 @@ def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
 
     # Add the localization
     for culture in cultures:
+        # Verify culture
+        if culture.replace('-', '_') not in known_cultures:
+            print(f'Unknown culture {culture}. Adding anyway...')
+
+        # Add culture
         lang_info.cultures.append(culture)
 
     # Save the changes
@@ -222,6 +233,33 @@ def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
 
     # Save the changes
     drl_genjson_final(json_path, lang_info)
+
+
+def drl_verify_cultures(json_path: str):
+    # User wants to verify cultures.
+    if (adt_conf.verbose):
+        print("drl_verify_cultures(%s)" % (json_path))
+
+    # Deserialize both the source and the target JSON paths
+    langs = drl_lslangs(json_path)
+    if (adt_conf.verbose):
+        print(f'trg: {langs}')
+
+    # Verify culture
+    for lang in langs:
+        if (adt_conf.verbose):
+            print(f'processing lang {lang}')
+
+        # Get language info and verify cultures
+        lang_info = drl_deserialize(json_path, lang)
+        for culture in lang_info.cultures:
+            if culture.replace('-', '_') not in known_cultures:
+                print(f'Unknown culture {culture} in {lang}.')
+            else:
+                parsed_culture = Locale.parse(culture, sep='-')
+                if (adt_conf.verbose):
+                    print(f'Got culture {culture} in {lang}: ' +
+                        f'{parsed_culture.english_name} ({parsed_culture.display_name})')
 
 
 def drl_convert(json_path: str, source_text_path: str):

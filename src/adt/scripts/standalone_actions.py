@@ -135,6 +135,9 @@ def s_dnresxlang(action_args: list[str]):
     parser.add_argument('-co', '--convert',
                         action="store_true",
                         help='Converts plain text files to JSON files.')
+    parser.add_argument('--verify-cultures',
+                        action="store_true",
+                        help='Verifies cultures.')
     frag_hookexecutor_exec(parser, action_args)
     
 

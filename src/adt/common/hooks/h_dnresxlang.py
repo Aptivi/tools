@@ -29,7 +29,7 @@ from common.fragments.frag_dnresxlang import \
     drl_delete_culture, drl_delete_loc, drl_delete_lang, \
     drl_edit_culture, drl_edit_loc, \
     drl_convert, drl_concat, drl_report, \
-    drl_save
+    drl_save, drl_verify_cultures
 
 # Configuration module
 import adt_conf
@@ -51,7 +51,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
               "(Conv: %r %s) "
               "(Rep: %r) "
               "(Res: %s) "
-              "(S: %r)" %
+              "(S: %r) "
+              "(Vc: %r)" %
               (result.json_path,
                result.add_culture, result.add_loc, result.add_lang,
                f'[{', '.join(result.cultures or [])}]',
@@ -65,7 +66,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
                result.convert, result.source_text_path,
                result.report,
                result.resx_path,
-               result.save))
+               result.save,
+               result.verify_cultures))
  
     # Check the JSON path
     if not os.path.isdir(result.json_path):
@@ -109,3 +111,5 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     elif (result.save):
         drl_save(result.json_path,
                  result.resx_path)
+    elif (result.verify_cultures):
+        drl_verify_cultures(result.json_path)
