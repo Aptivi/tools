@@ -6,7 +6,7 @@ all:
 	$(MAKE) invoke-build ENVIRONMENT=Release BUILDARGS="$(BUILDARGS)"
 
 build-noadt:
-	pyproject-build "$(BUILDARGS)" "$(ROOT_DIR)"
+	pyproject-build $(BUILDARGS) "$(ROOT_DIR)"
 
 invoke-build:
 	adt build -b "$(BUILDARGS)"
