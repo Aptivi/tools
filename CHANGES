@@ -1,10 +1,17 @@
-We have updated ADT to remove a parameter
+We have done the first major update since the release of ADT as a Python application!
 
 ### Changes
 
 This release contains a variety of changes, including, but not limited to:
 
-- `[-]` Removed `--assistant` parameter
+- `[+]` Added Arch Linux packaging
+- `[+]` Added language concatenation
+- `[+]` Added language conversion from text files
+- `[+]` Added culture verification
+- `[+]` Added version verification tool
+- `[+]` Added the `install` hook
+- `[*]` ADT can now build itself
+- `[*]` General improvements and bug fixes
 
 Review the commit history if you want to get a deep insight about the changes.
 

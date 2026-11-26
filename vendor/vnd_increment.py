@@ -4,7 +4,7 @@ import datetime
 
 class VersionInfo():
     def __init__(self, old_version, new_version):
-        # Nitrocid version
+        # Aptivi Development Toolkit version
         self.old_version = old_version
         self.new_version = new_version
         self.old_version_split = self.old_version.split('.')
@@ -50,6 +50,19 @@ def vnd_increment(old_version, new_version, api_versions):
         with open(main_code_file, 'w') as main_code_stream:
             main_code_stream.writelines(main_code_lines)
     
+    # Replace the versions in the Arch Linux packaging files
+    arch_rels = {
+        f"{solution}/PKGBUILD-REL",
+        f"{solution}/PKGBUILD-VCS",
+    }
+    for arch_rel in arch_rels:
+        arch_rel_lines = []
+        with open(arch_rel) as arch_rel_stream:
+            arch_rel_lines = arch_rel_stream.readlines()
+        arch_rel_lines = process_arch_lines(arch_rel_lines, version)
+        with open(arch_rel, 'w') as arch_rel_stream:
+            arch_rel_stream.writelines(arch_rel_lines)
+    
     # Replace the versions in the GitHub Actions workflows
     workflows = {
         f"{solution}/.github/workflows/build-ppa-package-with-lintian.yml",
@@ -81,6 +94,22 @@ def vnd_increment(old_version, new_version, api_versions):
             debian_changes_stream.read()
     with open(debian_changes_file, 'w') as debian_changes_stream:
         debian_changes_stream.write(debian_changes_entry)
+
+
+def process_arch_lines(arch_lines, version: VersionInfo):
+    for num in range(0, len(arch_lines)):
+        is_pkgver = 'pkgver=' in arch_lines[num]
+        is_source = 'source=' in arch_lines[num]
+        is_branch = 'branch=' in arch_lines[num]
+        if is_pkgver or is_source:
+            arch_lines[num] = \
+                arch_lines[num].replace(version.old_version,
+                                        version.new_version)
+            if is_branch:
+                arch_lines[num] = \
+                    arch_lines[num].replace(version.old_major,
+                                            version.new_major)
+    return arch_lines
 
 
 def process_misc_lines(lines, version: VersionInfo):
