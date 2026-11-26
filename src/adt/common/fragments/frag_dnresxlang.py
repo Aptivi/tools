@@ -228,6 +228,8 @@ def drl_convert(json_path: str, source_text_path: str):
     # User wants to make JSON files out of source text files.
     if (adt_conf.verbose):
         print("drl_concat(%s, %s)" % (json_path, source_text_path))
+    if (not source_text_path) or len(source_text_path) == 0:
+        raise ValueError("Source text files not specified")
 
     # Check for the English file
     has_english = os.path.isfile(source_text_path + "/eng.txt")
@@ -269,12 +271,44 @@ def drl_convert(json_path: str, source_text_path: str):
             print(f"[split] K: {english_key} | V: {english_value}")
         english_keys[english_key] = english_value
 
-    # TODO: Actually make localization objects for LangInfo
-
-    # Build language info instance for each language and save it
+    # Make final localization objects for LangInfo
     for lang in text_lines:
+        loc_arrays = []
+
+        # Add localizations to their appropriate places
+        line_num = 0
+        for line in text_lines[lang]:
+            strip_line = line.strip('\r\n')
+            line_num += 1
+            if (adt_conf.verbose):
+                print(f"[{lang}, {line_num}] processing: {strip_line}")
+
+            # Make sure that we don't exceed the English line numbers
+            if line_num > english_lineno:
+                print(f'Language {lang} exceeded English line numbers. ' +
+                      f'{line_num} > {english_lineno}. ' +
+                       'Ignoring all following lines...')
+                break
+
+            # Make an array of localizations
+            loc_name = list(english_keys)[line_num - 1]
+            loc_text = english_keys[loc_name] if lang == 'eng' else strip_line
+            if (adt_conf.verbose):
+                print(f"[{lang}] adding line as loc name {loc_name}")
+            loc_arrays.append({
+                'loc': loc_name,
+                'text': loc_text
+            })
+
+        # Verify that the target is not shorter than the source
+        if line_num < english_lineno:
+            print(f'Language {lang} is shorter than the reference file. ' +
+                  f'{line_num} < {english_lineno}. ' +
+                   'Saving anyway...')
+
+        # Build language info instance for each language and save it
         lookup = drl_lookup(lang)
-        lang_info = LangInfo(lookup[0], lookup[1], lookup[2], text_lines[lang])
+        lang_info = LangInfo(lookup[0], lookup[1], lookup[2], loc_arrays)
         if (adt_conf.verbose):
             print(f"[lang_info] {lookup[0]}, {lookup[1]}, {lookup[2]}")
         drl_serialize(json_path, lang_info)
