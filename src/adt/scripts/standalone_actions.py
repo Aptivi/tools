@@ -106,6 +106,9 @@ def s_dnresxlang(action_args: list[str]):
                              'strings')
     parser.add_argument('-l', '--language',
                         help='Specifies a language')
+    parser.add_argument('-ln', '--language-name',
+                        default='Default',
+                        help='Specifies a language display name')
     parser.add_argument('-r', '--report',
                         action="store_true",
                         help='Report info for a language. If -l is not ' +
@@ -117,6 +120,12 @@ def s_dnresxlang(action_args: list[str]):
     parser.add_argument('-s', '--save',
                         action="store_true",
                         help='Saves JSON language files as .resx files')
+    parser.add_argument('-sj', '--source-json-path',
+                        help='Specifies a source JSON path')
+    parser.add_argument('-ca', '--concat',
+                        action="store_true",
+                        help='Concatenate localizations to a single JSON ' +
+                             'file.')
     frag_hookexecutor_exec(parser, action_args)
     
 

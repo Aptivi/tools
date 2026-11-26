@@ -34,7 +34,8 @@ from common.fragments.frag_dnresxlang_parts import \
     drl_getresxpath, \
     drl_genjson, \
     drl_genjson_final, \
-    drl_deserialize
+    drl_deserialize, \
+    drl_serialize
 
 
 def drl_add_culture(json_path: str, lang: str, cultures: list[str]):
@@ -89,7 +90,7 @@ def drl_add_loc(json_path: str, lang: str, locs: list[str]):
     drl_genjson_final(json_path, lang_info)
 
 
-def drl_add_lang(json_path: str, lang: str, cultures: list[str]):
+def drl_add_lang(json_path: str, lang: str, name: str, cultures: list[str]):
     # User wants to add a language. Get necessary arguments.
     if (adt_conf.verbose):
         print("drl_add_lang(%s, %s, %s)" % (json_path, lang, cultures))
@@ -102,7 +103,7 @@ def drl_add_lang(json_path: str, lang: str, cultures: list[str]):
     check_json_path = drl_getpath(json_path, lang)
     if os.path.isfile(check_json_path):
         raise ValueError(f"Language already exists at path {json_path}")
-    drl_genjson(json_path, lang, cultures)
+    drl_genjson(json_path, lang, name, cultures)
 
 
 def drl_delete_culture(json_path: str, lang: str, cultures: list[str]):
@@ -217,6 +218,53 @@ def drl_edit_loc(json_path: str, lang: str, locs: list[str]):
 
     # Save the changes
     drl_genjson_final(json_path, lang_info)
+
+
+def drl_concat(json_path: str, source_json_path: str):
+    # User wants to concatenate two JSON files to one.
+    if (adt_conf.verbose):
+        print("drl_concat(%s, %s)" % (json_path, source_json_path))
+
+    # Deserialize both the source and the target JSON paths
+    source_langs = drl_lslangs(source_json_path)
+    target_langs = drl_lslangs(json_path)
+    if (adt_conf.verbose):
+        print(f'src: {source_langs}')
+        print(f'trg: {target_langs}')
+
+    # Try to concatenate localizations
+    for lang in source_langs:
+        if (adt_conf.verbose):
+            print(f'processing lang {lang}')
+        if lang not in target_langs:
+            print(f'Language {lang} not in target.')
+            continue
+
+        # The source and the target languages exist. Let's concatenate the
+        # strings from the source to the target
+        source_lang_info = drl_deserialize(source_json_path, lang)
+        target_lang_info = drl_deserialize(json_path, lang)
+        for source_loc in source_lang_info.locs:
+            if (adt_conf.verbose):
+                print(f'processing loc {source_loc}')
+            if source_loc in target_lang_info.locs:
+                print(f'[{lang}] Localization {source_loc['loc']}' +
+                       ' is already in target.')
+                continue
+
+            # Now, add the loc info to the source
+            target_lang_info.locs.append(source_loc)
+            if (adt_conf.verbose):
+                print(f'added {source_loc['loc']} = {source_loc['text']}')
+
+        # Save changes
+        drl_serialize(json_path, target_lang_info)
+
+    # Print out extra languages in target from source
+    for lang in target_langs:
+        if lang not in source_langs:
+            print(f'Language {lang} not in source.')
+            continue
 
 
 def drl_report(json_path: str, lang: str):

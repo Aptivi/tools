@@ -24,7 +24,7 @@
 # Configuration module
 import adt_conf
 
-# Import JSON and XML libraries
+# Import JSON libraries
 import json
 
 # Import other components
@@ -38,12 +38,14 @@ class LangInfo():
     def to_dict(self):
         return {
             'lang': self.lang,
+            'name': self.name,
             'cultures': self.cultures,
             'locs': self.locs
         }
 
-    def __init__(self, lang, cultures, locs):
+    def __init__(self, lang, name, cultures, locs):
         self.lang = lang
+        self.name = name
         self.cultures = list(cultures) or []
         self.locs = list(locs) or []
 
@@ -117,11 +119,11 @@ def drl_getresxpath(resx_path: str, culture: str = 'en'):
     return result_resx_path
 
 
-def drl_genjson(json_path: str, langname: str, cultures: list[str]):
+def drl_genjson(json_path: str, lang: str, name: str, cultures: list[str]):
     # Check the path, but make sure that we're requesting something other
     # than English. In case English gets selected (eng), we need to skip
     # the English verification.
-    check_eng = langname != "eng"
+    check_eng = lang != "eng"
     if not drl_verifypath(json_path, check_eng):
         if not check_eng:
             os.makedirs(json_path)
@@ -129,7 +131,7 @@ def drl_genjson(json_path: str, langname: str, cultures: list[str]):
             raise ValueError(f"Invalid path {json_path} or no eng.json found")
 
     # Make a JSON representation for this language with cultures
-    lang_info = LangInfo(langname, cultures, [])
+    lang_info = LangInfo(lang, name, cultures, [])
     drl_genjson_final(json_path, lang_info)
 
 
@@ -159,11 +161,30 @@ def drl_deserialize(json_path: str, langname: str):
         lang_json = lang_json_file.read()
         loaded_obj = json.loads(lang_json)
         loaded_lang = loaded_obj["lang"]
+        loaded_langname = loaded_obj["name"]
         loaded_cultures = loaded_obj["cultures"]
         loaded_locs = loaded_obj["locs"]
         lang_info = LangInfo(loaded_lang,
+                             loaded_langname,
                              loaded_cultures,
                              loaded_locs)
     if lang_info is None:
         raise ValueError("Not a valid language info instance")
+    return lang_info
+
+
+def drl_serialize(json_path: str, lang_info: LangInfo):
+    # Serialize the JSON representation
+    if lang_info is None:
+        raise ValueError("Not a valid language info instance")
+    serialized = json.dumps(lang_info.to_dict(), ensure_ascii=False, indent=2)
+
+    # Write the result to the file
+    file_path = json_path + '/' + lang_info.lang + '.json'
+    if (adt_conf.verbose):
+        print(f'preparing {file_path}')
+    with open(file_path, 'w', encoding='utf8') as lang_json_file:
+        lang_json_file.write(serialized)
+        if (adt_conf.verbose):
+            print(f'written {len(serialized)} bytes')
     return lang_info

@@ -21,13 +21,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# Configuration module
-import adt_conf
-
 # Processing the arguments
 import argparse
-import importlib
-from common.fragments.frag_projecttools import frag_pt_preparevendor
 
 # Other imports
 from common.fragments.frag_argbuilder import frag_argbuilder_buildargs

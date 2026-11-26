@@ -28,7 +28,7 @@ from common.fragments.frag_dnresxlang import \
     drl_add_culture, drl_add_loc, drl_add_lang, \
     drl_delete_culture, drl_delete_loc, drl_delete_lang, \
     drl_edit_culture, drl_edit_loc, \
-    drl_report, \
+    drl_concat, drl_report, \
     drl_save
 
 # Configuration module
@@ -46,7 +46,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
               "(E: %r %r) "
               "(Lo: %s) "
               "(Los: %s) "
-              "(La: %s) "
+              "(La: %s %s) "
+              "(Cat: %r) "
               "(Rep: %r) "
               "(Res: %s) "
               "(S: %r)" %
@@ -58,6 +59,8 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
                f'[{', '.join(result.localization or [])}]',
                result.localization_strs,
                result.language,
+               result.language_name,
+               result.concat,
                result.report,
                result.resx_path,
                result.save))
@@ -76,7 +79,7 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
                     result.language, result.localization_strs)
     elif (result.add_lang):
         drl_add_lang(result.json_path,
-                     result.language, result.cultures)
+                     result.language, result.language_name, result.cultures)
     elif (result.delete_culture):
         drl_delete_culture(result.json_path,
                            result.language, result.cultures)
@@ -92,6 +95,9 @@ def h_execute(arguments: tuple[Namespace, list[str]]):
     elif (result.edit_loc):
         drl_edit_loc(result.json_path,
                      result.language, result.localization_strs)
+    elif (result.concat):
+        drl_concat(result.json_path,
+                   result.source_json_path)
     elif (result.report):
         drl_report(result.json_path,
                    result.language)
